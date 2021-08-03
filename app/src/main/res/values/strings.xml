@@ -1,3 +1,125 @@
 <resources>
-    <string name="app_name">SiS_App</string>
+    <string name="app_name">SiS Operation</string>
+    <string name="language">english</string>
+
+    <string name="auth_username">Username</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_button_login">Login</string>
+    <string name="auth_button_save">Save</string>
+    <string name="auth_button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
+
+    <string name="main_title_information">Information</string>
+    <string name="main_title_document_detail">Document Detail</string>
+    <string name="main_title_shipto">ShipTo Approval</string>
+    <string name="main_title_document">Document</string>
+    <string name="main_title_history">History</string>
+    <string name="main_title_home">Home</string>
+    <string name="main_title_setting">Setting</string>
+    <string name="main_title_sale_order">Sale Order</string>
+    <string name="main_title_check_order">Check Sale Order</string>
+    <string name="main_document_sale_order">Sale Order</string>
+    <string name="main_document_sale_order_item">Sale Order : </string>
+    <string name="main_document_amount">Amount (THB)</string>
+    <string name="main_document_profit">Profit</string>
+    <string name="main_document_profit_percent">Profit (%)</string>
+    <string name="main_document_status_waiting">Waiting</string>
+    <string name="main_document_status_waiting_gm">Waiting for GM</string>
+    <string name="main_document_status_approve">Approve</string>
+    <string name="main_document_status_not_approve">Not Approve</string>
+
+    <string name="main_title_sale_order_detail">Sale Order Detail</string>
+    <string name="main_tab_detail">Detail</string>
+    <string name="main_tab_item">Items</string>
+    <string name="main_tab_attach">Attach</string>
+    <string name="main_button_approve">APPROVE</string>
+    <string name="main_button_response">RESPONSE</string>
+    <string name="main_button_not_approve">NOT APPROVE</string>
+
+    <string name="main_sale_order_detail">Sale Order Detail</string>
+    <string name="main_order_no">Sale Order</string>
+    <string name="main_sale_org">Sale Organization</string>
+    <string name="main_order_type">Order Type</string>
+    <string name="main_customer">Customer</string>
+    <string name="main_customer_name">Customer : </string>
+    <string name="main_ship_to">Ship-to</string>
+    <string name="main_sale_order_shipto">Ship to :</string>
+    <string name="main_price_block">Price Block</string>
+    <string name="main_reason_sale">Reason - Sale</string>
+    <string name="main_reason_sm">Reason - Sale Manager</string>
+    <string name="main_reason_gm">Reason - General Manager</string>
+    <string name="main_status">Status : </string>
+    <string name="main_status_title">Status</string>
+    <string name="main_status_waiting">Waiting</string>
+    <string name="main_status_approve">Approve</string>
+    <string name="main_status_not_approve">Not Approve</string>
+
+    <string name="main_header_data">Header data</string>
+    <string name="main_order_date">Order Date</string>
+    <string name="main_po_no">PO No.</string>
+    <string name="main_po_date">PO Date</string>
+    <string name="main_sales">Sales (OB/Tele) : </string>
+    <string name="main_credit">Credit</string>
+    <string name="main_team">Team</string>
+    <string name="main_payment_term">Payment Term</string>
+
+    <string name="main_customer_address">Sold To</string>
+    <string name="main_ship_to_address">Ship-to Address</string>
+    <string name="main_wait_approve">Waiting For Approve</string>
+    <string name="main_approved">Approved</string>
+    <string name="main_company">Company</string>
+    <string name="main_contact_name">Contact Name</string>
+    <string name="main_tel">Telephone</string>
+    <string name="main_no_building">No. / Building</string>
+    <string name="main_road">Road</string>
+    <string name="main_district">District</string>
+    <string name="main_province">Province</string>
+    <string name="main_zipcode">Zipcode</string>
+    <string name="main_approve_by_sm">Approved by SM</string>
+    <string name="main_approve_by_gm">Approved by GM</string>
+    <string name="main_wait_approve_by_sm">Waiting for approve by SM</string>
+    <string name="main_wait_approve_by_gm">Waiting for approve by GM</string>
+
+    <string name="main_qty">Quantity</string>
+    <string name="main_total_net_price">Total Net Price (THB)</string>
+    <string name="main_saleorder_total_net_price">Total Amount (THB) :</string>
+
+    <string name="main_ship_to_permanent">Permanent</string>
+    <string name="main_ship_to_onetime">(One-Time)</string>
+
+    <string name="main_notes">Notes</string>
+    <string name="main_attachment">Attachment</string>
+    <string name="main_po">Letter / PO</string>
+    <string name="main_id_card">ID Card</string>
+    <string name="main_map">Map</string>
+    <string name="main_customer_expense">Customer Expense</string>
+    <string name="main_case">Case</string>
+    <string name="main_condition">Condition</string>
+
+    <string name="message_username_incorrect">Username incorrect</string>
+    <string name="message_password_incorrect">Password incorrect</string>
+    <string name="message_enter_username">Enter Username</string>
+    <string name="message_enter_password">Enter Password</string>
+    <string name="message_enter_response">Enter Response ...</string>
+    <string name="message_response_empty">Response field can not empty, please enter response.</string>
+
+    <string name="message_old_flow_document_approve">** Document release before : 24/03/2020 - Don\'t approved by GM</string>
+    <string name="message_no_reason">No reason for ship to</string>
+
+    <string name="message_cannot_display_content">Cannot display this content.</string>
+    <string name="message_no_content">No Content</string>
+    <string name="message_no_attach">No Attached File</string>
+
+    <string name="ship_to_no_order">No Sale Order</string>
+    <string name="ship_to_no_order_message">No Sale Order to approve for ship to customer, now.</string>
+    <string name="ship_to_no_history">No History</string>
+    <string name="ship_to_no_history_message">No history Sale Order to approve for ship to customer, now.</string>
+
+    <string name="message_approve_success">Approve Ship to order successfully.</string>
+    <string name="message_response_success">Response successfully.</string>
+    <string name="message_reject_success">Not Approve Ship to order successfully.</string>
+
+    <string name="message_cannot_connect_server">Cannot connect to server now, Please try again.</string>
+    <string name="message_urgent">Urgent!</string>
+
 </resources>

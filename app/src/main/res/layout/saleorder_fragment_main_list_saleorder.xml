@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <sis.com.sis.sis_app.Views.ScrollDetectableListView
+        android:id="@+id/recycleViewShipToApprove"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:dividerHeight="@dimen/padding_normal"
+        android:divider="@null" >
+
+    </sis.com.sis.sis_app.Views.ScrollDetectableListView>
+
+    <ImageButton
+        android:id="@+id/btnCreateSaleOrder"
+        android:layout_width="@dimen/add_sale_order_button"
+        android:layout_height="@dimen/add_sale_order_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/padding_normal"
+        android:src="@drawable/ic_add"
+        android:background="@drawable/circlebutton_plus"
+        android:padding="@dimen/padding_small" />
+
+    <sis.com.sis.sis_app.Views.CustomMessageRelativeLayout
+        android:id="@+id/rl_no_information"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</RelativeLayout>

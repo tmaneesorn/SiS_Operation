@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_normal"
+    android:background="@drawable/background_edittext_white" >
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutItemList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/padding_small" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small">
+
+            <CheckBox
+                android:id="@+id/checkboxSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewPartDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Part Description"
+                android:layout_toRightOf="@+id/checkboxSelected"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorBlueMedium"
+                android:textStyle="bold"/>
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/relativeLayoutPrice"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentRight="true">-->
+
+<!--                <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                    android:id="@+id/textViewPriceTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Price :"-->
+<!--                    android:layout_marginRight="@dimen/padding_small"-->
+<!--                    android:textSize="@dimen/font_normal"-->
+<!--                    android:layout_centerVertical="true" />-->
+
+<!--                <sis.com.sis.sis_app.Views.CustomEditText-->
+<!--                    android:id="@+id/editTextPrice"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toRightOf="@+id/textViewPriceTitle"-->
+<!--                    android:background="@drawable/background_edittext_white"-->
+<!--                    android:paddingLeft="@dimen/padding_normal"-->
+<!--                    android:paddingRight="@dimen/padding_normal"-->
+<!--                    android:paddingTop="@dimen/padding_edittext"-->
+<!--                    android:paddingBottom="@dimen/padding_edittext"-->
+<!--                    android:textSize="@dimen/font_normal"-->
+<!--                    android:inputType="numberDecimal"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:ems="4"-->
+<!--                    android:maxEms="6"-->
+<!--                    android:hint="0.00"/>-->
+
+<!--            </RelativeLayout>-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_small">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewPartNoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Part NO. : "
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorBlueMedium"
+                android:layout_centerVertical="true"/>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewPartNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Part NO."
+                android:textSize="@dimen/font_normal"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textViewPartNoTitle" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/viewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBlack" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewAvStockTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Av. Stocks : "
+                    android:textSize="@dimen/font_normal"
+                    android:textColor="@color/colorBlueMedium"/>
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewAvStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_normal"
+                    android:text="110000001"
+                    android:layout_toRightOf="@+id/textViewAvStockTitle"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewQtyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qty. :"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textSize="@dimen/font_normal"
+                    android:textColor="@color/colorBlueMedium"
+                    android:layout_centerVertical="true" />
+
+                <sis.com.sis.sis_app.Views.CustomEditText
+                    android:id="@+id/editTextQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textViewQtyTitle"
+                    android:background="@drawable/background_edittext_white"
+                    android:ems="3"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxEms="3"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_edittext"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingBottom="@dimen/padding_edittext"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_normal" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewPriceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price :"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textSize="@dimen/font_normal"
+                    android:textColor="@color/colorBlueMedium"
+                    android:layout_centerVertical="true" />
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/editTextPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textViewPriceTitle"
+                    android:text="-"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textSize="@dimen/font_normal"
+                    android:layout_centerVertical="true" />
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewPriceBath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/editTextPrice"
+                    android:text="THB"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textSize="@dimen/font_normal"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewTotalPriceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Price :"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textSize="@dimen/font_normal"
+                    android:textColor="@color/colorBlueMedium"
+                    android:layout_centerVertical="true" />
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:layout_toRightOf="@+id/textViewTotalPriceTitle"
+                    android:text="-"
+                    android:textSize="@dimen/font_normal" />
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewTotalPriceBath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textViewTotalPrice"
+                    android:text="THB"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textSize="@dimen/font_normal"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

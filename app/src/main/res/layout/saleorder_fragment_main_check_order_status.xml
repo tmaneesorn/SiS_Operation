@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:queryHint="Search by Customer Code, Name or Nickname"
+        android:background="@drawable/background_edittext_white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingBottom="@dimen/padding_normal"
+        android:layout_below="@+id/searchView">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSaleOrderHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSearchResultTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ผลการค้นหา : "
+                android:textColor="@color/colorBlueMedium"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_large"
+                android:paddingTop="@dimen/padding_normal"
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingLeft="@dimen/padding_normal"/>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSearchResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="รายการ Sold to"
+                android:textColor="@color/colorBlueMedium"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_large"
+                android:ellipsize="end"
+                android:lines="1"
+                android:paddingTop="@dimen/padding_normal"
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_normal"
+                android:layout_toRightOf="@+id/textViewSearchResultTitle"/>
+
+            <View
+                android:id="@+id/viewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBlack"
+                android:layout_below="@+id/textViewSearchResultTitle" />
+
+        </RelativeLayout>
+
+
+        <sis.com.sis.sis_app.Views.ScrollDetectableListView
+            android:id="@+id/recycleViewSaleOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativeLayoutSaleOrderHeader"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:dividerHeight="@dimen/padding_normal"
+            android:divider="@null" >
+
+        </sis.com.sis.sis_app.Views.ScrollDetectableListView>
+
+        <sis.com.sis.sis_app.Views.CustomMessageRelativeLayout
+            android:id="@+id/rl_no_information"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativeLayoutSaleOrderHeader"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

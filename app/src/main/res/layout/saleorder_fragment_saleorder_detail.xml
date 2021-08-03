@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_normal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutCustomerDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edittext_white" >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayoutCustomerDetailHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal" >
+
+                    <sis.com.sis.sis_app.Views.CustomTextViewBold
+                        android:id="@+id/textViewOrderNoTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order No. : "
+                        android:textColor="@color/colorBlueMedium"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/font_large"
+                        android:paddingTop="@dimen/padding_normal"
+                        android:paddingBottom="@dimen/padding_small" />
+
+                    <sis.com.sis.sis_app.Views.CustomTextView
+                        android:id="@+id/textViewOrderNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1212312121"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/font_large"
+                        android:paddingTop="@dimen/padding_normal"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:layout_toRightOf="@id/textViewOrderNoTitle"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGreyLight"
+                        android:layout_below="@+id/textViewOrderNoTitle" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutCustomerDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:layout_below="@+id/relativeLayoutCustomerDetailHeader" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewDateTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Created Date : "
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@id/textViewDate"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="31/03/2021"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewCustomerTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Customer"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewCustomer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Customer Name"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewShipToTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ship To"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewShipTo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ship To Name"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/padding_normal"
+                            android:background="@color/colorGreyLight" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutPriceDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:layout_below="@+id/linearLayoutCustomerDetail" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewTotalPriceTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Price"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewTotalPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="- THB" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewDiscountTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Discount"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewDiscount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="- THB"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewVATTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="VAT 7%"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewVAT"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="- THB" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/padding_normal"
+                            android:background="@color/colorGreyLight" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutPriceTotalDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:layout_below="@+id/linearLayoutPriceDetail" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewNetTotalPriceTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Net Total Price"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewNetTotalPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="- THB" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/padding_normal"
+                            android:background="@color/colorGreyLight" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutPaymentDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:layout_below="@+id/linearLayoutPriceTotalDetail" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:id="@+id/textViewPaymentTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Payment"
+                                android:textColor="@color/colorBlueMedium"
+                                android:textSize="@dimen/font_large"
+                                android:layout_centerVertical="true"/>
+
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textViewPayment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"/>
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutItemList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:background="@drawable/background_edittext_white" >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayoutItemListHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sis.com.sis.sis_app.Views.CustomTextViewBold
+                        android:id="@+id/textViewItemList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="รายการสินค้า"
+                        android:textColor="@color/colorBlueMedium"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/font_large"
+                        android:paddingTop="@dimen/padding_normal"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_normal"
+                        android:paddingRight="@dimen/padding_normal"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGreyLight"
+                        android:layout_below="@+id/textViewItemList" />
+
+                </RelativeLayout>
+
+                <sis.com.sis.sis_app.Views.ScrollDetectableListView
+                    android:id="@+id/recycleViewItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dividerHeight="@dimen/padding_small"
+                    android:divider="@null"
+                    android:layout_below="@+id/relativeLayoutItemListHeader"
+                    android:padding="@dimen/padding_small" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/relativeLayoutPaymentTerm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:background="@drawable/background_edittext_white" >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayoutPaymentTermHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sis.com.sis.sis_app.Views.CustomTextView
+                        android:id="@+id/textViewPaymentTerm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Term"
+                        android:textColor="@color/colorBlueMedium"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/font_large"
+                        android:paddingTop="@dimen/padding_normal"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_normal"
+                        android:paddingRight="@dimen/padding_normal"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGreyLight"
+                        android:layout_below="@+id/textViewPaymentTerm" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayoutPaymentTermContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayoutPaymentTermHeader"
+                    android:padding="@dimen/padding_normal">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayoutPaymentTermCash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioGroup
+                            android:id="@+id/radioGroupPaymentTerm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+<!--                            android:layout_below="@+id/relativeLayoutPaymentTermCash">-->
+
+                            <RadioButton
+                                android:id="@+id/radioButtonCreditTerm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_normal"
+                                android:textColor="@color/colorBlueMedium"
+                                android:text="Credit Term" />
+
+                            <RadioButton
+                                android:id="@+id/radioButtonCashTransfer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_normal"
+                                android:textColor="@color/colorBlueMedium"
+                                android:text="Cash Transfer" />
+
+                        </RadioGroup>
+
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/checkboxPaymentTerm"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content" />-->
+
+<!--                        <sis.com.sis.sis_app.Views.CustomTextViewBold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:text="Cash Transfer"-->
+<!--                            android:layout_toRightOf="@+id/checkboxPaymentTerm"-->
+<!--                            android:textSize="@dimen/font_normal"-->
+<!--                            android:textColor="@color/colorBlueMedium"/>-->
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayoutPaymentChoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relativeLayoutPaymentTermCash"
+                        android:padding="@dimen/padding_small">
+
+                        <sis.com.sis.sis_app.Views.CustomTextViewBold
+                            android:id="@+id/textViewPaymentChoiceTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Payment Choice :"
+                            android:textSize="@dimen/font_normal"
+                            android:textColor="@color/colorBlueMedium"/>
+
+                        <RadioGroup
+                            android:id="@+id/radioGroupCashTransfer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_below="@+id/textViewPaymentChoiceTitle">
+
+                            <RadioButton
+                                android:id="@+id/radioButtonUOB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_normal"
+                                android:textColor="@color/colorBlueMedium"
+                                android:text="UOB Bank"
+                                android:enabled="false" />
+
+                            <sis.com.sis.sis_app.Views.CustomEditText
+                                android:id="@+id/editTextPaymentTermUOB"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_edittext_white"
+                                android:text="ยูโอบี ยอด (จำนวนเงินบาท) วันที่ (ปัจจุบันที่ทำรายการ)"
+                                android:textSize="@dimen/font_normal"
+                                android:paddingLeft="@dimen/padding_normal"
+                                android:paddingTop="@dimen/padding_small"
+                                android:paddingBottom="@dimen/padding_small"
+                                android:paddingRight="@dimen/padding_normal"
+                                android:layout_marginTop="@dimen/padding_small"
+                                android:layout_marginBottom="@dimen/padding_small"
+                                android:enabled="false" />
+
+                            <RadioButton
+                                android:id="@+id/radioButtonOther"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_normal"
+                                android:textColor="@color/colorBlueMedium"
+                                android:text="Other Bank"
+                                android:enabled="false" />
+
+                            <ImageView
+                                android:id="@+id/imageViewUploadSlip"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_small"
+                                android:src="@drawable/ic_camera"
+                                android:background="@drawable/background_edittext_grey"
+                                android:padding="@dimen/padding_normal"
+                                android:enabled="false" />
+
+                        </RadioGroup>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <sis.com.sis.sis_app.Views.CustomButton
+                android:visibility="gone"
+                android:id="@+id/btnCreateSaleOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/padding_normal"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingLeft="@dimen/padding_normal"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:background="@drawable/button_green_round"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite"
+                android:text="สร้างเอกสาร"/>
+
+            <sis.com.sis.sis_app.Views.CustomButton
+                android:id="@+id/btnConfirm"
+                android:layout_width="91dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:background="@drawable/button_green_round"
+                android:paddingLeft="@dimen/padding_normal"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_normal"
+                android:paddingBottom="@dimen/padding_small"
+                android:text="ยืนยัน"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

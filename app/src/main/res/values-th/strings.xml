@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">SiS Operation</string>
+    <string name="language">ภาษาอังกฤษ</string>
+
+    <string name="auth_username">Username</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_button_login">Login</string>
+    <string name="auth_button_save">Save</string>
+    <string name="auth_button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
+
+    <string name="main_title_information">Information</string>
+    <string name="main_title_document_detail">รายละเอียดเอกสาร</string>
+    <string name="main_title_shipto">ShipTo Approval</string>
+    <string name="main_title_document">เอกสารรอการอนุมัติ</string>
+    <string name="main_title_history">ประวัติการอนุมัติ</string>
+    <string name="main_title_home">หน้าหลัก</string>
+    <string name="main_title_setting">การตั้งค่า</string>
+    <string name="main_title_sale_order">Sale Order</string>
+    <string name="main_title_check_order">ตรวจสอบสถานะ Sale Order</string>
+    <string name="main_document_sale_order">Sale Order</string>
+    <string name="main_document_sale_order_item">Sale Order : </string>
+    <string name="main_document_amount">Amount (THB)</string>
+    <string name="main_document_profit">กำไร (THB)</string>
+    <string name="main_document_profit_percent">กำไร (%)</string>
+    <string name="main_document_status_waiting">รอการอนุมัติ</string>
+    <string name="main_document_status_waiting_gm">รอ GM อนุมัติ</string>
+    <string name="main_document_status_approve">อนุมัติ</string>
+    <string name="main_document_status_not_approve">ไม่อนุมัติ</string>
+
+    <string name="main_title_sale_order_detail">Sale Order Detail</string>
+    <string name="main_tab_detail">Detail</string>
+    <string name="main_tab_item">Items</string>
+    <string name="main_tab_attach">Attach</string>
+    <string name="main_button_approve">Approve</string>
+    <string name="main_button_response">Response</string>
+    <string name="main_button_not_approve">Not Approve</string>
+
+    <string name="main_sale_order_detail">Sale Order Detail</string>
+    <string name="main_order_no">Sale Order</string>
+    <string name="main_sale_org">Sale Org.</string>
+    <string name="main_order_type">Order Type</string>
+    <string name="main_customer">Customer</string>
+    <string name="main_customer_name">Customer : </string>
+    <string name="main_sale_order_shipto">Ship to :</string>
+    <string name="main_ship_to">Ship-to</string>
+    <string name="main_price_block">Price Block</string>
+    <string name="main_reason_sale">Reason - Sale</string>
+    <string name="main_reason_sm">Reason - Sale Manager</string>
+    <string name="main_reason_gm">Reason - General Manager</string>
+    <string name="main_status">Status : </string>
+    <string name="main_status_title">Status</string>
+    <string name="main_status_waiting">Waiting</string>
+    <string name="main_status_approve">Approve</string>
+    <string name="main_status_not_approve">Not Approve</string>
+
+    <string name="main_header_data">Header data</string>
+    <string name="main_order_date">Order Date</string>
+    <string name="main_po_no">PO No.</string>
+    <string name="main_po_date">PO Date</string>
+    <string name="main_sales">Sales (OB/Tele) : </string>
+    <string name="main_credit">Credit</string>
+    <string name="main_team">Team</string>
+    <string name="main_payment_term">Payment Term</string>
+
+    <string name="main_customer_address">Sold To</string>
+    <string name="main_ship_to_address">Ship-to Address</string>
+    <string name="main_wait_approve">Waiting For Approve</string>
+    <string name="main_approved">Approved</string>
+    <string name="main_company">Company</string>
+    <string name="main_contact_name">Contact Name</string>
+    <string name="main_tel">Telephone</string>
+    <string name="main_no_building">No. / Building</string>
+    <string name="main_road">Road</string>
+    <string name="main_district">District</string>
+    <string name="main_province">Province</string>
+    <string name="main_zipcode">Zipcode</string>
+    <string name="main_approve_by_sm">Approved by SM</string>
+    <string name="main_approve_by_gm">Approved by GM</string>
+    <string name="main_wait_approve_by_sm">Waiting SM approve</string>
+    <string name="main_wait_approve_by_gm">Waiting GM approve</string>
+
+    <string name="main_qty">Quantity</string>
+    <string name="main_total_net_price">Total Net Price (THB)</string>
+    <string name="main_saleorder_total_net_price">Total Amount (THB) :</string>
+
+    <string name="main_ship_to_permanent">(ถาวร)</string>
+    <string name="main_ship_to_onetime">(One-Time)</string>
+
+    <string name="main_notes">หมายเหตุ</string>
+    <string name="main_attachment">Attach</string>
+    <string name="main_po">Letter / PO</string>
+    <string name="main_id_card">ID Card</string>
+    <string name="main_map">Map</string>
+    <string name="main_customer_expense">Customer Expense</string>
+    <string name="main_case">Customer Case</string>
+    <string name="main_condition">Condition</string>
+
+    <string name="message_username_incorrect">บัญชีผู้ใช้ที่ระบุผิด</string>
+    <string name="message_password_incorrect">รหัสผ่านที่ระบุผิด</string>
+    <string name="message_enter_username">กรุณาใส่บัญชีผู้ใช้งาน</string>
+    <string name="message_enter_password">กรุณาใส่รหัสผ่าน</string>
+    <string name="message_enter_response">กรุณาใส่ข้อความตอบกลับ ...</string>
+    <string name="message_response_empty">ช่องตอบกลับไม่สามารถเว้นว่างได้ กรุณาใส่ข้อความตอบกลับ</string>
+
+    <string name="message_old_flow_document_approve">** เอกสารเก่าก่อนวันที่ 24/03/2020 - ไม่ต้องผ่านการอนุมัติจาก GM</string>
+    <string name="message_no_reason">ไม่มีการระบุเหตุผลการส่งสินค้า</string>
+
+    <string name="message_cannot_display_content">เนื้อหาไม่สามารถนำออกมาแสดงได้\n\nดูข้อมูลเพิ่มเติมได้ที่ DB: Sale Order Approve (View: ขออนุมัติ Ship-To) บน Lotus Notes.</string>
+    <string name="message_no_content">ไม่มีเนื้อหา</string>
+    <string name="message_no_attach">ไม่มีเอกสารแนบ</string>
+
+    <string name="ship_to_no_order">ไม่มี Sale Order</string>
+    <string name="ship_to_no_order_message">ไม่มี Sale Order ที่ต้องอนุมัติเพื่อส่งสินค้าไปยังลูกค้าในขณะนี้</string>
+    <string name="ship_to_no_history">ไม่มีประวัติการอนุมัติ</string>
+    <string name="ship_to_no_history_message">ไม่มีประวัติการอนุมัติ Sale Order ที่ต้องส่งสินค้าไปยังลูกค้าในขณะนี้</string>
+
+    <string name="message_approve_success">อนุมัติการส่งสินค้าสำเร็จแล้ว</string>
+    <string name="message_response_success">ตอบกลับสำเร็จแล้ว</string>
+    <string name="message_reject_success">ไม่อนุมัติการส่งสินค้าสำเร็จแล้ว</string>
+
+    <string name="message_cannot_connect_server">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง</string>
+    <string name="message_urgent">อนุมัติด่วน!</string>
+
+</resources>

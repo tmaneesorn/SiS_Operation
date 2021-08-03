@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="@color/colorGreyLight"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:weightSum="3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_marginRight="1dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <sis.com.sis.sis_app.Views.CustomButtonBold
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular"
+            android:maxLines="1"
+            android:padding="@dimen/padding_normal"
+            android:text="TAB1"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_small"
+            android:typeface="normal"
+            android:layout_gravity="center_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/hairline1"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginRight="1dp"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <sis.com.sis.sis_app.Views.CustomButtonBold
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular"
+            android:maxLines="1"
+            android:padding="@dimen/padding_normal"
+            android:text="TAB2"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_small"
+            android:typeface="normal"
+            android:layout_gravity="center_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/hairline2"
+            android:background="@color/colorGreyLight"
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <sis.com.sis.sis_app.Views.CustomButtonBold
+            android:id="@+id/btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular"
+            android:maxLines="1"
+            android:padding="@dimen/padding_normal"
+            android:text="TAB3"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_small"
+            android:typeface="normal"
+            android:layout_gravity="center_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/hairline3"
+            android:background="@color/colorGreyLight"
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="logo_login_size">180dp</dimen>
+    <dimen name="logo_topbar_size">64dp</dimen>
+    <dimen name="logo_all_app_size">96dp</dimen>
+
+    <dimen name="note_height">150dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="ic_size">16dp</dimen>
+    <dimen name="ic_button">20dp</dimen>
+    <dimen name="button_down">32dp</dimen>
+    <dimen name="add_sale_order_button">64dp</dimen>
+
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">32dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_edittext">2dp</dimen>
+
+    <dimen name="padding_small_negative">-8dp</dimen>
+    <dimen name="padding_normal_negative">-16dp</dimen>
+    <dimen name="padding_large_negative">-32dp</dimen>
+
+    <dimen name="font_mini">11sp</dimen>
+    <dimen name="font_small">13sp</dimen>
+    <dimen name="font_normal">15sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_xlarge">21sp</dimen>
+    <dimen name="font_title_header_min_size">24sp</dimen>
+    <dimen name="font_title_header_max_size">80sp</dimen>
+
+    <dimen name="font_title_company_min_size">26sp</dimen>
+    <dimen name="font_title_company_max_size">38sp</dimen>
+
+    <dimen name="popup_width">280dp</dimen>
+    <dimen name="tablet_padding">0dp</dimen>
+
+</resources>

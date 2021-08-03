@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:background="@drawable/web_round_top_corner"
+    android:layout_marginTop="60dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageButton
+            android:tint="@color/colorGreyDark"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:id="@+id/btnClose"
+            android:layout_marginLeft="12dp"
+            android:background="#00000000"
+            android:src="@drawable/ic_web_close"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <ImageButton
+            android:tint="@color/colorGreyDark"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:layout_toRightOf="@+id/btnClose"
+            android:id="@+id/btnBack"
+            android:layout_marginLeft="12dp"
+            android:background="#00000000"
+            android:src="@drawable/ic_web_back"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+
+
+        <ImageButton
+            android:tint="@color/colorGreyDark"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:id="@+id/btnMore"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="12dp"
+            android:background="#00000000"
+            android:src="@drawable/ic_web_more"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true" />
+
+        <ImageButton
+            android:tint="@color/colorGreyDark"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:id="@+id/btnNext"
+            android:layout_toLeftOf="@+id/btnMore"
+            android:layout_marginRight="12dp"
+            android:background="#00000000"
+            android:src="@drawable/ic_web_next"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+
+        <TextView
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:id="@+id/tvLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/btnNext"
+            android:layout_toRightOf="@+id/btnBack"
+            android:text="Loading..."
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:gravity="center_horizontal" />
+
+    </RelativeLayout>
+
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

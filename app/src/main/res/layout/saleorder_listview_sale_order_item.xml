@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_edittext_white">
+
+    <sis.com.sis.sis_app.Views.CustomTextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:background="@drawable/background_date_saleorder"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:text="12/02/2021"
+        android:textColor="@color/colorWhite" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSaleOrder"
+        android:layout_below="@+id/textViewDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingBottom="@dimen/padding_normal"
+        android:paddingTop="@dimen/padding_small" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relativeLayoutSaleOrderTitle">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_normal"
+                android:paddingRight="@dimen/padding_normal"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingBottom="@dimen/padding_small"
+                android:background="@drawable/button_green_round"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="center"
+                android:text="APPROVE"
+                android:textColor="@color/colorWhite">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewCustomerCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_document_sale_order_item"
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_large">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewCustomerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="1211374480"
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_large"
+                android:paddingRight="@dimen/padding_small">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutMobileSO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutCustomer"
+            android:orientation="horizontal">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile SO : "
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_normal">
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewMobileSO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="pornchai_230320211541"
+                android:textColor="@color/colorGreyDark"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSAPNo"
+            android:layout_below="@+id/linearLayoutMobileSO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAP SO : "
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSAPSO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="วีเอสที อีซีเอส (ประเทศไทย)"
+                android:textColor="@color/colorGreyDark"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDO"
+            android:layout_below="@+id/linearLayoutSAPNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery Order : "
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewDO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="วีเอสที อีซีเอส (ประเทศไทย)"
+                android:textColor="@color/colorGreyDark"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutInv"
+            android:layout_below="@+id/linearLayoutDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invoice : "
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewInvoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="วีเอสที อีซีเอส (ประเทศไทย)"
+                android:textColor="@color/colorGreyDark"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTotalAmount"
+            android:layout_below="@+id/linearLayoutInv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_saleorder_total_net_price"
+                android:textColor="@color/colorBlueMedium"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="วีเอสที อีซีเอส (ประเทศไทย)"
+                android:textColor="@color/colorGreyDark"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

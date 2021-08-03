@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_edittext_white" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSaleOrderStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_status_sale_order_complete"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small" >
+
+        <sis.com.sis.sis_app.Views.CustomTextViewBold
+            android:id="@+id/textViewStatusTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status : "
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/colorWhite"/>
+
+        <sis.com.sis.sis_app.Views.CustomTextViewBold
+            android:id="@+id/textViewStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status : "
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/colorWhite"
+            android:layout_toRightOf="@+id/textViewStatusTitle" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSaleOrderStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/relativeLayoutSaleOrderStatus"
+        android:padding="@dimen/padding_normal">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutOrderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewOrderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order : "
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorBlueMedium"/>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewOrderTitle"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorGreyMedium"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSAPOrderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<!--            android:layout_marginTop="@dimen/padding_small">-->
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewSAPOrderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAP Order : "
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorBlueMedium"/>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSAPOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewSAPOrderTitle"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorGreyMedium"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSAPDeliveryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewSAPDeliveryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAP Delivery : "
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorBlueMedium" />
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSAPDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewSAPDeliveryTitle"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorGreyMedium"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSAPInvoiceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewSAPInvoiceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAP Invoice : "
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorBlueMedium" />
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSAPInvoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewSAPInvoiceTitle"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/colorGreyMedium"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
