@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.SearchView
+        android:visibility="gone"
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:background="@drawable/background_edittext_white" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutAllApplication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchView"
+        android:layout_margin="@dimen/padding_normal"
+        android:padding="@dimen/padding_small"
+        android:background="@drawable/background_edittext_white">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutAllApplicationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_normal"
+            android:background="@drawable/background_topbar">
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewAllApplicationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All Application"
+                android:textColor="@color/colorBlueMedium"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_large"
+                android:paddingBottom="@dimen/padding_small" />
+
+        </RelativeLayout>
+
+        <GridView
+            android:id="@+id/recycleViewAllApplication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:layout_marginRight="@dimen/padding_normal"
+            android:layout_marginBottom="@dimen/padding_normal"
+            android:verticalSpacing="@dimen/padding_normal"
+            android:layout_below="@+id/relativeLayoutAllApplicationTitle"
+            android:numColumns="3" >
+
+        </GridView>
+
+        <sis.com.sis.sis_app.Views.CustomMessageRelativeLayout
+            android:id="@+id/rl_no_information"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:layout_marginRight="@dimen/padding_normal"
+            android:layout_marginBottom="@dimen/padding_normal"
+            android:layout_below="@+id/relativeLayoutAllApplicationTitle"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreyLight">
+
+<!--    <GridView-->
+<!--        android:id="@+id/recycleViewSetting"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:verticalSpacing="@dimen/padding_normal"-->
+<!--        android:layout_marginTop="@dimen/padding_normal"-->
+<!--        android:layout_marginRight="@dimen/padding_normal"-->
+<!--        android:layout_marginLeft="@dimen/padding_normal"-->
+<!--        android:layout_marginBottom="@dimen/padding_normal">-->
+
+<!--    </GridView>-->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSetPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edittext_white"
+        android:layout_margin="@dimen/padding_normal"
+        android:padding="@dimen/padding_normal">
+
+        <ImageView
+            android:id="@+id/imageViewIconSetPin"
+            android:layout_width="@dimen/button_down"
+            android:layout_height="@dimen/button_down"
+            android:padding="@dimen/padding_small"
+            android:background="@drawable/circlebutton_blue"
+            android:src="@drawable/ic_fingerprint_white"
+            android:layout_centerVertical="true"/>
+
+        <sis.com.sis.sis_app.Views.CustomTextViewBold
+            android:id="@+id/textViewSetPinTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imageViewIconSetPin"
+            android:layout_toLeftOf="@+id/imageViewIconNext"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:textSize="@dimen/font_normal"
+            android:text="TESTTTTTTTTTTTTTTTTTTTt"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/imageViewIconNext"
+            android:layout_width="@dimen/ic_size"
+            android:layout_height="@dimen/ic_size"
+            android:src="@drawable/ic_next"
+            android:rotation="180"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/relativeLayoutSetTouchID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutSetPin"
+        android:background="@drawable/background_edittext_white"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:padding="@dimen/padding_normal">
+
+        <ImageView
+            android:id="@+id/imageViewIconSetTouchID"
+            android:layout_width="@dimen/ic_size"
+            android:layout_height="@dimen/ic_size"
+            android:src="@drawable/ic_home"
+            android:layout_centerVertical="true"/>
+
+        <sis.com.sis.sis_app.Views.CustomTextViewBold
+            android:id="@+id/textViewSetTouchIDTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imageViewIconSetTouchID"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:text="TESTTTTTTTTTTTTTTTTTTTt"/>
+
+<!--        <Switch-->
+<!--            android:id="@+id/switchButtonSetTouchID"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/ic_size"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"/>-->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutSetTouchID"
+        android:background="@drawable/background_edittext_white"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:padding="@dimen/padding_normal">
+
+        <ImageView
+            android:id="@+id/imageViewIconVersion"
+            android:layout_width="@dimen/button_down"
+            android:layout_height="@dimen/button_down"
+            android:src="@drawable/ic_version"
+            android:padding="@dimen/padding_small"
+            android:background="@drawable/circlebutton_yellow"
+            android:layout_centerVertical="true"/>
+
+        <sis.com.sis.sis_app.Views.CustomTextViewBold
+            android:id="@+id/textViewVersionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imageViewIconVersion"
+            android:layout_toLeftOf="@+id/textViewVersion"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:text="Application Version"
+            android:textSize="@dimen/font_normal"
+            android:layout_centerVertical="true" />
+
+
+        <sis.com.sis.sis_app.Views.CustomTextViewBold
+            android:id="@+id/textViewVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/font_normal"
+            android:text="1.0"/>
+
+
+    </RelativeLayout>
+
+    <sis.com.sis.sis_app.Views.CustomButtonBold
+        android:id="@+id/customButtonLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_normal"
+        android:background="@drawable/button_red_round"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/colorWhite"
+        android:text="Log out"/>
+
+</RelativeLayout>

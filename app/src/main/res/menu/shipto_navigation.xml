@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_document"
+        android:icon="@drawable/ic_document"
+        android:title="@string/main_title_document" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_clock_o"
+        android:title="@string/main_title_history" />
+
+
+
+</menu>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="10"
+    android:padding="@dimen/padding_normal"
+    android:background="@drawable/background_edittext_white">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:id="@+id/linearLayoutItem">-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_toLeftOf="@+id/textViewStatus"-->
+<!--            android:layout_alignParentLeft="true">-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal" >-->
+
+<!--                <sis.com.sis.sis_app.Views.CustomTextViewBold-->
+<!--                    android:id="@+id/textViewArticle"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/padding_small"-->
+<!--                    android:text="1211374480"-->
+<!--                    android:textColor="@color/colorBlueMedium"-->
+<!--                    android:textSize="@dimen/font_large">-->
+
+<!--                </sis.com.sis.sis_app.Views.CustomTextViewBold>-->
+
+<!--            </LinearLayout>-->
+
+
+
+<!--            <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                android:id="@+id/textViewDescription"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/padding_small"-->
+<!--                android:text="วีเอสที อีซีเอส (ประเทศไทย)"-->
+<!--                android:textColor="@color/colorGreyDark"-->
+<!--                android:textSize="@dimen/font_normal">-->
+
+<!--            </sis.com.sis.sis_app.Views.CustomTextView>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </RelativeLayout>-->
+
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:weightSum="2"-->
+<!--        android:layout_below="@id/linearLayoutItem">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_weight="1"-->
+<!--            android:weightSum="2">-->
+
+<!--            <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/main_qty"-->
+<!--                android:textColor="@color/colorGreyDark"-->
+<!--                android:layout_gravity="center">-->
+
+<!--            </sis.com.sis.sis_app.Views.CustomTextView>-->
+
+<!--            <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                android:id="@+id/textViewQty"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="154,000.00"-->
+<!--                android:textColor="@color/colorGreyDark"-->
+<!--                android:layout_gravity="center" >-->
+
+<!--            </sis.com.sis.sis_app.Views.CustomTextView>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--            android:background="@color/colorGreyLight"-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_weight="1"-->
+<!--            android:weightSum="2">-->
+
+<!--            <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/main_total_net_price"-->
+<!--                android:textColor="@color/colorGreyDark"-->
+<!--                android:layout_gravity="center">-->
+
+<!--            </sis.com.sis.sis_app.Views.CustomTextView>-->
+
+<!--            <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                android:id="@+id/textViewTotalPrice"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="31,306.49"-->
+<!--                android:textColor="@color/colorGreyDark"-->
+<!--                android:layout_gravity="center" >-->
+
+<!--            </sis.com.sis.sis_app.Views.CustomTextView>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+    <sis.com.sis.sis_app.Views.CustomTextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="0dp"
+        android:layout_weight="8"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="วีเอสที อีซีเอส (ประเทศไทย)"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="@dimen/font_normal">
+
+    </sis.com.sis.sis_app.Views.CustomTextView>
+
+    <sis.com.sis.sis_app.Views.CustomTextView
+        android:id="@+id/textViewQtyTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text="Qty : "
+        android:textAlignment="viewEnd"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="@dimen/font_normal">
+
+    </sis.com.sis.sis_app.Views.CustomTextView>
+
+    <sis.com.sis.sis_app.Views.CustomTextView
+        android:id="@+id/textViewQty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text="9,999"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="@dimen/font_normal">
+
+    </sis.com.sis.sis_app.Views.CustomTextView>
+
+</LinearLayout>

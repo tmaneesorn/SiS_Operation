@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAppList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_small"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageViewFileName"
+            android:layout_width="@dimen/logo_all_app_size"
+            android:layout_height="@dimen/logo_all_app_size"
+            android:padding="@dimen/padding_normal"
+            android:textAlignment="center"
+            android:src="@drawable/ic_shipto"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/background_edittext_white">
+        </ImageView>
+
+        <sis.com.sis.sis_app.Views.CustomTextView
+            android:id="@+id/textViewFileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/colorBlueDark"
+            android:textSize="@dimen/font_normal"
+            android:textStyle="bold"
+            android:text="ShipTo Approval" >
+
+        </sis.com.sis.sis_app.Views.CustomTextView>
+    </LinearLayout>
+
+</RelativeLayout>

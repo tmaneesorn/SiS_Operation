@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorGreyLight"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/logo_login_size"
+                android:layout_height="@dimen/logo_login_size"
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginBottom="@dimen/padding_large"
+                android:layout_gravity="center"
+                android:src="@drawable/logo" />
+
+            <sis.com.sis.sis_app.Views.CustomEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginRight="@dimen/padding_large"
+                android:background="@drawable/background_edittext_white"
+                android:hint="@string/auth_username"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textAlignment="center"
+                android:textSize="@dimen/font_large"
+                android:layout_gravity="center_horizontal" />
+
+            <sis.com.sis.sis_app.Views.CustomEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_large"
+                android:background="@drawable/background_edittext_white"
+                android:hint="@string/auth_password"
+                android:inputType="textPassword"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textAlignment="center"
+                android:textSize="@dimen/font_large"
+                android:layout_gravity="center_horizontal" />
+
+            <sis.com.sis.sis_app.Views.CustomButton
+                android:minWidth="220dp"
+                android:textAllCaps="false"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_large"
+                android:background="@drawable/button_red_round"
+                android:text="@string/auth_button_login"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/font_large" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutPinLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding_normal"
+                android:background="@drawable/background_pin_login">
+
+                <ImageView
+                    android:id="@+id/imageViewFingerprint"
+                    android:layout_width="@dimen/button_down"
+                    android:layout_height="@dimen/button_down"
+                    android:src="@drawable/fingerprint"
+                    android:layout_centerVertical="true"/>
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:layout_toRightOf="@+id/imageViewFingerprint"
+                    android:text="Sign in with PIN or Touch ID"
+                    android:textColor="@color/colorBlueMedium"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

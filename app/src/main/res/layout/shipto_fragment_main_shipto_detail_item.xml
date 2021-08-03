@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <sis.com.sis.sis_app.Views.ScrollDetectableListView
+        android:id="@+id/recycleViewItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/linear"
+        android:dividerHeight="@dimen/padding_small"
+        android:divider="@null"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_small">
+
+    </sis.com.sis.sis_app.Views.ScrollDetectableListView>
+
+
+    <ImageButton
+        android:id="@+id/imageButtonScrollUp"
+        android:layout_width="@dimen/button_down"
+        android:layout_height="@dimen/button_down"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:background="@drawable/button_red_round"
+        android:layout_above="@+id/imageButtonScrollDown"
+        android:src="@drawable/ic_up"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/imageButtonScrollDown"
+        android:layout_width="@dimen/button_down"
+        android:layout_height="@dimen/button_down"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:background="@drawable/button_red_round"
+        android:layout_above="@+id/linear"
+        android:src="@drawable/ic_down"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2"
+        android:background="@color/colorYellow">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/main_qty"
+                android:textColor="@color/colorBlueMedium"
+                android:layout_gravity="center">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="0"
+                android:textColor="@color/colorBlueMedium"
+                android:layout_gravity="center" >
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/colorGreyLight"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/main_total_net_price"
+                android:textColor="@color/colorBlueMedium"
+                android:layout_gravity="center">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="0"
+                android:textColor="@color/colorBlueMedium"
+                android:layout_gravity="center" >
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

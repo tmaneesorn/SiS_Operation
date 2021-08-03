@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_normal"
+    android:padding="@dimen/padding_normal"
+    android:background="@drawable/background_edittext_white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageViewAppList"
+            android:layout_width="@dimen/logo_all_app_size"
+            android:layout_height="@dimen/logo_all_app_size"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/padding_normal"
+            android:src="@drawable/ic_shipto"
+            android:textAlignment="center"></ImageView>
+
+        <sis.com.sis.sis_app.Views.CustomTextView
+            android:id="@+id/textViewAppList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/colorBlueDark"
+            android:textSize="@dimen/font_normal"
+            android:textStyle="bold"
+            android:text="ShipTo Approval"
+            >
+
+        </sis.com.sis.sis_app.Views.CustomTextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/linearLayoutApp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/padding_normal">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSetPer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_small">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSetPerTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="adsflkasdjfadsfasfadsf"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchButtonSetPer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSetPer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_small">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSetPerTitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="adsflkasdjfadsfasfadsf"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchButtonSetPer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSetPer3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewSetPerTitle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="adsflkasdjfadsfasfadsf"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchButtonSetPer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

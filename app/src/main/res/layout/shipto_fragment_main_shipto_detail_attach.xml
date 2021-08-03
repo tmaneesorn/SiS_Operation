@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_marginTop="@dimen/padding_small"-->
+<!--                android:layout_marginBottom="@dimen/padding_small"-->
+<!--                android:layout_marginLeft="@dimen/padding_normal"-->
+<!--                android:layout_marginRight="@dimen/padding_normal"-->
+<!--                android:padding="@dimen/padding_small"-->
+<!--                android:background="@drawable/background_edittext_white">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/padding_normal"-->
+<!--                    android:background="@drawable/background_topbar">-->
+
+<!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/main_condition"-->
+<!--                        android:textColor="@color/colorBlueMedium"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="@dimen/font_large"-->
+<!--                        android:paddingBottom="@dimen/padding_small"/>-->
+
+
+<!--                </RelativeLayout>-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="@dimen/padding_normal"-->
+<!--                    android:layout_marginRight="@dimen/padding_normal"-->
+<!--                    android:layout_marginBottom="@dimen/padding_small">-->
+
+<!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="1. Condition1"-->
+<!--                        android:textColor="@color/colorBlueMedium"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/ic_size"-->
+<!--                        android:layout_height="@dimen/ic_size"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:src="@drawable/ic_cross" />-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="@dimen/padding_normal"-->
+<!--                    android:layout_marginRight="@dimen/padding_normal"-->
+<!--                    android:layout_marginBottom="@dimen/padding_small">-->
+
+<!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="2. Condition2"-->
+<!--                        android:textColor="@color/colorBlueMedium"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/ic_size"-->
+<!--                        android:layout_height="@dimen/ic_size"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:src="@drawable/ic_cross" />-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="@dimen/padding_normal"-->
+<!--                    android:layout_marginRight="@dimen/padding_normal"-->
+<!--                    android:layout_marginBottom="@dimen/padding_small">-->
+
+<!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="3. Condition3"-->
+<!--                        android:textColor="@color/colorBlueMedium"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/ic_size"-->
+<!--                        android:layout_height="@dimen/ic_size"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:src="@drawable/ic_check_mark" />-->
+
+<!--                </RelativeLayout>-->
+
+<!--            </LinearLayout>-->
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

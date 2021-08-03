@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/padding_normal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/padding_normal"
+            android:padding="@dimen/padding_small"
+            android:background="@drawable/background_edittext_white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_normal"
+                android:background="@drawable/background_topbar">
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewTitleAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Response"
+                    android:textColor="@color/colorBlueMedium"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_large"
+                    android:paddingBottom="@dimen/padding_small"/>
+
+            </RelativeLayout>
+
+            <sis.com.sis.sis_app.Views.CustomEditText
+                android:id="@+id/textViewResponse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_edittext_white"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginLeft="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_normal"
+                android:lines="5"
+                android:padding="@dimen/padding_normal"
+                android:hint="@string/message_enter_response"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="2"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginLeft="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_normal">
+
+                <sis.com.sis.sis_app.Views.CustomButton
+                    android:id="@+id/customButtonSave"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_green_round"
+                    android:text="@string/auth_button_save"
+                    android:layout_marginRight="@dimen/padding_small"/>
+
+
+                <sis.com.sis.sis_app.Views.CustomButton
+                    android:id="@+id/customButtonCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_red_round"
+                    android:text="@string/auth_button_cancel"
+                    android:layout_marginLeft="@dimen/padding_small"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
