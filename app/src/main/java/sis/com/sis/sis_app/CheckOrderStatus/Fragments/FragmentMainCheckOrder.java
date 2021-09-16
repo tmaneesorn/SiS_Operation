@@ -276,7 +276,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
                         }
                     }
                     return true;//
-                }
+                }//
 
             });
             }
