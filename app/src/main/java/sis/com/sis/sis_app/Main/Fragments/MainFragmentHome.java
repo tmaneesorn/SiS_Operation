@@ -201,6 +201,9 @@ public class MainFragmentHome extends Fragment implements AppListAdapter.ListVie
         else if (appName.equals("ShiptoApproval")) {
             myIntent = new Intent(getActivity(), sis.com.sis.sis_app.ShipToApproval.Activities.MainActivity.class);
         }
+        else if (appName.equals("CheckOrderStatus")) {
+            myIntent = new Intent(getActivity(), sis.com.sis.sis_app.CheckOrderStatus.Activities.MainActivity.class);
+        }
         getActivity().startActivity(myIntent);
 //        Intent myIntent = new Intent(getActivity(), ShipToMainActivity.class);
 //        getActivity().startActivity(myIntent);

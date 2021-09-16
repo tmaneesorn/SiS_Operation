@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <sis.com.sis.sis_app.Views.ScrollDetectableListView
+        android:id="@+id/recycleViewItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linear"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:divider="@null"
+        android:dividerHeight="@dimen/padding_small">
+
+    </sis.com.sis.sis_app.Views.ScrollDetectableListView>
+
+
+    <ImageButton
+        android:id="@+id/imageButtonScrollUp"
+        android:layout_width="@dimen/button_down"
+        android:layout_height="@dimen/button_down"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:background="@drawable/button_red_round"
+        android:layout_above="@+id/imageButtonScrollDown"
+        android:src="@drawable/ic_up"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/imageButtonScrollDown"
+        android:layout_width="@dimen/button_down"
+        android:layout_height="@dimen/button_down"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:background="@drawable/button_red_round"
+        android:layout_above="@+id/linear"
+        android:src="@drawable/ic_down"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

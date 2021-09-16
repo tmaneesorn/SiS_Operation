@@ -15,6 +15,7 @@ public class Constants {
     public static final String username = "username";
     public static final String password = "password";
     public static final String login = "login";
+    public static final String user_code = "user_code";
 
     public static void doLog(String logString)
     {

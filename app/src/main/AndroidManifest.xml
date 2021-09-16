@@ -31,6 +31,7 @@
         <activity android:name=".Main.Activities.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ShipToApproval.Activities.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".SaleOrders.Activities.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".CheckOrderStatus.Activities.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

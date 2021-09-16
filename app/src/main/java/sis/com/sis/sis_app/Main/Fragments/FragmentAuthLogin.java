@@ -148,6 +148,8 @@ public class FragmentAuthLogin extends Fragment {
                     SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.username, username[0]);
                     SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.password, et_password.getText().toString());
                     SharedPreferenceHelper.setSharedPreferenceBoolean(getContext(), Constants.login, true);
+                    SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.user_code, responseResult.user.user_code);
+
 
                     Intent myIntentMainApp = new Intent(getActivity(), MainActivity.class);
                     getActivity().startActivity(myIntentMainApp);

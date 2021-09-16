@@ -76,7 +76,7 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayoutSaleOrder"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -86,8 +86,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/textViewStatus"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
                 android:orientation="vertical">
 
 
@@ -97,24 +98,14 @@
                     android:orientation="horizontal">
 
                     <sis.com.sis.sis_app.Views.CustomTextViewBold
-                        android:layout_width="match_parent"
+                        android:id="@+id/textViewArticle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/main_document_sale_order_item"
+                        android:maxLines="2"
+                        android:text="DEL-SNSE2216HV"
                         android:textColor="@color/colorBlueMedium"
-                        android:textSize="@dimen/font_large">
-
-                    </sis.com.sis.sis_app.Views.CustomTextViewBold>
-
-                    <sis.com.sis.sis_app.Views.CustomTextViewBold
-                        android:id="@+id/textViewSaleNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:text="1211374480"
-                        android:textColor="@color/colorBlueMedium"
-                        android:textSize="@dimen/font_large">
+                        android:textSize="16dp"
+                        android:textStyle="bold">
 
                     </sis.com.sis.sis_app.Views.CustomTextViewBold>
 
@@ -125,23 +116,123 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <sis.com.sis.sis_app.Views.CustomTextViewBold
-                        android:layout_width="match_parent"
+                    <sis.com.sis.sis_app.Views.CustomTextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/main_customer_name"
+                        android:maxLines="2"
+                        android:text="Dell(TM) E series E2216HV 22"
+                        android:textColor="@color/colorBlueMedium"
+                        android:textSize="16dp">
+
+                    </sis.com.sis.sis_app.Views.CustomTextView>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <sis.com.sis.sis_app.Views.CustomTextViewBold
+                            android:id="@+id/textViewQtyTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+
+                            android:text="Qty : "
+                            android:textColor="@color/colorGreyDark"
+                            android:textSize="@dimen/font_normal">
+
+                        </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+                        <sis.com.sis.sis_app.Views.CustomTextView
+                            android:id="@+id/textQtyItem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/textViewQtyTitle"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/padding_small"
+                            android:text="3"
+                            android:textColor="@color/colorGreyDark"
+                            android:textSize="@dimen/font_normal"></sis.com.sis.sis_app.Views.CustomTextView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayoutPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:text="Total Price : "
+
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="@dimen/font_normal"></sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:id="@+id/textPriceItem"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:paddingLeft="@dimen/padding_small"
+                                android:text="12,090.00"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="@dimen/font_normal"></sis.com.sis.sis_app.Views.CustomTextView>
+
+                            <sis.com.sis.sis_app.Views.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:paddingLeft="@dimen/padding_small"
+                                android:text="THB"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="@dimen/font_normal"></sis.com.sis.sis_app.Views.CustomTextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutReasonBlock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayoutSaleOrder"
+                    android:orientation="horizontal">
+
+                    <sis.com.sis.sis_app.Views.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_item_block"
                         android:textColor="@color/colorBlueMedium"
                         android:textSize="@dimen/font_normal">
 
                     </sis.com.sis.sis_app.Views.CustomTextViewBold>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
-                        android:id="@+id/textViewCustomerName"
+                        android:id="@+id/textViewReason"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="วีเอสที อีซีเอส (ประเทศไทย)"
+                        android:text="-"
                         android:textColor="@color/colorGreyDark"
                         android:textSize="@dimen/font_normal">
 
@@ -149,58 +240,15 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
-            <sis.com.sis.sis_app.Views.CustomTextViewBold
-                android:id="@+id/textViewStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="end"
-                android:background="@drawable/button_green_round"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingTop="@dimen/padding_small"
-                android:paddingRight="@dimen/padding_normal"
-                android:paddingBottom="@dimen/padding_small"
-                android:scaleType="center"
-                android:text="APPROVE"
-                android:textColor="@color/colorWhite">
 
-            </sis.com.sis.sis_app.Views.CustomTextViewBold>
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayoutSaleOrder"
-            android:orientation="horizontal">
 
-            <sis.com.sis.sis_app.Views.CustomTextViewBold
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/main_sales"
-                android:textColor="@color/colorBlueMedium"
-                android:textSize="@dimen/font_normal">
 
-            </sis.com.sis.sis_app.Views.CustomTextViewBold>
 
-            <sis.com.sis.sis_app.Views.CustomTextView
-                android:id="@+id/textViewSale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_small"
-                android:text="วีเอสที อีซีเอส (ประเทศไทย)"
-                android:textColor="@color/colorGreyDark"
-                android:textSize="@dimen/font_normal">
-
-            </sis.com.sis.sis_app.Views.CustomTextView>
-
-        </LinearLayout>
 
 
         <!--        <LinearLayout-->

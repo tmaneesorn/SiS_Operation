@@ -2,6 +2,8 @@ package sis.com.sis.sis_app.ShipToApproval.Models;
 
 import java.util.List;
 
+import sis.com.sis.sis_app.Main.Models.User;
+
 public class ResponseData
 {
 //    public Company company;

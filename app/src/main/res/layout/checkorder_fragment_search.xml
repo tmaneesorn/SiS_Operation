@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/padding_normal"
         android:layout_marginRight="@dimen/padding_normal"
         android:background="@drawable/background_edittext_white"
-        android:queryHint="Search by Customer Code, Name or Nickname" />
+        android:queryHint="Search by Sales Order Number" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:paddingTop="@dimen/padding_normal"
             android:paddingRight="@dimen/padding_normal"
             android:paddingBottom="@dimen/padding_small"
-            android:text="รายการ Sold to"
+            android:text="รายการ Sales Order"
             android:textColor="@color/colorBlueMedium"
             android:textSize="@dimen/font_large"
             android:textStyle="bold" />
@@ -50,8 +50,7 @@
             android:layout_below="@+id/viewHeader"
             android:layout_marginTop="@dimen/padding_normal"
             android:divider="@null"
-            android:dividerHeight="@dimen/padding_small"
-            android:visibility="gone">
+            android:dividerHeight="@dimen/padding_small">
 
         </sis.com.sis.sis_app.Views.ScrollDetectableListView>
 
@@ -63,7 +62,8 @@
             android:layout_marginTop="@dimen/padding_normal"
             android:divider="@null"
             android:dividerHeight="@dimen/padding_small"
-            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:visibility="gone" />
 
         <sis.com.sis.sis_app.Views.CustomMessageRelativeLayout
             android:id="@+id/rl_no_information"

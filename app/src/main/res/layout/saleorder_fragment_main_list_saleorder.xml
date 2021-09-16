@@ -8,12 +8,12 @@
         android:id="@+id/recycleViewShipToApprove"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/padding_normal"
         android:layout_marginTop="@dimen/padding_normal"
         android:layout_marginRight="@dimen/padding_normal"
-        android:layout_marginLeft="@dimen/padding_normal"
         android:layout_marginBottom="@dimen/padding_normal"
-        android:dividerHeight="@dimen/padding_normal"
-        android:divider="@null" >
+        android:divider="@null"
+        android:dividerHeight="@dimen/padding_normal">
 
     </sis.com.sis.sis_app.Views.ScrollDetectableListView>
 

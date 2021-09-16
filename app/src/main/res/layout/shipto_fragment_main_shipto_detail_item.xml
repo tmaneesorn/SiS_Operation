@@ -49,27 +49,27 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorYellow"
         android:orientation="horizontal"
         android:paddingTop="@dimen/padding_small"
         android:paddingBottom="@dimen/padding_small"
-        android:layout_alignParentBottom="true"
-        android:weightSum="2"
-        android:background="@color/colorYellow">
+        android:weightSum="2">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:weightSum="2">
 
             <sis.com.sis.sis_app.Views.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/main_qty"
-                android:textColor="@color/colorBlueMedium"
-                android:layout_gravity="center">
+                android:textColor="@color/colorBlueMedium">
 
             </sis.com.sis.sis_app.Views.CustomTextView>
 
@@ -77,34 +77,34 @@
                 android:id="@+id/textViewAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="0"
-                android:textColor="@color/colorBlueMedium"
-                android:layout_gravity="center" >
+                android:textColor="@color/colorBlueMedium">
 
             </sis.com.sis.sis_app.Views.CustomTextView>
 
         </LinearLayout>
 
         <View
-            android:background="@color/colorGreyLight"
             android:layout_width="1dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/colorGreyLight" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:weightSum="2">
 
             <sis.com.sis.sis_app.Views.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/main_total_net_price"
-                android:textColor="@color/colorBlueMedium"
-                android:layout_gravity="center">
+                android:textColor="@color/colorBlueMedium">
 
             </sis.com.sis.sis_app.Views.CustomTextView>
 
@@ -112,10 +112,10 @@
                 android:id="@+id/textViewTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="0"
-                android:textColor="@color/colorBlueMedium"
-                android:layout_gravity="center" >
+                android:textColor="@color/colorBlueMedium">
 
             </sis.com.sis.sis_app.Views.CustomTextView>
 

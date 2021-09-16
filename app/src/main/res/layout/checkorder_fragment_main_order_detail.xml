@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <sis.com.sis.sis_app.Views.CustomTabs.Custom2TabView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabView"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeMainOrderDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </RelativeLayout>
+
+</LinearLayout>

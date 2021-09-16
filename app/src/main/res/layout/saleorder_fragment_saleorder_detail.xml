@@ -25,35 +25,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal" >
+                    android:paddingRight="@dimen/padding_normal">
 
                     <sis.com.sis.sis_app.Views.CustomTextViewBold
                         android:id="@+id/textViewOrderNoTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/padding_normal"
+                        android:paddingBottom="@dimen/padding_small"
                         android:text="Order No. : "
                         android:textColor="@color/colorBlueMedium"
-                        android:textStyle="bold"
                         android:textSize="@dimen/font_large"
-                        android:paddingTop="@dimen/padding_normal"
-                        android:paddingBottom="@dimen/padding_small" />
+                        android:textStyle="bold" />
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewOrderNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1212312121"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/font_large"
+                        android:layout_toRightOf="@id/textViewOrderNoTitle"
                         android:paddingTop="@dimen/padding_normal"
                         android:paddingBottom="@dimen/padding_small"
-                        android:layout_toRightOf="@id/textViewOrderNoTitle"/>
+                        android:text="1212312121"
+                        android:textSize="@dimen/font_large"
+                        android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/colorGreyLight"
-                        android:layout_below="@+id/textViewOrderNoTitle" />
+                        android:layout_below="@+id/textViewOrderNoTitle"
+                        android:background="@color/colorGreyLight" />
 
                 </RelativeLayout>
 

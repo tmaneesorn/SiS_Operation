@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_edittext_white">
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@id/linearLayoutUrgent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <sis.com.sis.sis_app.Views.CustomTextView
+            android:id="@+id/textViewUrgent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:text="@string/message_urgent"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorRed"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:layout_marginRight="@dimen/padding_normal"
+            android:background="@color/colorYellowLight">
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewUrgentReasonTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="เหตุผล : "
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingBottom="@dimen/padding_small"/>
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/textViewUrgentReason"
+                android:layout_toRightOf="@+id/textViewUrgentReasonTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_urgent"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:paddingBottom="@dimen/padding_small"
+                android:background="@color/colorYellowLight"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGreyLight"
+            android:layout_marginTop="@dimen/padding_normal"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutShipToOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutUrgent"
+        android:padding="@dimen/padding_normal">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSaleOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_toLeftOf="@+id/textViewStatus"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <sis.com.sis.sis_app.Views.CustomTextViewBold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_so_no"
+                        android:textColor="@color/colorBlueMedium"
+                        android:textSize="20dp"
+                        android:textStyle="bold">
+
+                    </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+                    <sis.com.sis.sis_app.Views.CustomTextViewBold
+                        android:id="@+id/textViewSaleNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="1211374480"
+                        android:textColor="@color/colorBlueMedium"
+                        android:textSize="20dp"
+                        android:textStyle="bold">
+
+                    </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <sis.com.sis.sis_app.Views.CustomTextViewBold
+                android:id="@+id/textViewStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:background="@drawable/button_red_light_round"
+                android:paddingLeft="@dimen/padding_normal"
+                android:paddingTop="4dp"
+                android:paddingRight="@dimen/padding_normal"
+                android:paddingBottom="4dp"
+                android:scaleType="center"
+                android:text="Waiting DO"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold">
+
+            </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relativeLayoutCustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayoutSaleOrder">
+
+
+            <sis.com.sis.sis_app.Views.CustomTextView
+
+                android:id="@+id/textViewCustomerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="1100000033/เค.เอส.วาย. คอมพิวเตอร์ แอนด์ คอมมิวนิเคชั่น"
+                android:textColor="@color/colorGreyDark"
+                android:textSize="@dimen/font_normal">
+
+            </sis.com.sis.sis_app.Views.CustomTextView>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewCustomerName"
+                android:orientation="horizontal">
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewTopicReason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="เหตุผล : "
+                    android:textColor="@color/colorBlueMedium"
+                    android:textSize="@dimen/font_normal">
+
+                </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewReason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="PM Block (Y2)"
+                    android:textColor="@color/colorGreyDark"
+                    android:textSize="@dimen/font_normal">
+                </sis.com.sis.sis_app.Views.CustomTextView>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

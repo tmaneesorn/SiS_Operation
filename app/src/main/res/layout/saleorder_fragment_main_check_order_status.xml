@@ -6,11 +6,11 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_normal"
         android:layout_marginTop="@dimen/padding_normal"
         android:layout_marginRight="@dimen/padding_normal"
-        android:layout_marginLeft="@dimen/padding_normal"
-        android:queryHint="Search by Customer Code, Name or Nickname"
-        android:background="@drawable/background_edittext_white" />
+        android:background="@drawable/background_edittext_white"
+        android:queryHint="Search by Customer Code, Name or Nickname" />
 
     <RelativeLayout
         android:layout_width="match_parent"

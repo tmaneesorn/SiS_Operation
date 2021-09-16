@@ -41,6 +41,7 @@
     <string name="main_sale_org">Sale Org.</string>
     <string name="main_order_type">Order Type</string>
     <string name="main_customer">Customer</string>
+    <string name="main_customer_codename">Customer Code/Customer Name</string>
     <string name="main_customer_name">Customer : </string>
     <string name="main_sale_order_shipto">Ship to :</string>
     <string name="main_ship_to">Ship-to</string>
@@ -48,6 +49,8 @@
     <string name="main_reason_sale">Reason - Sale</string>
     <string name="main_reason_sm">Reason - Sale Manager</string>
     <string name="main_reason_gm">Reason - General Manager</string>
+    <string name="main_reason_block">เหตุผล : </string>
+    <string name="main_item_block">Item Block : </string>
     <string name="main_status">Status : </string>
     <string name="main_status_title">Status</string>
     <string name="main_status_waiting">Waiting</string>
@@ -58,6 +61,17 @@
     <string name="main_order_date">Order Date</string>
     <string name="main_po_no">PO No.</string>
     <string name="main_po_date">PO Date</string>
+    <string name="main_po_datetime">PO Date/Time</string>
+    <string name="main_so_no">SO No.</string>
+    <string name="main_so_datetime">SO Date/Time</string>
+    <string name="main_do_no">DO No.</string>
+    <string name="main_do_datetime">DO Date/Time</string>
+    <string name="main_pk_no">Picking No.</string>
+    <string name="main_pk_datetime">Picking Date/Time</string>
+    <string name="main_pgi_no">PGI No.</string>
+    <string name="main_pgi_datetime">PGI Date/Time</string>
+    <string name="main_inv_no">INV No.</string>
+    <string name="main_inv_datetime">INV Date/Time</string>
     <string name="main_sales">Sales (OB/Tele) : </string>
     <string name="main_credit">Credit</string>
     <string name="main_team">Team</string>

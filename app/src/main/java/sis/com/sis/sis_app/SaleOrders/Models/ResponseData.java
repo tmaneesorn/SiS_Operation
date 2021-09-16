@@ -4,7 +4,7 @@ import java.util.List;
 
 import sis.com.sis.sis_app.ShipToApproval.Models.ItemObject;
 import sis.com.sis.sis_app.ShipToApproval.Models.ShipToObject;
-import sis.com.sis.sis_app.ShipToApproval.Models.User;
+import sis.com.sis.sis_app.Main.Models.User;
 
 public class ResponseData
 {

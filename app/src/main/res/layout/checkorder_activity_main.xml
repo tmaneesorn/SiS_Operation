@@ -10,24 +10,11 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/saleorder_navigation"
         android:layout_alignParentTop="true"
         android:background="@color/colorGreyLight"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/saleorder_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorRed"
-        android:theme="@style/BottomNavigationViewTextStyle"
-        app:itemIconTint="@color/colorWhite"
-        app:itemRippleColor="@color/colorAccent"
-        app:itemTextColor="@color/colorWhite"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/saleorder_navigation" />
 
 </RelativeLayout>
