@@ -116,12 +116,12 @@
             android:id="@+id/textViewVersionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/imageViewIconVersion"
-            android:layout_toLeftOf="@+id/textViewVersion"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_normal"
+            android:layout_toLeftOf="@+id/textViewVersion"
+            android:layout_toRightOf="@+id/imageViewIconVersion"
             android:text="Application Version"
-            android:textSize="@dimen/font_normal"
-            android:layout_centerVertical="true" />
+            android:textSize="@dimen/font_normal" />
 
 
         <sis.com.sis.sis_app.Views.CustomTextViewBold
@@ -131,7 +131,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textSize="@dimen/font_normal"
-            android:text="1.0"/>
+            android:text="1.2"/>
 
 
     </RelativeLayout>
