@@ -89,7 +89,7 @@ public class ItemListAdapter extends BaseAdapter {
 
         Constants.doLog("LOG TEST RESULT " + object.totalprice);
         String Qty =  String.format("%s",object.qty);
-        String amount = new DecimalFormat("#,###.00").format(Double.valueOf((String) object.totalprice));
+        String amount = new DecimalFormat("#,##0.00").format(Double.valueOf((String) object.totalprice));
 
         //String total_price = new DecimalFormat("#,###.00").format(String.format("%s",object.totalprice));
 

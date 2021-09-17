@@ -112,7 +112,7 @@
                         android:id="@+id/textViewSaleNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
+
                         android:maxLines="1"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="1211374480"
