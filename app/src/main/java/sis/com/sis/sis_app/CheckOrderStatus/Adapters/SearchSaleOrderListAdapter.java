@@ -126,12 +126,12 @@ public class SearchSaleOrderListAdapter extends BaseAdapter {
             holder.textViewStatus.setBackgroundResource(R.drawable.button_red_round);
             holder.textViewStatus.setText("Not Process");}
 
-        if (object.deliveryblock.equals("Not yet processed")) {holder.textViewReason.setText("Delivery Block"); }
-        else{if (object.deliveryblock.equals("Partially processed")) { holder.textViewReason.setText("Delivery Block");}
-        else{if (object.deliveryblock.equals("Not Relevant")) { holder.textViewReason.setText("Delivery Block");}
-        else{if (object.shiptoblock.equals("")){ holder.textViewReason.setText("ShipTo Block");}
-        else{if (object.creditblock.equals("Credit check was executed, document not OK")){ holder.textViewReason.setText("Credit Block");
-        }}}}}
+//        if (object.deliveryblock.equals("Not yet processed")) {holder.textViewReason.setText("Delivery Block"); }
+//        else{if (object.deliveryblock.equals("Partially processed")) { holder.textViewReason.setText("Delivery Block");}
+//        else{if (object.deliveryblock.equals("Not Relevant")) { holder.textViewReason.setText("Delivery Block");}
+//        else{if (object.shiptoblock.equals("")){ holder.textViewReason.setText("ShipTo Block");}
+//        else{if (object.creditblock.equals("Credit check was executed, document not OK")){ holder.textViewReason.setText("Credit Block");
+//        }}}}}
 
 
 
