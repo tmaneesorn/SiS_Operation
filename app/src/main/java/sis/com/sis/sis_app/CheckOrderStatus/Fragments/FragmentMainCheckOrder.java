@@ -137,7 +137,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
                         }
                     } else if (responseResult.status_code == 503) {
                         if (isAdded() && rl_no_information != null)
-                            rl_no_information.show(getResources().getString(R.string.ship_to_no_history), getResources().getString(R.string.ship_to_no_history_message), getResources().getDrawable(R.drawable.ic_cross));
+                            rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
                     } else {
 //                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
                     }
@@ -146,7 +146,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
 
                     if (arrayList.size() == 0) {
                         if (isAdded() && rl_no_information != null)
-                            rl_no_information.show(getResources().getString(R.string.ship_to_no_history), getResources().getString(R.string.ship_to_no_history_message), getResources().getDrawable(R.drawable.ic_cross));
+                            rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
                     }
                 }
 
