@@ -45,8 +45,8 @@ import sis.com.sis.sis_app.Views.ScrollDetectableListView;
 
 public class FragmentMainOrderDetailItem extends Fragment implements ItemListAdapter.ListViewItemClickListener {
 
-    //@BindView(R.id.rl_no_information)
-    //CustomMessageRelativeLayout rl_no_information;
+    @BindView(R.id.rl_no_information)
+    CustomMessageRelativeLayout rl_no_information;
 //    @BindView(R.id.textViewSearchResultTitle) CustomTextView textViewSearchResultTitle;
     @BindView(R.id.recycleViewItems)
     ScrollDetectableListView scrollDetectableListView;
@@ -164,9 +164,10 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
                 }
 
                 GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server));
-                Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
-                getActivity().startActivity(myIntent);
-                getActivity().finish();
+                rl_no_information.show("เกิดข้อผิดพลาด", "ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
+                //Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
+                //getActivity().startActivity(myIntent);
+                //getActivity().finish();
             }
 
             public boolean isJSONValid(String test) {

@@ -42,6 +42,7 @@
     <string name="main_order_type">Order Type</string>
     <string name="main_customer">Customer</string>
     <string name="main_customer_codename">Customer Code/Customer Name</string>
+    <string name="main_shipto_codename">Ship-To Code/Ship-To Name/Ship-To Address</string>
     <string name="main_customer_name">Customer : </string>
     <string name="main_sale_order_shipto">Ship to :</string>
     <string name="main_ship_to">Ship-to</string>

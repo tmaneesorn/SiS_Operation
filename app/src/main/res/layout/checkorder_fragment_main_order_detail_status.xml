@@ -13,6 +13,7 @@
         android:weightSum="3" />
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/padding_small">
@@ -23,6 +24,7 @@
             android:orientation="vertical">
 
             <sis.com.sis.sis_app.Views.CustomTextView
+                android:id="@+id/TopicDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_normal"
@@ -33,6 +35,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/linearDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_normal"
@@ -63,6 +66,23 @@
                     android:maxLines="2"
                     android:text="-" />
 
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_normal"
+                    android:layout_marginRight="@dimen/padding_normal"
+                    android:text="@string/main_shipto_codename"
+                    android:textColor="@color/colorBlueMedium" />
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewShipToCodeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_normal"
+                    android:layout_marginRight="@dimen/padding_normal"
+                    android:maxLines="3"
+                    android:text="-" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,32 +109,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
-                    android:weightSum="8">
-
-                    <sis.com.sis.sis_app.Views.CustomTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="@string/main_po_datetime"
-                        android:textColor="@color/colorBlueMedium" />
-
-                    <sis.com.sis.sis_app.Views.CustomTextView
-                        android:id="@+id/textViewPODateTime"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:text="-" />
-                </LinearLayout>
-
             </LinearLayout>
 
             <sis.com.sis.sis_app.Views.CustomTextView
-                android:id="@+id/textViewShipToAddress"
+                android:id="@+id/textTopicStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_normal"
@@ -125,6 +123,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/linearStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_normal"
@@ -133,24 +132,24 @@
                 android:layout_marginBottom="@dimen/padding_small"
                 android:background="@drawable/background_edittext_white"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/padding_small"
+
                 android:paddingTop="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_small"
+
                 android:paddingBottom="@dimen/padding_normal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_so_no"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        android:background="@color/colorBlueSky"/>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewSoNo"
@@ -158,199 +157,207 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:maxLines="1"
-                        android:text="-" />
+                        android:text="-"
+                        android:background="@color/colorBlueSky"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
+
                         android:text="@string/main_so_datetime"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        android:background="@color/colorBlueSky"/>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewSoDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        android:background="@color/colorBlueSky"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_do_no"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        />
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewDoNo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_do_datetime"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        />
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewDoDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_pk_no"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        android:background="@color/colorBlueSky"/>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewPkNo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        android:background="@color/colorBlueSky"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_pk_datetime"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        android:background="@color/colorBlueSky"/>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewPkDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        android:background="@color/colorBlueSky"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_pgi_no"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        />
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewPGINo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_pgi_datetime"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        />
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewPGIDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
                     android:weightSum="8">
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_inv_no"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        android:background="@color/colorBlueSky"/>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewInvNo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        android:background="@color/colorBlueSky"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginRight="@dimen/padding_normal"
 
                     android:weightSum="8">
 
@@ -358,270 +365,31 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:paddingLeft="24dp"
                         android:text="@string/main_inv_datetime"
-                        android:textColor="@color/colorBlueMedium" />
+                        android:textColor="@color/colorBlueMedium"
+                        android:background="@color/colorBlueSky"/>
 
                     <sis.com.sis.sis_app.Views.CustomTextView
                         android:id="@+id/textViewInvDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:text="-" />
+                        android:text="-"
+                        android:background="@color/colorBlueSky"/>
 
                 </LinearLayout>
-
-
-                <!--                <LinearLayout-->
-                <!--                    android:weightSum="2"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-                <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-                <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-                <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-                <!--                        android:layout_width="0dp"-->
-                <!--                        android:layout_weight="1"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:text="@string/main_zipcode"-->
-                <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-                <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-                <!--                        android:id="@+id/textViewShipToPostCode"-->
-                <!--                        android:layout_width="0dp"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_weight="1"-->
-                <!--                        android:gravity="right"-->
-                <!--                        android:ellipsize="end"-->
-                <!--                        android:maxLines="1"-->
-                <!--                        android:text="10520"/>-->
-
-                <!--                </LinearLayout>-->
-
             </LinearLayout>
-
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:orientation="vertical"-->
-            <!--                android:layout_marginTop="@dimen/padding_small"-->
-            <!--                android:layout_marginBottom="@dimen/padding_small"-->
-            <!--                android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                android:padding="@dimen/padding_small"-->
-            <!--                android:background="@drawable/background_edittext_white">-->
-
-            <!--                <RelativeLayout-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_margin="@dimen/padding_normal"-->
-            <!--                    android:background="@drawable/background_topbar">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="wrap_content"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:text="@string/main_header_data"-->
-            <!--                        android:textColor="@color/colorBlueMedium"-->
-            <!--                        android:textStyle="bold"-->
-            <!--                        android:textSize="@dimen/font_large"-->
-            <!--                        android:paddingBottom="@dimen/padding_small"/>-->
-
-            <!--                </RelativeLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:text="@string/main_order_date"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewOrderDate"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="29/11/2018" />-->
-
-            <!--                </LinearLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:text="@string/main_po_no"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewPoNo"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="IWIT2018/036"/>-->
-
-            <!--                </LinearLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:text="@string/main_po_date"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewPoDate"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="29/11/2018"/>-->
-
-            <!--                </LinearLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="4"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:text="@string/main_sales"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewSale"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="3"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="นริศรา หวังอาษา, นฤมล บุบผา, ..."/>-->
-
-            <!--                </LinearLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:text="@string/main_credit"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewCredit"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="Pramin" />-->
-
-            <!--                </LinearLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small">-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:text="@string/main_team"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewTeam"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="Commercial"/>-->
-
-            <!--                </LinearLayout>-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:weightSum="2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="@dimen/padding_normal"-->
-            <!--                    android:layout_marginRight="@dimen/padding_normal"-->
-            <!--                    android:layout_marginBottom="@dimen/padding_small" >-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:text="@string/main_payment_term"-->
-            <!--                        android:textColor="@color/colorBlueMedium"/>-->
-
-            <!--                    <sis.com.sis.sis_app.Views.CustomTextView-->
-            <!--                        android:id="@+id/textViewPaymentTerm"-->
-            <!--                        android:layout_width="0dp"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_weight="1"-->
-            <!--                        android:gravity="right"-->
-            <!--                        android:ellipsize="end"-->
-            <!--                        android:maxLines="1"-->
-            <!--                        android:text="Actual 30 / Invoice 30"/>-->
-
-            <!--                </LinearLayout>-->
-
-            <!--            </LinearLayout>-->
 
         </LinearLayout>
 
     </ScrollView>
 
-
+    <sis.com.sis.sis_app.Views.CustomMessageRelativeLayout
+        android:id="@+id/rl_no_information"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/viewHeader"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:visibility="gone" />
 </LinearLayout>

@@ -353,6 +353,10 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
                         {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                if (isAdded() && customProgress != null) customProgress.hideProgress();
+                            }
+                            GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
 
                         }
 
@@ -439,7 +443,10 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
             {
-//                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    if (isAdded() && customProgress != null) customProgress.hideProgress();
+                }
+                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
 //                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
 //                    getActivity().startActivity(myIntent);
 //                    getActivity().finish();
@@ -1047,7 +1054,11 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
             {
-//                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    if (isAdded() && customProgress != null) customProgress.hideProgress();
+                }
+
+                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
 //                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
 //                    getActivity().startActivity(myIntent);
 //                    getActivity().finish();

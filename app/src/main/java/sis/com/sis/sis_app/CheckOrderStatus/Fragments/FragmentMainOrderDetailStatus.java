@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.fragment.app.Fragment;
 
@@ -40,13 +42,17 @@ import sis.com.sis.sis_app.Helpers.GeneralHelper;
 import sis.com.sis.sis_app.Helpers.SharedPreferenceHelper;
 import sis.com.sis.sis_app.R;
 import sis.com.sis.sis_app.Views.CustomDialogLoading;
+import sis.com.sis.sis_app.Views.CustomMessageRelativeLayout;
 import sis.com.sis.sis_app.Views.CustomTextView;
 
 public class FragmentMainOrderDetailStatus extends Fragment  {
 
+    @BindView(R.id.rl_no_information)
+    CustomMessageRelativeLayout rl_no_information;
     @BindView(R.id.textViewCustomerCodeName) CustomTextView textViewCustomerCodeName;
+    @BindView(R.id.textViewShipToCodeName) CustomTextView textViewShipToCodeName;
     @BindView(R.id.textViewPONo) CustomTextView textViewPONo;
-    @BindView(R.id.textViewPODateTime) CustomTextView textViewPODateTime;
+    //@BindView(R.id.textViewPODateTime) CustomTextView textViewPODateTime;
     @BindView(R.id.textViewSoNo) CustomTextView textViewSoNo;
     @BindView(R.id.textViewSoDateTime) CustomTextView textViewSoDateTime;
     @BindView(R.id.textViewDoNo) CustomTextView textViewDoNo;
@@ -57,6 +63,12 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
     @BindView(R.id.textViewPGIDateTime) CustomTextView textViewPGIDateTime;
     @BindView(R.id.textViewInvNo) CustomTextView textViewInvNo;
     @BindView(R.id.textViewInvDateTime) CustomTextView textViewInvDateTime;
+    @BindView(R.id.linearDetail) LinearLayout linearDetail;
+    @BindView(R.id.linearStatus) LinearLayout linearStatus;
+    @BindView(R.id.TopicDetail)  CustomTextView TopicDetail;
+    @BindView(R.id.textTopicStatus) CustomTextView textTopicStatus;
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
 
    // SaleOrderListAdapter saleOrderListAdapter;
    // List<SaleOrderObject> arrayList;
@@ -155,6 +167,7 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
                 {
                     //sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY1 : " + responseResult.datas.get(0).docflow.get("dodate"));
                     String Custcodename = responseResult.datas.get(0).soldto + " / " + responseResult.datas.get(0).soldtoname;
+                    String Shiptoname = responseResult.datas.get(0).shipto +" / " + responseResult.datas.get(0).shiptoname + " / " + responseResult.datas.get(0).shiptoaddr;
                     String SoDateTime = responseResult.datas.get(0).sodate + " " + responseResult.datas.get(0).sotime;
                     String DoDateTime = responseResult.datas.get(0).docflow.get("dodate") + " " + responseResult.datas.get(0).docflow.get("dotime");
                     String PickDateTime = responseResult.datas.get(0).docflow.get("pickdate") + " " + responseResult.datas.get(0).docflow.get("pictime");
@@ -167,12 +180,18 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
                         textViewCustomerCodeName.setText(Custcodename);
                     }
 
+                    if (responseResult.datas.get(0).shipto.equals("")){
+                        textViewShipToCodeName.setText("-");
+                    }else {
+                        textViewShipToCodeName.setText(Shiptoname);
+                    }
+
                     if (responseResult.datas.get(0).custpono.equals("")){
                         textViewPONo.setText("-");
-                        textViewPODateTime.setText("-");
+                        //textViewPODateTime.setText("-");
                     }else {
                         textViewPONo.setText(responseResult.datas.get(0).custpono);
-                        textViewPODateTime.setText(responseResult.datas.get(0).custpodate);
+                        //textViewPODateTime.setText(responseResult.datas.get(0).custpodate);
                     }
 
                     if (responseResult.datas.get(0).sono.equals("")){
@@ -233,11 +252,17 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
-
+                linearDetail.setVisibility(View.GONE);
+                linearStatus.setVisibility(View.GONE);
+                TopicDetail.setVisibility(View.GONE);
+                textTopicStatus.setVisibility(View.GONE);
+                scrollview.setVisibility(View.GONE);
                 GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server));
-                Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
-                getActivity().startActivity(myIntent);
-                getActivity().finish();
+                rl_no_information.show("เกิดข้อผิดพลาด", "ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
+
+                //Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
+                //getActivity().startActivity(myIntent);
+                //getActivity().finish();
             }
 
             public boolean isJSONValid(String test) {

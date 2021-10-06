@@ -19,4 +19,8 @@
     <color name="colorGreyMedium">#AAAAAA</color>
     <color name="colorGreyLight">#f1f1f1</color>
     <color name="colorGreyHairline">#f1f1f1</color>
+    <color name="colorViolet">#660099</color>
+    <color name="colorPurplePastel">#CCCCFF</color>
+    <color name="colorAliceBlue">#F0F8FF</color>
+    <color name="colorBlueSky">#5787CEFA</color>
 </resources>

@@ -42,6 +42,7 @@
     <string name="main_order_type">Order Type</string>
     <string name="main_customer">Customer</string>
     <string name="main_customer_codename">Customer Code/Customer Name</string>
+    <string name="main_shipto_codename">Ship-To Code/Ship-To Name/Ship-To Address</string>
     <string name="main_customer_name">Customer : </string>
     <string name="main_ship_to">Ship-to</string>
     <string name="main_sale_order_shipto">Ship to :</string>
@@ -133,7 +134,8 @@
     <string name="message_response_success">Response successfully.</string>
     <string name="message_reject_success">Not Approve Ship to order successfully.</string>
 
-    <string name="message_cannot_connect_server">Cannot connect to server now, Please try again.</string>
+<!--    <string name="message_cannot_connect_server">Cannot connect to server now, Please try again.</string>-->
+    <string name="message_cannot_connect_server">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง</string>
     <string name="message_urgent">Urgent!</string>
 
 </resources>

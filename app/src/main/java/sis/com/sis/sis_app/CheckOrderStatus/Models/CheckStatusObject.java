@@ -15,6 +15,9 @@ public class CheckStatusObject implements Serializable {
     public String custpodate;
     public String soldto;
     public String soldtoname;
+    public String shipto;
+    public String shiptoname;
+    public String shiptoaddr;
     public String deliveryblock;
     public String shiptoblock;
     public String creditblock;
@@ -30,6 +33,6 @@ public class CheckStatusObject implements Serializable {
 
         if (docflow != null) str.append(docflow.toString());
         if (items != null) str.append(items.toString());
-        return String.format("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", sono,sodate,sotime,custpono,custpodate,soldto,soldtoname,deliveryblock,shiptoblock,creditblock,status,reason) + str.toString();
+        return String.format("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", sono,sodate,sotime,custpono,custpodate,soldto,soldtoname,shipto,shiptoname,shiptoaddr,deliveryblock,shiptoblock,creditblock,status,reason) + str.toString();
     }
 }

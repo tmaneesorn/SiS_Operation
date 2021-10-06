@@ -147,6 +147,7 @@
             </sis.com.sis.sis_app.Views.CustomTextViewBold>
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/relativeLayoutCustomerName"
             android:layout_width="wrap_content"
@@ -159,8 +160,8 @@
                 android:id="@+id/textViewCustomerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:text="1100000033/เค.เอส.วาย. คอมพิวเตอร์ แอนด์ คอมมิวนิเคชั่น"
                 android:textColor="@color/colorGreyDark"
                 android:textSize="@dimen/font_normal">
@@ -192,11 +193,45 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:paddingLeft="@dimen/padding_small"
-                    android:text="PM Block (Y2)"
+                    android:text=""
                     android:textColor="@color/colorGreyDark"
-                    android:textSize="@dimen/font_normal">
-                </sis.com.sis.sis_app.Views.CustomTextView>
+                    android:textSize="@dimen/font_normal"></sis.com.sis.sis_app.Views.CustomTextView>
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutSystemBlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutReason">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutSystemReason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <sis.com.sis.sis_app.Views.CustomTextViewBold
+                        android:id="@+id/textViewTopicSystemBlock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="System Block : "
+                        android:textColor="@color/colorBlueMedium"
+                        android:textSize="@dimen/font_normal">
+
+                    </sis.com.sis.sis_app.Views.CustomTextViewBold>
+
+                    <sis.com.sis.sis_app.Views.CustomTextView
+                        android:id="@+id/textViewSystemBlock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="-"
+                        android:textColor="@color/colorGreyDark"
+                        android:textSize="@dimen/font_normal">
+                    </sis.com.sis.sis_app.Views.CustomTextView>
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

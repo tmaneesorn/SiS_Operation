@@ -18,7 +18,12 @@
         android:dividerHeight="@dimen/padding_small">
 
     </sis.com.sis.sis_app.Views.ScrollDetectableListView>
-
+    <sis.com.sis.sis_app.Views.CustomMessageRelativeLayout
+        android:id="@+id/rl_no_information"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/imageButtonScrollUp"

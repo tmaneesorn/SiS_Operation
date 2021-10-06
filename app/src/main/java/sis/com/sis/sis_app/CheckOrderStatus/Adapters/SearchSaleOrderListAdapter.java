@@ -60,7 +60,8 @@ public class SearchSaleOrderListAdapter extends BaseAdapter {
         CustomTextViewBold textViewStatus;
         CustomTextViewBold textViewTopicReason;
         LinearLayout linearLayoutReason;
-
+        LinearLayout linearLayoutSystemReason;
+        CustomTextView textViewSystemBlock;
 
         @Override
         public void onClick(View view)
@@ -84,6 +85,8 @@ public class SearchSaleOrderListAdapter extends BaseAdapter {
             holder.textViewStatus=(CustomTextViewBold) convertView.findViewById(R.id.textViewStatus);
             holder.textViewTopicReason=(CustomTextViewBold) convertView.findViewById(R.id.textViewTopicReason);
             holder.linearLayoutReason=(LinearLayout) convertView.findViewById(R.id.linearLayoutReason);
+            holder.linearLayoutSystemReason=(LinearLayout) convertView.findViewById(R.id.linearLayoutSystemReason);
+            holder.textViewSystemBlock=(CustomTextView) convertView.findViewById(R.id.textViewSystemBlock);
 
 
             rowView = convertView;
@@ -103,36 +106,49 @@ public class SearchSaleOrderListAdapter extends BaseAdapter {
 //        holder.textViewStatus.setText(object.status);
         if (object.status.equals("Completely processed")){
             if (object.docflow.get("invno").equals("")){
-                holder.linearLayoutReason.setVisibility(View.GONE);
+                holder.linearLayoutReason.setVisibility(View.VISIBLE);
+                //holder.linearLayoutSystemReason.setVisibility(View.VISIBLE);
                 holder.textViewStatus.setBackgroundResource(R.drawable.button_yellow_round);
                 holder.textViewStatus.setText("On Process");
             }else{
             holder.linearLayoutReason.setVisibility(View.GONE);
+            holder.linearLayoutSystemReason.setVisibility(View.GONE);
             holder.textViewStatus.setBackgroundResource(R.drawable.button_green_round);
             holder.textViewStatus.setText("Completely");}}
 
         if (object.status.equals("Partially processed")) {
             holder.linearLayoutReason.setVisibility(View.VISIBLE);
+            holder.linearLayoutSystemReason.setVisibility(View.VISIBLE);
             holder.textViewStatus.setBackgroundResource(R.drawable.button_yellow_round);
             holder.textViewStatus.setText("On Process");}
 
         if (object.status.equals("Not Relevant")) {
             holder.linearLayoutReason.setVisibility(View.VISIBLE);
+            holder.linearLayoutSystemReason.setVisibility(View.VISIBLE);
             holder.textViewStatus.setBackgroundResource(R.drawable.button_yellow_round);
             holder.textViewStatus.setText("On Process");}
 
         if (object.status.equals("Not yet processed")) {
             holder.linearLayoutReason.setVisibility(View.VISIBLE);
+            holder.linearLayoutSystemReason.setVisibility(View.VISIBLE);
             holder.textViewStatus.setBackgroundResource(R.drawable.button_red_round);
             holder.textViewStatus.setText("Not Process");}
 
-//        if (object.deliveryblock.equals("Not yet processed")) {holder.textViewReason.setText("Delivery Block"); }
-//        else{if (object.deliveryblock.equals("Partially processed")) { holder.textViewReason.setText("Delivery Block");}
-//        else{if (object.deliveryblock.equals("Not Relevant")) { holder.textViewReason.setText("Delivery Block");}
-//        else{if (object.shiptoblock.equals("")){ holder.textViewReason.setText("ShipTo Block");}
-//        else{if (object.creditblock.equals("Credit check was executed, document not OK")){ holder.textViewReason.setText("Credit Block");
+//        if (object.deliveryblock.equals("Not yet processed")) {holder.textViewSystemBlock.setText("Delivery Block"); }
+//        else{if (object.deliveryblock.equals("Partially processed")) { holder.textViewSystemBlock.setText("Delivery Block");}
+//        else{if (object.deliveryblock.equals("Not Relevant")) { holder.textViewSystemBlock.setText("Delivery Block");}
+//        else{if (object.shiptoblock.equals("")){ holder.textViewSystemBlock.setText("ShipTo Block");}
+//        else{if (object.creditblock.equals("Credit check was executed, document not OK")){ holder.textViewSystemBlock.setText("Credit Block");
 //        }}}}}
+        if (object.deliveryblock.equals("Not yet processed")) {holder.textViewSystemBlock.setText("Delivery Block"); }
+        if (object.deliveryblock.equals("Partially processed")) { holder.textViewSystemBlock.setText("Delivery Block");}
+        if (object.deliveryblock.equals("Not Relevant")) { holder.textViewSystemBlock.setText("Delivery Block");}
+        if (object.shiptoblock.equals("")){ holder.textViewSystemBlock.setText("ShipTo Block");}
+        if (object.creditblock.equals("Credit check was executed, document not OK")){ holder.textViewSystemBlock.setText("Credit Block");}
 
+        if (object.reason.equals("")){
+            holder.linearLayoutReason.setVisibility(View.GONE);
+        }
 
 
 //        holder.checkboxSelected.setTag(Integer.valueOf(position));
