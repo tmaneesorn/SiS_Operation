@@ -107,7 +107,7 @@ public class SearchSaleOrderListAdapter extends BaseAdapter {
         if (object.status.equals("Completely processed")){
             if (object.docflow.get("invno").equals("")){
                 holder.linearLayoutReason.setVisibility(View.VISIBLE);
-                //holder.linearLayoutSystemReason.setVisibility(View.VISIBLE);
+                holder.linearLayoutSystemReason.setVisibility(View.VISIBLE);
                 holder.textViewStatus.setBackgroundResource(R.drawable.button_yellow_round);
                 holder.textViewStatus.setText("On Process");
             }else{
@@ -147,7 +147,7 @@ public class SearchSaleOrderListAdapter extends BaseAdapter {
         if (object.creditblock.equals("Credit check was executed, document not OK")){ holder.textViewSystemBlock.setText("Credit Block");}
 
         if (object.reason.equals("")){
-            holder.linearLayoutReason.setVisibility(View.GONE);
+            holder.textViewReason.setText("-");
         }
 
 
