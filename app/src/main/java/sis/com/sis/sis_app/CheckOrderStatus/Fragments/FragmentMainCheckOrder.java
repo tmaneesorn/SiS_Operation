@@ -192,6 +192,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
             //        sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + Constants.API_HOST + "MSOOrderListBySales.php?");
             //        sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + rParams);
             rParams.put("kw", searchValue);
+            sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + rParams);
             client.get(Constants.API_HOST + "MSOOrderListBySales.php?", rParams, new AsyncHttpResponseHandler() {
 
 
