@@ -324,10 +324,11 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
                 {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        if (isAdded() && customProgress != null) customProgress.hideProgress();
+                    }
+
                     GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                    getActivity().startActivity(myIntent);
-                    getActivity().finish();
                 }
 
 
@@ -460,10 +461,11 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
 
                                 @Override
                                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-//                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-//                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
-//                    getActivity().startActivity(myIntent);
-//                    getActivity().finish();
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                        if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                    }
+
+                                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
                                 }
 
 
@@ -487,10 +489,11 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-//                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-//                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
-//                    getActivity().startActivity(myIntent);
-//                    getActivity().finish();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        if (isAdded() && customProgress != null) customProgress.hideProgress();
+                    }
+
+                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
                 }
 
 

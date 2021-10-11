@@ -256,7 +256,11 @@ public class FragmentMainSaleOrder extends Fragment implements SaleOrderListAdap
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
             {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    if (isAdded() && customProgress != null) customProgress.hideProgress();
+                }
 
+                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
             }
 
             @Override
