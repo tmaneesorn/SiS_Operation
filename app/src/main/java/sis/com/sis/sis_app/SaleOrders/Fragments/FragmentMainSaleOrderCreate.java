@@ -267,12 +267,6 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response)
                         {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                customProgress.hideProgress();
-                            }
-
-                            Constants.doLog("LOG RESPONSE RESULT2 : " + statusCode);
-                            Constants.doLog("LOG RESPONSE RESULT2 : " + new String(response));
                             Gson gson = new Gson();
                             ResponseResult responseResultLocal = new ResponseResult();
 
@@ -982,7 +976,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
                         if (allItemSelected.size() != 0) {
                             for (String item: allItemSelected) {
-                                SharedPreferenceHelper.setSharedPreferenceString(getContext(), item, "");
+                                SharedPreferenceHelper.setSharedPreferenceInt(getContext(), item, 1);
                             }
                         }
 
@@ -990,11 +984,8 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
                         String[] allItems = saleOrderItem.split("\\|");
                         for (String s : allItems) {
-                            Constants.doLog("LOG soldToCode RESULT1 : " + s);
+                            Constants.doLog("LOG RESET QTY : " + s);
                             SharedPreferenceHelper.setSharedPreferenceInt(getContext(), s, 1);
-
-                            break;
-
                         }
 
                         if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Create Sale Order successfully.");
