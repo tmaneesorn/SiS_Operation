@@ -133,111 +133,114 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
 
                 if (isJSONValid(new String(response))){
                     responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                }
 
-                if (responseResult.status_code == 200)
-                {
-
-                    for (CustomerObject item: responseResult.shipto)
+                    if (responseResult.status_code == 200)
                     {
-                        if (soldTo_code.equals(item.soldto)){
-                            arrayListShipTo.add(item);
-                        }
-                    }
-                    if (arrayListShipTo.isEmpty()) {
-                        for (CustomerObject item: responseResult.soldto)
+
+                        for (CustomerObject item: responseResult.shipto)
                         {
                             if (soldTo_code.equals(item.soldto)){
                                 arrayListShipTo.add(item);
                             }
                         }
-                    }
+                        if (arrayListShipTo.isEmpty()) {
+                            for (CustomerObject item: responseResult.soldto)
+                            {
+                                if (soldTo_code.equals(item.soldto)){
+                                    arrayListShipTo.add(item);
+                                }
+                            }
+                        }
 
-                    if (arrayListShipTo.size() == 0) {
+                        if (arrayListShipTo.size() == 0) {
 
-                        rParams.put("kw", soldTo_code);
-                        client.get(Constants.API_HOST + "MSOCustSearch.php?", rParams, new AsyncHttpResponseHandler() {
+                            rParams.put("kw", soldTo_code);
+                            client.get(Constants.API_HOST + "MSOCustSearch.php?", rParams, new AsyncHttpResponseHandler() {
 
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onStart() {
+                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                @Override
+                                public void onStart() {
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //                        if (customProgress == null) customProgress = CustomDialogLoading.getInstance();
 //                        customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
 //                    }
-                            }
+                                }
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, byte[] response)
-                            {
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, byte[] response)
+                                {
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //                        customProgress.hideProgress();
 //                    }
 
-                                Constants.doLog("LOG RESPONSE RESULT2 : " + statusCode);
-                                Constants.doLog("LOG RESPONSE RESULT2 : " + new String(response));
-                                Gson gson = new Gson();
-                                ResponseResult responseResult = new ResponseResult();
+                                    Constants.doLog("LOG RESPONSE RESULT2 : " + statusCode);
+                                    Constants.doLog("LOG RESPONSE RESULT2 : " + new String(response));
+                                    Gson gson = new Gson();
+                                    ResponseResult responseResult = new ResponseResult();
 
-                                if (isJSONValid(new String(response))){
-                                    responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                                }
+                                    if (isJSONValid(new String(response))){
+                                        responseResult = gson.fromJson(new String(response),ResponseResult.class);
+                                    }
 
-                                if (responseResult.status_code == 200)
-                                {
+                                    if (responseResult.status_code == 200)
+                                    {
 //                        Constants.doLog("LOG2 : " + responseResult.shipto.size());
 
-                                    for (CustomerObject item: responseResult.shipto)
-                                    {
-                                        if (soldTo_code.equals(item.soldto)){
-                                            arrayListShipTo.add(item);
-                                        }
-                                    }
-                                    if (arrayListShipTo.isEmpty()) {
-                                        for (CustomerObject item: responseResult.soldto)
+                                        for (CustomerObject item: responseResult.shipto)
                                         {
                                             if (soldTo_code.equals(item.soldto)){
                                                 arrayListShipTo.add(item);
                                             }
                                         }
+                                        if (arrayListShipTo.isEmpty()) {
+                                            for (CustomerObject item: responseResult.soldto)
+                                            {
+                                                if (soldTo_code.equals(item.soldto)){
+                                                    arrayListShipTo.add(item);
+                                                }
+                                            }
+                                        }
                                     }
+                                    else
+                                    {
+                                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                                    }
+
+                                    shipToListAdapter.notifyDataSetChanged();
+
                                 }
-                                else
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
                                 {
-                                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                        if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                    }
+
+                                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
                                 }
 
-                                shipToListAdapter.notifyDataSetChanged();
 
-                            }
-
-
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
-                            {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                @Override
+                                public void onRetry(int retryNo) {
+                                    // called when request is retried
                                 }
+                            });
+                        }
 
-                                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-                            }
-
-
-                            @Override
-                            public void onRetry(int retryNo) {
-                                // called when request is retried
-                            }
-                        });
+                        Constants.doLog("LOG2 : " + arrayListShipTo.size());
+                    }
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
                     }
 
-                    Constants.doLog("LOG2 : " + arrayListShipTo.size());
-                }
-                else
-                {
-                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-                }
+                    shipToListAdapter.notifyDataSetChanged();
 
-                shipToListAdapter.notifyDataSetChanged();
+                }
+                else if (new String(response).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                }
 
             }
 

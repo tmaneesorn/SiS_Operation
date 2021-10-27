@@ -122,107 +122,113 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
 
                 if (isJSONValid(new String(response))){
                     responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                }
 
-                Constants.doLog("LOG SHIPTO : " + responseResult.status_code);
-                Constants.doLog("LOG SHIPTO : " + responseResult.data);
+                    Constants.doLog("LOG SHIPTO : " + responseResult.status_code);
+                    Constants.doLog("LOG SHIPTO : " + responseResult.data);
 
-                if (responseResult.status_code == 200)
-                {
-                    for (CheckStatusObject item: responseResult.data)
+                    if (responseResult.status_code == 200)
                     {
-                        if (item.code.equals("502")) {
-                            if (item.order.length() >= 8) {
-                                rParams.remove("mobodr");
-                                rParams.put("sapodr", item.order);
-                                client.get(Constants.API_HOST + "MSOOrderCheck.php?", rParams, new AsyncHttpResponseHandler() {
+                        for (CheckStatusObject item: responseResult.data)
+                        {
+                            if (item.code.equals("502")) {
+                                if (item.order.length() >= 8) {
+                                    rParams.remove("mobodr");
+                                    rParams.put("sapodr", item.order);
+                                    client.get(Constants.API_HOST + "MSOOrderCheck.php?", rParams, new AsyncHttpResponseHandler() {
 
-                                    @Override
-                                    public void onStart() {
+                                        @Override
+                                        public void onStart() {
 
-                                    }
-
-                                    @Override
-                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                                        Gson gson = new Gson();
-                                        ResponseResult responseResult = new ResponseResult();
-
-                                        if (isJSONValid(new String(response))) {
-                                            responseResult = gson.fromJson(new String(response), ResponseResult.class);
                                         }
 
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                            Gson gson = new Gson();
+                                            ResponseResult responseResult = new ResponseResult();
 
-                                        if (responseResult.status_code == 200) {
-                                            for (CheckStatusObject item : responseResult.data) {
-                                                if (!item.code.equals("502")) {
-                                                    arrayList.add(item);
-                                                }
-                                                else {
-                                                    if (isAdded() && rl_no_information != null) rl_no_information.show("No Result!","Please search your sale order number to check status.",getResources().getDrawable(R.drawable.ic_cross));
+                                            if (isJSONValid(new String(response))) {
+                                                responseResult = gson.fromJson(new String(response), ResponseResult.class);
+                                            }
 
+
+                                            if (responseResult.status_code == 200) {
+                                                for (CheckStatusObject item : responseResult.data) {
+                                                    if (!item.code.equals("502")) {
+                                                        arrayList.add(item);
+                                                    }
+                                                    else {
+                                                        if (isAdded() && rl_no_information != null) rl_no_information.show("No Result!","Please search your sale order number to check status.",getResources().getDrawable(R.drawable.ic_cross));
+
+                                                    }
                                                 }
                                             }
+                                            checkSaleOrderListAdapter.notifyDataSetChanged();
+
                                         }
-                                        checkSaleOrderListAdapter.notifyDataSetChanged();
 
-                                    }
-
-                                    public boolean isJSONValid(String test) {
-                                        try {
-                                            new JSONObject(test);
-                                        } catch (JSONException ex) {
-                                            // edited, to include @Arthur's comment
-                                            // e.g. in case JSONArray is valid as well...
+                                        public boolean isJSONValid(String test) {
                                             try {
-                                                new JSONArray(test);
-                                            } catch (JSONException ex1) {
-                                                return false;
+                                                new JSONObject(test);
+                                            } catch (JSONException ex) {
+                                                // edited, to include @Arthur's comment
+                                                // e.g. in case JSONArray is valid as well...
+                                                try {
+                                                    new JSONArray(test);
+                                                } catch (JSONException ex1) {
+                                                    return false;
+                                                }
                                             }
-                                        }
-                                        return true;
-                                    }
-
-
-                                    @Override
-                                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                            if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                            return true;
                                         }
 
-                                        GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-                                    }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                                if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                            }
+
+                                            GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                                        }
 
 
-                                    @Override
-                                    public void onRetry(int retryNo) {
-                                        // called when request is retried
-                                    }
-                                });
+                                        @Override
+                                        public void onRetry(int retryNo) {
+                                            // called when request is retried
+                                        }
+                                    });
+                                }
+                                else {
+                                    GeneralHelper.getInstance().showBasicAlert(getContext(),"Please insert keyword more than 8 digits");
+                                }
                             }
                             else {
-                                GeneralHelper.getInstance().showBasicAlert(getContext(),"Please insert keyword more than 8 digits");
+                                arrayList.add(item);
                             }
                         }
-                        else {
-                            arrayList.add(item);
-                        }
+
+                        rl_no_information.hide();
+
+                    }
+                    else if (responseResult.status_code == 401)
+                    {
+                        searchView.setVisibility( View.GONE);
+                        relativeLayoutSaleOrderHeader.setVisibility(View.GONE);
+                        if (isAdded() && rl_no_information != null) rl_no_information.show("Account Unauthorized","Your account are unauthorized, Please contact IS.",getResources().getDrawable(R.drawable.ic_cross));
+                    }
+                    else if (responseResult.status_code == 201) {
+                        if (isAdded() && rl_no_information != null) rl_no_information.show(getResources().getString(R.string.ship_to_no_order),"Please search your sale order.",getResources().getDrawable(R.drawable.ic_cross));
+                    }
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
                     }
 
-                    rl_no_information.hide();
-
+                    checkSaleOrderListAdapter.notifyDataSetChanged();
                 }
-                else if (responseResult.status_code == 401)
-                {
-                    searchView.setVisibility( View.GONE);
-                    relativeLayoutSaleOrderHeader.setVisibility(View.GONE);
-                    if (isAdded() && rl_no_information != null) rl_no_information.show("Account Unauthorized","Your account are unauthorized, Please contact IS.",getResources().getDrawable(R.drawable.ic_cross));
+                else if (new String(response).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                 }
-//                else
-//                {
-//                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-//                }
-
-                checkSaleOrderListAdapter.notifyDataSetChanged();
 
             }
 

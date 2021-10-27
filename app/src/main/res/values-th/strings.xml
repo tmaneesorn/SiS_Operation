@@ -134,6 +134,8 @@
     <string name="message_response_success">ตอบกลับสำเร็จแล้ว</string>
     <string name="message_reject_success">ไม่อนุมัติการส่งสินค้าสำเร็จแล้ว</string>
 
+    <string name="message_contact_is">พบข้อผิดพลาด กรุณาติดต่อแผนก Information System (IS)</string>
+    <string name="message_update_version">กรุณาอัพเดทเวอร์ชัน</string>
     <string name="message_cannot_connect_server">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง</string>
     <string name="message_urgent">อนุมัติด่วน!</string>
 

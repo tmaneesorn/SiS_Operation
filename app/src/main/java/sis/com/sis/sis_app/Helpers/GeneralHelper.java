@@ -88,6 +88,30 @@ public class GeneralHelper
         alert.show();
     }
 
+    public void showUpdateAlert(Context mContext, String message)
+    {
+        TextView textView = new TextView(mContext);
+        textView.setText(mContext.getResources().getString(R.string.main_title_information));
+        textView.setPadding(20, 30, 20, 30);
+        textView.setTextSize(20F);
+        textView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+        textView.setTextColor(Color.WHITE);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setCustomTitle(textView);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton(
+                mContext.getResources().getString(R.string.button_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        System.exit(0);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     public void sendPushTokenToServer(Context mContext)
     {

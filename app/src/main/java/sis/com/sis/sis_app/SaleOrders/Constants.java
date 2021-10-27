@@ -24,7 +24,7 @@ public class Constants {
     public static final String SUPPORT_URL = "http://www.sisthai.com/sis/page/xpage.php";
 //    public static final String API_HOST = "https://mobileapp.sisthai.com/SiSAndroid_Centre.nsf/";
     public static final String API_HOST = "http://www.sisthai.com/api/MobileOrder/";
-    public static final String SIS_SECRET = "denis";
+    public static final String SIS_SECRET = "denis122";
 
 
     public static void doLog(String logString)

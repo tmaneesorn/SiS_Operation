@@ -152,116 +152,135 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
 
                     if (isJSONValid(new String(response))){
                         responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                    }
 
-                    if (responseResult.status_code == 200)
-                    {
-                        if (responseResult.articles == null) {
-                            if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Article ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
-                        }
-                        else if (responseResult.articles.size() != 0) {
-                            for (ArticleObject item: responseResult.articles)
-                            {
-                                if (category.equalsIgnoreCase("")){
-                                    categoryListTitle.add(item.category);
-                                    category = item.category;
+                        if (responseResult.status_code == 200)
+                        {
+                            if (responseResult.articles == null) {
+                                if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Article ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+                            }
+                            else if (responseResult.articles.size() != 0) {
+                                for (ArticleObject item: responseResult.articles)
+                                {
+                                    if (category.equalsIgnoreCase("")){
+                                        categoryListTitle.add(item.category);
+                                        category = item.category;
 
-                                    Constants.doLog("CATEGORY : " + "'" + item.category + "'");
-                                }
-                                else {
-                                    if (categoryListTitle.size() != 0){
-                                        position = categoryListTitle.indexOf(item.category);
-                                        if (position == -1){
-                                            categoryListTitle.add(item.category);
-                                            category = item.category;
+                                        Constants.doLog("CATEGORY : " + "'" + item.category + "'");
+                                    }
+                                    else {
+                                        if (categoryListTitle.size() != 0){
+                                            position = categoryListTitle.indexOf(item.category);
+                                            if (position == -1){
+                                                categoryListTitle.add(item.category);
+                                                category = item.category;
 
-                                            Constants.doLog("CATEGORY1 : " + "'" + item.category + "'");
+                                                Constants.doLog("CATEGORY1 : " + "'" + item.category + "'");
+                                            }
                                         }
                                     }
+                                    arrayListArticle.add(item);
                                 }
-                                arrayListArticle.add(item);
-                            }
 
-                            Constants.doLog("CATEGORY SIZE : " + "'" + categoryListTitle.get(0) + "'");
-                            if (categoryListTitle.size() != 0){
-                                for (int i = 0; i < categoryListTitle.size(); i++) {
-                                    List<ArticleObject> arrayListArticleCate = new ArrayList<ArticleObject>();
+                                Constants.doLog("CATEGORY SIZE : " + "'" + categoryListTitle.get(0) + "'");
+                                if (categoryListTitle.size() != 0){
+                                    for (int i = 0; i < categoryListTitle.size(); i++) {
+                                        List<ArticleObject> arrayListArticleCate = new ArrayList<ArticleObject>();
 
-                                    for (ArticleObject item: responseResult.articles)
-                                    {
-                                        if (categoryListTitle.get(i).equals(item.category)) {
-                                            arrayListArticleCate.add(item);
+                                        for (ArticleObject item: responseResult.articles)
+                                        {
+                                            if (categoryListTitle.get(i).equals(item.category)) {
+                                                arrayListArticleCate.add(item);
+                                            }
+
                                         }
+
+                                        categoryListDetail.put(categoryListTitle.get(i), arrayListArticleCate);
 
                                     }
 
-                                    categoryListDetail.put(categoryListTitle.get(i), arrayListArticleCate);
-
                                 }
 
-                            }
-
-                            articleListAdapter = new ArticleListAdapter(getContext(), categoryListTitle, categoryListDetail);
+                                articleListAdapter = new ArticleListAdapter(getContext(), categoryListTitle, categoryListDetail);
 //                            articleListAdapter.setListViewItemClickListener(this);
-                            expandableRecycleView.setAdapter(articleListAdapter);
-                            expandableRecycleView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                                expandableRecycleView.setAdapter(articleListAdapter);
+                                expandableRecycleView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-                                @Override
-                                public void onGroupExpand(int groupPosition) {
+                                    @Override
+                                    public void onGroupExpand(int groupPosition) {
 //                                    Toast.makeText(getContext(),
 //                                            categoryListTitle.get(groupPosition) + " List Expanded.",
 //                                            Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                    }
+                                });
 
-                            expandableRecycleView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+                                expandableRecycleView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
 
-                                @Override
-                                public void onGroupCollapse(int groupPosition) {
+                                    @Override
+                                    public void onGroupCollapse(int groupPosition) {
 //                                    Toast.makeText(getContext(),
 //                                            categoryListTitle.get(groupPosition) + " List Collapsed.",
 //                                            Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
-
-                            expandableRecycleView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                                @Override
-                                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
-                                    ArticleObject articleObject = categoryListDetail.get(categoryListTitle.get(groupPosition)).get(childPosition);
-
-                                    if (articleObject.checked){ //true = remove
-                                        if (allItemSelected.size() != 0) {
-                                            for (String item: allItemSelected) {
-                                                if (item.equals(articleObject.sku)){
-                                                    articleObject.checked = !articleObject.checked;
-                                                    allItemSelected.remove(item);
-                                                }
-                                            }
-                                        }
-                                        else {
-                                            GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
-                                        }
                                     }
-                                    else { //false add
+                                });
 
-                                        String saleOrderItems = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.SALE_ORDER_ITEMS, "");
-                                        boolean saleOrderChecked = true;
-                                        boolean listSaleOrderChecked = true;
+                                expandableRecycleView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                                    @Override
+                                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                                        if (!saleOrderItems.equals("")) {
-                                            String[] allItems = saleOrderItems.split("\\|");
+                                        ArticleObject articleObject = categoryListDetail.get(categoryListTitle.get(groupPosition)).get(childPosition);
 
-                                            for (String item: allItems) {
-                                                if (item.equals(articleObject.sku)){
-                                                    articleObject.checked = !articleObject.checked;
-                                                    saleOrderChecked = false;
-                                                    GeneralHelper.getInstance().showBasicAlert(getContext(),"This article already add into your list.");
+                                        if (articleObject.checked){ //true = remove
+                                            if (allItemSelected.size() != 0) {
+                                                for (String item: allItemSelected) {
+                                                    if (item.equals(articleObject.sku)){
+                                                        articleObject.checked = !articleObject.checked;
+                                                        allItemSelected.remove(item);
+                                                    }
                                                 }
                                             }
+                                            else {
+                                                GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
+                                            }
+                                        }
+                                        else { //false add
 
-                                            if (saleOrderChecked){
+                                            String saleOrderItems = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.SALE_ORDER_ITEMS, "");
+                                            boolean saleOrderChecked = true;
+                                            boolean listSaleOrderChecked = true;
+
+                                            if (!saleOrderItems.equals("")) {
+                                                String[] allItems = saleOrderItems.split("\\|");
+
+                                                for (String item: allItems) {
+                                                    if (item.equals(articleObject.sku)){
+                                                        articleObject.checked = !articleObject.checked;
+                                                        saleOrderChecked = false;
+                                                        GeneralHelper.getInstance().showBasicAlert(getContext(),"This article already add into your list.");
+                                                    }
+                                                }
+
+                                                if (saleOrderChecked){
+                                                    if (allItemSelected != null && allItemSelected.size() != 0) {
+                                                        for (String item: allItemSelected) {
+                                                            if (item.equals(articleObject.sku)){
+                                                                articleObject.checked = !articleObject.checked;
+                                                                listSaleOrderChecked = false;
+                                                                GeneralHelper.getInstance().showBasicAlert(getContext(),"This article already add into your list.");
+                                                            }
+                                                        }
+                                                        if (listSaleOrderChecked) {
+                                                            articleObject.checked = !articleObject.checked;
+                                                            allItemSelected.add(articleObject.sku);
+                                                        }
+                                                    }
+                                                    else {
+                                                        articleObject.checked = !articleObject.checked;
+                                                        allItemSelected.add(articleObject.sku);
+                                                    }
+                                                }
+                                            }
+                                            else {
                                                 if (allItemSelected != null && allItemSelected.size() != 0) {
                                                     for (String item: allItemSelected) {
                                                         if (item.equals(articleObject.sku)){
@@ -281,45 +300,29 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                                                 }
                                             }
                                         }
-                                        else {
-                                            if (allItemSelected != null && allItemSelected.size() != 0) {
-                                                for (String item: allItemSelected) {
-                                                    if (item.equals(articleObject.sku)){
-                                                        articleObject.checked = !articleObject.checked;
-                                                        listSaleOrderChecked = false;
-                                                        GeneralHelper.getInstance().showBasicAlert(getContext(),"This article already add into your list.");
-                                                    }
-                                                }
-                                                if (listSaleOrderChecked) {
-                                                    articleObject.checked = !articleObject.checked;
-                                                    allItemSelected.add(articleObject.sku);
-                                                }
-                                            }
-                                            else {
-                                                articleObject.checked = !articleObject.checked;
-                                                allItemSelected.add(articleObject.sku);
-                                            }
-                                        }
+                                        articleListAdapter.notifyDataSetChanged();
+                                        return false;
                                     }
-                                    articleListAdapter.notifyDataSetChanged();
-                                    return false;
-                                }
-                            });
+                                });
+                            }
+                            else {
+                                if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Article ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+                            }
+
                         }
-                        else {
-                            if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Article ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+                        else
+                        {
+                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
                         }
 
-                    }
-                    else
-                    {
-                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-                    }
+                        articleListAdapter.notifyDataSetChanged();
 
-                    articleListAdapter.notifyDataSetChanged();
+                    }
+                    else if (new String(response).equals("Not Authorized or Invalid version!")){
+                        GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                    }
 
                 }
-
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
@@ -377,113 +380,119 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
 
                     if (isJSONValid(new String(response))) {
                         responseResult = gson.fromJson(new String(response), ResponseResult.class);
-                    }
 
-                    if (responseResult.status_code == 200) {
-                        for (ArticleObject item : responseResult.articles) {
-                            if (item.nickname.contains(searchValue) || item.name.contains(searchValue) || item.sku.contains(searchValue)){
-                                arrayListArticle.add(item);
+                        if (responseResult.status_code == 200) {
+                            for (ArticleObject item : responseResult.articles) {
+                                if (item.nickname.contains(searchValue) || item.name.contains(searchValue) || item.sku.contains(searchValue)){
+                                    arrayListArticle.add(item);
+                                }
                             }
                         }
-                    }
-                    else {
-                        if (isAdded())
-                            GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-                    }
-                    Constants.doLog("LOG arrayListSoldTo SIZE : " + arrayListArticle.size());
+                        else {
+                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                        }
+                        Constants.doLog("LOG arrayListSoldTo SIZE : " + arrayListArticle.size());
 
-                    if (arrayListArticle.size() == 0) {
+                        if (arrayListArticle.size() == 0) {
 
-                        Constants.doLog("LOG 3 : " + "'" + searchValue + "'");
-                        if (searchValue.length() >= 8) {
+                            Constants.doLog("LOG 3 : " + "'" + searchValue + "'");
+                            if (searchValue.length() >= 8) {
 
-                            String soldToCode = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.SOLD_TO_CODE, "");
-                            String paymentTerm = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.PAYMENT_TERM, "");
+                                String soldToCode = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.SOLD_TO_CODE, "");
+                                String paymentTerm = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.PAYMENT_TERM, "");
 
-                            Constants.doLog("LOG arrayListSoldTo SIZE : " + paymentTerm);
+                                Constants.doLog("LOG arrayListSoldTo SIZE : " + paymentTerm);
 
-                            rParams.put("kw", searchValue);
-                            rParams.put("sdt", soldToCode);
-                            rParams.put("pmt", paymentTerm);
-                            rParams.put("bps", 1);
-                            customProgress.hideProgress();
-                            arrayListArticle.clear();
-                            client.get(Constants.API_HOST + "MSOSkuSearch.php?", rParams, new AsyncHttpResponseHandler() {
+                                rParams.put("kw", searchValue);
+                                rParams.put("sdt", soldToCode);
+                                rParams.put("pmt", paymentTerm);
+                                rParams.put("bps", 1);
+                                customProgress.hideProgress();
+                                arrayListArticle.clear();
+                                client.get(Constants.API_HOST + "MSOSkuSearch.php?", rParams, new AsyncHttpResponseHandler() {
 
-                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                                @Override
-                                public void onStart() {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                    @Override
+                                    public void onStart() {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //                            if (customProgress == null)
 //                                customProgress = CustomDialogLoading.getInstance();
 //                            customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
-                                    }
-                                }
-
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                                    if (rl_no_information != null) rl_no_information.hide();
-
-                                    if (arrayListArticle.size() != 0) {
-                                        Constants.doLog("LOG arrayListSoldTo SIZE : " + arrayListArticle.size());
-                                        arrayListArticle.clear();
-                                        if (rl_no_information != null) rl_no_information.hide();
-                                    }
-
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        customProgress.hideProgress();
-                                    }
-
-                                    Constants.doLog("LOG RESPONSE RESULT2 : " + statusCode);
-                                    Constants.doLog("LOG RESPONSE RESULT2 : " + new String(response));
-                                    Gson gson = new Gson();
-                                    ResponseResult responseResult = new ResponseResult();
-
-                                    if (isJSONValid(new String(response))) {
-                                        responseResult = gson.fromJson(new String(response), ResponseResult.class);
-                                    }
-
-                                    if (responseResult.status_code == 200) {
-                                        for (ArticleObject item : responseResult.articles) {
-                                            arrayListArticle.add(item);
                                         }
-                                    } else if (responseResult.status_code == 201) {
-                                        if (isAdded() && rl_no_information != null)
-                                            rl_no_information.show("No Result.", "ผลการค้นหา '" + searchValue + "' ไม่พบรายการในระบบ, ลองอีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
-                                    } else {
-                                        if (isAdded())
-                                            GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
                                     }
 
-                                    articleListAdapter.notifyDataSetChanged();
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                        if (rl_no_information != null) rl_no_information.hide();
 
-                                }
+                                        if (arrayListArticle.size() != 0) {
+                                            Constants.doLog("LOG arrayListSoldTo SIZE : " + arrayListArticle.size());
+                                            arrayListArticle.clear();
+                                            if (rl_no_information != null) rl_no_information.hide();
+                                        }
 
-                                @Override
-                                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            customProgress.hideProgress();
+                                        }
+
+                                        Constants.doLog("LOG RESPONSE RESULT2 : " + statusCode);
+                                        Constants.doLog("LOG RESPONSE RESULT2 : " + new String(response));
+                                        Gson gson = new Gson();
+                                        ResponseResult responseResult = new ResponseResult();
+
+                                        if (isJSONValid(new String(response))) {
+                                            responseResult = gson.fromJson(new String(response), ResponseResult.class);
+
+                                            if (responseResult.status_code == 200) {
+                                                for (ArticleObject item : responseResult.articles) {
+                                                    arrayListArticle.add(item);
+                                                }
+                                            } else if (responseResult.status_code == 201) {
+                                                if (isAdded() && rl_no_information != null)
+                                                    rl_no_information.show("No Result.", "ผลการค้นหา '" + searchValue + "' ไม่พบรายการในระบบ, ลองอีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
+                                            } else {
+                                                if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                                            }
+
+                                            articleListAdapter.notifyDataSetChanged();
+
+                                        }
+                                        else if (new String(response).equals("Not Authorized or Invalid version!")){
+                                            GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                                        }
+
                                     }
 
-                                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-                                }
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                        }
+
+                                        GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                                    }
 
 
-                                @Override
-                                public void onRetry(int retryNo) {
-                                    // called when request is retried
-                                }
-                            });
+                                    @Override
+                                    public void onRetry(int retryNo) {
+                                        // called when request is retried
+                                    }
+                                });
+                            }
+                            else {
+                                GeneralHelper.getInstance().showBasicAlert(getContext(),"Please insert keyword more than 8 digits");
+                                if (isAdded() && rl_no_information != null)
+                                    rl_no_information.show("No Result.", "ไม่สามารถค้นหาได้ เนื่องจากใส่คำค้นหาไม่ถึง 8 ตัวอักษร (กรณีไม่มีข้อมูลบน Lotus Notes ตามที่เตรียมไว้)", getResources().getDrawable(R.drawable.ic_cross));
+
+                            }
                         }
-                        else {
-                            GeneralHelper.getInstance().showBasicAlert(getContext(),"Please insert keyword more than 8 digits");
-                            if (isAdded() && rl_no_information != null)
-                                rl_no_information.show("No Result.", "ไม่สามารถค้นหาได้ เนื่องจากใส่คำค้นหาไม่ถึง 8 ตัวอักษร (กรณีไม่มีข้อมูลบน Lotus Notes ตามที่เตรียมไว้)", getResources().getDrawable(R.drawable.ic_cross));
 
-                        }
+                        articleListAdapter.notifyDataSetChanged();
+
                     }
-
-                    articleListAdapter.notifyDataSetChanged();
+                    else if (new String(response).equals("Not Authorized or Invalid version!")){
+                        GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                    }
 
                 }
 

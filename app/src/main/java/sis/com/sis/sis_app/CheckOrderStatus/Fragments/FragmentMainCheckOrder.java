@@ -92,7 +92,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
         String user_code = SharedPreferenceHelper.getSharedPreferenceString(getContext(), sis.com.sis.sis_app.Constants.user_code, "");
 
         RequestParams rParams = new RequestParams();
-        rParams.put("SiS", "denis"); //Constants.SIS_SECRET
+        rParams.put("SiS", Constants.SIS_SECRET); //Constants.SIS_SECRET
         rParams.put("se", "100" + user_code);
 
 
@@ -125,30 +125,37 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
 
                     if (isJSONValid(new String(response))) {
                         responseResult = gson.fromJson(new String(response), ResponseResult.class);
-                    }
 
-                    //sis.com.sis.sis_app.ShipToApproval.Constants.doLog("LOG HISTORY : " + new String(response));
-
-                    if (responseResult.status_code == 200) {
-
-                        if (customProgress != null) customProgress.hideProgress();
-                        for (CheckStatusObject item : responseResult.datas) {
-                            arrayList.add(item);
-                            Constants.doLog("LOG TEST : " + item.docflow);
+                        if (responseResult.status_code == 200) {
+                            if (customProgress != null) customProgress.hideProgress();
+                            for (CheckStatusObject item : responseResult.datas) {
+                                arrayList.add(item);
+                                Constants.doLog("LOG TEST : " + item.docflow);
+                            }
                         }
-                    } else if (responseResult.status_code == 503) {
-                        if (isAdded() && rl_no_information != null)
-                            rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
-                    } else {
-//                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
+                        else if (responseResult.status_code == 503) {
+                            if (isAdded() && rl_no_information != null)
+                                rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
+                        }
+                        else if (responseResult.status_code == 201) {
+                            if (isAdded() && rl_no_information != null)
+                                rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
+                        }
+                        else {
+                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                        }
+
+                        searchSaleOrderListAdapter.notifyDataSetChanged();
+
+                        if (arrayList.size() == 0) {
+                            if (isAdded() && rl_no_information != null)
+                                rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
+                        }
+                    }
+                    else if (new String(response).equals("Not Authorized or Invalid version!")){
+                        GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                     }
 
-                    searchSaleOrderListAdapter.notifyDataSetChanged();
-
-                    if (arrayList.size() == 0) {
-                        if (isAdded() && rl_no_information != null)
-                            rl_no_information.show(getResources().getString(R.string.ship_to_no_history), "No History Sale Order List Now", getResources().getDrawable(R.drawable.ic_cross));
-                    }
                 }
 
 
@@ -219,11 +226,8 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
 
                     if (isJSONValid(new String(response))) {
                         responseResult = gson.fromJson(new String(response), ResponseResult.class);
-                    }
 
-                    //sis.com.sis.sis_app.ShipToApproval.Constants.doLog("LOG HISTORY : " + new String(response));
-
-                    if (responseResult.status_code == 200) {
+                        if (responseResult.status_code == 200) {
 
                             for (CheckStatusObject item : responseResult.datas) {
                                 arrayList.add(item);
@@ -232,19 +236,30 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
 
                             if (rl_no_information != null) rl_no_information.hide();
 
-                    } else if (responseResult.status_code == 503) {
-                        if (isAdded() && rl_no_information != null)
-                            rl_no_information.show("Not Found", "ไม่พบผลลัพธ์การค้นหา", getResources().getDrawable(R.drawable.ic_cross));
-                    } else {
-//                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
+                        }
+                        else if (responseResult.status_code == 503) {
+                            if (isAdded() && rl_no_information != null)
+                                rl_no_information.show("Not Found", "ไม่พบผลลัพธ์การค้นหา", getResources().getDrawable(R.drawable.ic_cross));
+                        }
+                        else if (responseResult.status_code == 201) {
+                            if (isAdded() && rl_no_information != null)
+                                rl_no_information.show("Not Found", "ไม่พบผลลัพธ์การค้นหา", getResources().getDrawable(R.drawable.ic_cross));
+                        }
+                        else {
+                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                        }
+
+                        searchSaleOrderListAdapter.notifyDataSetChanged();
+
+                        if (arrayList.size() == 0) {
+                            if (isAdded() && rl_no_information != null)
+                                rl_no_information.show("Not Found", "ไม่พบผลลัพธ์การค้นหา", getResources().getDrawable(R.drawable.ic_cross));
+                        }
+                    }
+                    else if (new String(response).equals("Not Authorized or Invalid version!")){
+                        GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                     }
 
-                    searchSaleOrderListAdapter.notifyDataSetChanged();
-
-                    if (arrayList.size() == 0) {
-                        if (isAdded() && rl_no_information != null)
-                            rl_no_information.show("Not Found", "ไม่พบผลลัพธ์การค้นหา", getResources().getDrawable(R.drawable.ic_cross));
-                    }
                 }
 
 

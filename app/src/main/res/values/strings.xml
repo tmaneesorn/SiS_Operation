@@ -135,6 +135,8 @@
     <string name="message_reject_success">Not Approve Ship to order successfully.</string>
 
 <!--    <string name="message_cannot_connect_server">Cannot connect to server now, Please try again.</string>-->
+    <string name="message_contact_is">Found an error, Please contact Information System (IS).</string>
+    <string name="message_update_version">Please update version</string>
     <string name="message_cannot_connect_server">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง</string>
     <string name="message_urgent">Urgent!</string>
 

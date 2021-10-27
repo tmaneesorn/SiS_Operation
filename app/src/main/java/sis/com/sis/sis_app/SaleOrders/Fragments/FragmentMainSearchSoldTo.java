@@ -136,27 +136,31 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
 
                     if (isJSONValid(new String(response))){
                         responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                    }
 
-                    if (responseResult.status_code == 200)
-                    {
-                        if (!responseResult.soldto.isEmpty())
+                        if (responseResult.status_code == 200)
                         {
-                            for (CustomerObject item: responseResult.soldto)
+                            if (!responseResult.soldto.isEmpty())
                             {
-                                arrayListSoldTo.add(item);
+                                for (CustomerObject item: responseResult.soldto)
+                                {
+                                    arrayListSoldTo.add(item);
+                                }
                             }
                         }
-                        else {
-                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
+                        else if (responseResult.status_code == 401)
+                        {
+                            if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
                         }
-                    }
-                    else if (responseResult.status_code == 401)
-                    {
-                        if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
-                    }
+                        else {
+                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                        }
 
-                    customerListAdapter.notifyDataSetChanged();
+                        customerListAdapter.notifyDataSetChanged();
+
+                    }
+                    else if (new String(response).equals("Not Authorized or Invalid version!")){
+                        GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                    }
 
                 }
 
@@ -210,120 +214,134 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
 
                     if (isJSONValid(new String(response))){
                         responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                    }
 
-                    if (responseResult.status_code == 200)
-                    {
-                        if (responseResult.soldto.size() != 0) {
-                            for (CustomerObject item: responseResult.soldto)
-                            {
-                                if (item.nickname.contains(searchValue) || item.name.contains(searchValue) || item.custcode.contains(searchValue) || item.soldto.contains(searchValue)){
-                                    arrayListSoldTo.add(item);
+                        if (responseResult.status_code == 200)
+                        {
+                            if (responseResult.soldto.size() != 0) {
+                                for (CustomerObject item: responseResult.soldto)
+                                {
+                                    if (item.nickname.contains(searchValue) || item.name.contains(searchValue) || item.custcode.contains(searchValue) || item.soldto.contains(searchValue)){
+                                        arrayListSoldTo.add(item);
+                                    }
                                 }
+                                if (rl_no_information != null) rl_no_information.hide();
                             }
-                            if (rl_no_information != null) rl_no_information.hide();
+                            else {
+                                if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Customer ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+                            }
+                        }
+                        else if (responseResult.status_code == 201)
+                        {
+                            if (isAdded() && rl_no_information != null) rl_no_information.show("No Result.","ผลการค้นหา '" + searchValue +"' ไม่พบรายการในระบบ, ลองอีกครั้ง",getResources().getDrawable(R.drawable.ic_cross));
                         }
                         else {
-                            if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Customer ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+                            if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
                         }
-                    }
-                    else if (responseResult.status_code == 201)
-                    {
-                        if (isAdded() && rl_no_information != null) rl_no_information.show("No Result.","ผลการค้นหา '" + searchValue +"' ไม่พบรายการในระบบ, ลองอีกครั้ง",getResources().getDrawable(R.drawable.ic_cross));
-                    }
-                    if (arrayListSoldTo.size() == 0)
-                    {
-                        if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
+                        if (arrayListSoldTo.size() == 0)
+                        {
+                            if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
 
-                        if (searchValue.length() >= 8) {
-                            rParams.put("kw", searchValue);
-                            client.get(Constants.API_HOST + "MSOCustSearch.php?", rParams, new AsyncHttpResponseHandler() {
+                            if (searchValue.length() >= 8) {
+                                rParams.put("kw", searchValue);
+                                client.get(Constants.API_HOST + "MSOCustSearch.php?", rParams, new AsyncHttpResponseHandler() {
 
-                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                                @Override
-                                public void onStart() {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        Constants.doLog("LOG SEARCH SUBMIT : " + arrayListSoldTo.size());
-                                        if (customProgress == null) customProgress = CustomDialogLoading.getInstance();
-                                        customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
-                                    }
-                                }
-
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, byte[] response)
-                                {
-                                    if (arrayListSoldTo.size() != 0){
-                                        Constants.doLog("LOG arrayListSoldTo SIZE : " + arrayListSoldTo.size());
-                                        arrayListSoldTo.clear();
-                                        if (rl_no_information != null) rl_no_information.hide();
+                                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                    @Override
+                                    public void onStart() {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            Constants.doLog("LOG SEARCH SUBMIT : " + arrayListSoldTo.size());
+                                            if (customProgress == null) customProgress = CustomDialogLoading.getInstance();
+                                            customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
+                                        }
                                     }
 
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        customProgress.hideProgress();
-                                    }
-
-                                    Constants.doLog("LOG RESPONSE RESULT : " + statusCode);
-                                    Constants.doLog("LOG RESPONSE RESULT : " + new String(response));
-                                    Gson gson = new Gson();
-                                    ResponseResult responseResult = new ResponseResult();
-
-                                    if (isJSONValid(new String(response))){
-                                        responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                                    }
-
-                                    if (responseResult.status_code == 200)
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] response)
                                     {
-                                        if (responseResult.soldto.size() != 0) {
-                                            for (CustomerObject item: responseResult.soldto)
-                                            {
-                                                arrayListSoldTo.add(item);
-                                            }
+                                        if (arrayListSoldTo.size() != 0){
+                                            Constants.doLog("LOG arrayListSoldTo SIZE : " + arrayListSoldTo.size());
+                                            arrayListSoldTo.clear();
                                             if (rl_no_information != null) rl_no_information.hide();
                                         }
-                                        else {
-                                            if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Customer ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            customProgress.hideProgress();
                                         }
+
+                                        Constants.doLog("LOG RESPONSE RESULT : " + statusCode);
+                                        Constants.doLog("LOG RESPONSE RESULT : " + new String(response));
+                                        Gson gson = new Gson();
+                                        ResponseResult responseResult = new ResponseResult();
+
+                                        if (isJSONValid(new String(response))){
+                                            responseResult = gson.fromJson(new String(response),ResponseResult.class);
+
+                                            if (responseResult.status_code == 200)
+                                            {
+                                                if (responseResult.soldto.size() != 0) {
+                                                    for (CustomerObject item: responseResult.soldto)
+                                                    {
+                                                        arrayListSoldTo.add(item);
+                                                    }
+                                                    if (rl_no_information != null) rl_no_information.hide();
+                                                }
+                                                else {
+                                                    if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Customer ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
+                                                }
+                                            }
+                                            else if (responseResult.status_code == 201)
+                                            {
+                                                if (isAdded() && rl_no_information != null) rl_no_information.show("No Result.","ผลการค้นหา '" + searchValue +"' ไม่พบรายการในระบบ, ลองอีกครั้ง",getResources().getDrawable(R.drawable.ic_cross));
+                                            }
+                                            else {
+                                                if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                                            }
+                                            if (arrayListSoldTo.size() == 0)
+                                            {
+                                                if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
+                                            }
+
+                                            customerListAdapter.notifyDataSetChanged();
+
+                                        }
+                                        else if (new String(response).equals("Not Authorized or Invalid version!")){
+                                            GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                                        }
+
                                     }
-                                    else if (responseResult.status_code == 201)
+
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
                                     {
-                                        if (isAdded() && rl_no_information != null) rl_no_information.show("No Result.","ผลการค้นหา '" + searchValue +"' ไม่พบรายการในระบบ, ลองอีกครั้ง",getResources().getDrawable(R.drawable.ic_cross));
-                                    }
-                                    if (arrayListSoldTo.size() == 0)
-                                    {
-                                        if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
-                                    }
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                        }
 
-                                    customerListAdapter.notifyDataSetChanged();
-
-                                }
-
-
-                                @Override
-                                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
-                                {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                        GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
                                     }
 
-                                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-                                }
 
+                                    @Override
+                                    public void onRetry(int retryNo) {
+                                        // called when request is retried
+                                    }
+                                });
+                            }
+                            else {
+                                GeneralHelper.getInstance().showBasicAlert(getContext(),"Please insert keyword more than 8 digits");
+                                if (isAdded() && rl_no_information != null)
+                                    rl_no_information.show("No Result.", "ไม่สามารถค้นหาได้ เนื่องจากใส่คำค้นหาไม่ถึง 8 ตัวอักษร (กรณีไม่มีข้อมูลบน Lotus Notes ตามที่เตรียมไว้)", getResources().getDrawable(R.drawable.ic_cross));
 
-                                @Override
-                                public void onRetry(int retryNo) {
-                                    // called when request is retried
-                                }
-                            });
+                            }
                         }
-                        else {
-                            GeneralHelper.getInstance().showBasicAlert(getContext(),"Please insert keyword more than 8 digits");
-                            if (isAdded() && rl_no_information != null)
-                                rl_no_information.show("No Result.", "ไม่สามารถค้นหาได้ เนื่องจากใส่คำค้นหาไม่ถึง 8 ตัวอักษร (กรณีไม่มีข้อมูลบน Lotus Notes ตามที่เตรียมไว้)", getResources().getDrawable(R.drawable.ic_cross));
 
-                        }
+                        customerListAdapter.notifyDataSetChanged();
+
                     }
-
-                    customerListAdapter.notifyDataSetChanged();
+                    else if (new String(response).equals("Not Authorized or Invalid version!")){
+                        GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                    }
 
                 }
 

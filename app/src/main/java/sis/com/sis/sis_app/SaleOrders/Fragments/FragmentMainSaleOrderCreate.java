@@ -251,186 +251,191 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
                 if (isJSONValid(new String(response))){
                     responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                }
 
-                if (responseResult.status_code == 200)
-                {
-                    ResponseResult finalResponseResult = responseResult;
-                    client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+                    if (responseResult.status_code == 200)
+                    {
+                        ResponseResult finalResponseResult = responseResult;
+                        client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
 
-                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                        @Override
-                        public void onStart() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onStart() {
 
-                        }
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] response)
-                        {
-                            Gson gson = new Gson();
-                            ResponseResult responseResultLocal = new ResponseResult();
-
-                            if (isJSONValid(new String(response))){
-                                responseResultLocal = gson.fromJson(new String(response),ResponseResult.class);
                             }
 
-                            if (responseResultLocal.status_code == 200)
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] response)
                             {
-                                if (responseResultLocal.articles != null){
-                                    for (ArticleObject item: responseResultLocal.articles)
-                                    {
-                                        Constants.doLog("LOG RESPONSE ADD : " + item);
-                                        arrayListItemsLocal.add(item);
-                                    }
+                                Gson gson = new Gson();
+                                ResponseResult responseResultLocal = new ResponseResult();
+
+                                if (isJSONValid(new String(response))){
+                                    responseResultLocal = gson.fromJson(new String(response),ResponseResult.class);
                                 }
-                            }
+                                else if (new String(response).equals("Not Authorized or Invalid version!")){
+                                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
+                                }
 
-                            for (ArticleObject item: finalResponseResult.articles)
-                            {
-
-                                for (ArticleObject itemLocal : arrayListItemsLocal) {
-                                    String[] price4customer = itemLocal.price4customer.split(",");
-                                    for (String customer : price4customer) {
-                                        if (customer.equals(soldToCode)) {
-                                            if (itemLocal.sku.equals(item.sku)){
-                                                item.price = itemLocal.unitprice;
-                                                break;
-                                            }
+                                if (responseResultLocal.status_code == 200)
+                                {
+                                    if (responseResultLocal.articles != null){
+                                        for (ArticleObject item: responseResultLocal.articles)
+                                        {
+                                            Constants.doLog("LOG RESPONSE ADD : " + item);
+                                            arrayListItemsLocal.add(item);
                                         }
                                     }
                                 }
 
-                                for (String s : allItems) {
-                                    Constants.doLog("LOG soldToCode RESULT1 : " + s);
-                                    if (s.equals(item.sku)){
-                                        Integer qty = SharedPreferenceHelper.getSharedPreferenceInt(getContext(), item.sku, 1);
+                                for (ArticleObject item: finalResponseResult.articles)
+                                {
 
-                                        Constants.doLog("LOG soldToCode RESULT1 : " + qty);
-                                        item.qty = String.valueOf(qty);
-                                        arrayListItems.add(item);
-                                        break;
+                                    for (ArticleObject itemLocal : arrayListItemsLocal) {
+                                        String[] price4customer = itemLocal.price4customer.split(",");
+                                        for (String customer : price4customer) {
+                                            if (customer.equals(soldToCode)) {
+                                                if (itemLocal.sku.equals(item.sku)){
+                                                    item.price = itemLocal.unitprice;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    for (String s : allItems) {
+                                        Constants.doLog("LOG soldToCode RESULT1 : " + s);
+                                        if (s.equals(item.sku)){
+                                            Integer qty = SharedPreferenceHelper.getSharedPreferenceInt(getContext(), item.sku, 1);
+
+                                            Constants.doLog("LOG soldToCode RESULT1 : " + qty);
+                                            item.qty = String.valueOf(qty);
+                                            arrayListItems.add(item);
+                                            break;
+                                        }
                                     }
                                 }
+
+                                itemListAdapter.notifyDataSetChanged();
+
+                                int totalHeight = 0;
+
+                                for (int i = 0; i < itemListAdapter.getCount(); i++) {
+                                    View mView = itemListAdapter.getView(i, null, recycleViewItems);
+
+                                    mView.measure(
+                                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+
+                                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+                                    totalHeight += mView.getMeasuredHeight();
+                                    Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
+                                }
+
+                                ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
+
+                                if (itemListAdapter.getCount() < 2) {
+                                    totalHeight += (100 + itemListAdapter.getCount() * 30);
+                                }
+                                else {
+                                    totalHeight += (200 + itemListAdapter.getCount() * 30);
+                                }
+                                Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
+                                params.height = totalHeight;
+
+                                recycleViewItems.setLayoutParams(params);
+                                recycleViewItems.requestLayout();
                             }
 
-                            itemListAdapter.notifyDataSetChanged();
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
+                            {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    if (isAdded() && customProgress != null) customProgress.hideProgress();
+                                }
+                                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
 
-                            int totalHeight = 0;
-
-                            for (int i = 0; i < itemListAdapter.getCount(); i++) {
-                                View mView = itemListAdapter.getView(i, null, recycleViewItems);
-
-                                mView.measure(
-                                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-
-                                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-
-                                totalHeight += mView.getMeasuredHeight();
-                                Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
                             }
 
-                            ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
-
-                            if (itemListAdapter.getCount() < 2) {
-                                totalHeight += (100 + itemListAdapter.getCount() * 30);
+                            @Override
+                            public void onRetry(int retryNo) {
+                                // called when request is retried
                             }
-                            else {
-                                totalHeight += (200 + itemListAdapter.getCount() * 30);
-                            }
-                            Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
-                            params.height = totalHeight;
+                        });
 
-                            recycleViewItems.setLayoutParams(params);
-                            recycleViewItems.requestLayout();
+                    }
+                    else if (responseResult.status_code == 201) {
+                        textViewNoItems.setVisibility(View.VISIBLE);
+                        linearLayoutRecycleView.setVisibility(View.GONE);itemListAdapter.notifyDataSetChanged();
+
+                        int totalHeight = 0;
+
+                        for (int i = 0; i < itemListAdapter.getCount(); i++) {
+                            View mView = itemListAdapter.getView(i, null, recycleViewItems);
+
+                            mView.measure(
+                                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+
+                                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+                            totalHeight += mView.getMeasuredHeight();
+                            Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
                         }
 
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
-                        {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                if (isAdded() && customProgress != null) customProgress.hideProgress();
-                            }
-                            GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                        ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
 
+                        if (itemListAdapter.getCount() < 2) {
+                            totalHeight += (100 + itemListAdapter.getCount() * 30);
+                        }
+                        else {
+                            totalHeight += (200 + itemListAdapter.getCount() * 30);
+                        }
+                        Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
+                        params.height = totalHeight;
+
+                        recycleViewItems.setLayoutParams(params);
+                        recycleViewItems.requestLayout();
+                    }
+                    else if (responseResult.status_code == 505) {
+                        textViewNoItems.setVisibility(View.VISIBLE);
+                        linearLayoutRecycleView.setVisibility(View.GONE);
+                        itemListAdapter.notifyDataSetChanged();
+
+                        int totalHeight = 0;
+
+                        for (int i = 0; i < itemListAdapter.getCount(); i++) {
+                            View mView = itemListAdapter.getView(i, null, recycleViewItems);
+
+                            mView.measure(
+                                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+
+                                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+                            totalHeight += mView.getMeasuredHeight();
+                            Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
                         }
 
-                        @Override
-                        public void onRetry(int retryNo) {
-                            // called when request is retried
+                        ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
+
+                        if (itemListAdapter.getCount() < 2) {
+                            totalHeight += (100 + itemListAdapter.getCount() * 30);
                         }
-                    });
+                        else {
+                            totalHeight += (200 + itemListAdapter.getCount() * 30);
+                        }
+                        Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
+                        params.height = totalHeight;
 
+                        recycleViewItems.setLayoutParams(params);
+                        recycleViewItems.requestLayout();
+                    }
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                    }
                 }
-                else if (responseResult.status_code == 201) {
-                    textViewNoItems.setVisibility(View.VISIBLE);
-                    linearLayoutRecycleView.setVisibility(View.GONE);itemListAdapter.notifyDataSetChanged();
-
-                    int totalHeight = 0;
-
-                    for (int i = 0; i < itemListAdapter.getCount(); i++) {
-                        View mView = itemListAdapter.getView(i, null, recycleViewItems);
-
-                        mView.measure(
-                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-
-                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-
-                        totalHeight += mView.getMeasuredHeight();
-                        Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
-                    }
-
-                    ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
-
-                    if (itemListAdapter.getCount() < 2) {
-                        totalHeight += (100 + itemListAdapter.getCount() * 30);
-                    }
-                    else {
-                        totalHeight += (200 + itemListAdapter.getCount() * 30);
-                    }
-                    Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
-                    params.height = totalHeight;
-
-                    recycleViewItems.setLayoutParams(params);
-                    recycleViewItems.requestLayout();
+                else if (new String(response).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                 }
-                else if (responseResult.status_code == 505) {
-                    textViewNoItems.setVisibility(View.VISIBLE);
-                    linearLayoutRecycleView.setVisibility(View.GONE);
-                    itemListAdapter.notifyDataSetChanged();
-
-                    int totalHeight = 0;
-
-                    for (int i = 0; i < itemListAdapter.getCount(); i++) {
-                        View mView = itemListAdapter.getView(i, null, recycleViewItems);
-
-                        mView.measure(
-                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-
-                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-
-                        totalHeight += mView.getMeasuredHeight();
-                        Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
-                    }
-
-                    ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
-
-                    if (itemListAdapter.getCount() < 2) {
-                        totalHeight += (100 + itemListAdapter.getCount() * 30);
-                    }
-                    else {
-                        totalHeight += (200 + itemListAdapter.getCount() * 30);
-                    }
-                    Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
-                    params.height = totalHeight;
-
-                    recycleViewItems.setLayoutParams(params);
-                    recycleViewItems.requestLayout();
-                }
-                else
-                {
-                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-                }
-
 
             }
 
@@ -810,10 +815,9 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
                 if (isJSONValid(new String(response))){
                     responseResult = gson.fromJson(new String(response),ResponseResult.class);
-                }
 
-                if (responseResult.status_code == 200)
-                {
+                    if (responseResult.status_code == 200)
+                    {
 //                    if (radioButtonOther.isChecked()){
 //                        client.post(Constants.API_HOST + "MSOUpload.php?", rParamsCreateOrder, new AsyncHttpResponseHandler() {
 //
@@ -958,7 +962,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 //                        NetTotalPrice = AllTotalPrice - Discount + VAT;
 
                         if (fullJson.equals("")) {
-        //            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
+                            //            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
                             fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice / Constants.INCLUDE_VAT) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + backJson + "}";
 
                             Constants.doLog("LOG JSON KEEP LOCAL EMPTY : " + fullJson);
@@ -968,7 +972,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                             builder.replace(builder.length()-2, builder.length(), "");
                             fullJson = builder.toString();
                             Constants.doLog("LOG JSON KEEP LOCAL NOT EMPTY: " + fullJson);
-        //            fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
+                            //            fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
                             fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice / Constants.INCLUDE_VAT) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + backJson + "}";
                         }
                         Constants.doLog("LOG JSON KEEP LOCAL : " + fullJson);
@@ -998,47 +1002,52 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 //                        getActivity().startActivity(myIntent);
 //                        getActivity().finish();
 //                    }
+                    }
+                    else if (responseResult.status_code == 401) {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
+                    }
+                    else if (responseResult.status_code == 501) {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
+                    }
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                    }
+
+                    itemListAdapter.notifyDataSetChanged();
+
+                    int totalHeight = 0;
+
+                    for (int i = 0; i < itemListAdapter.getCount(); i++) {
+                        View mView = itemListAdapter.getView(i, null, recycleViewItems);
+
+                        mView.measure(
+                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+
+                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+                        totalHeight += mView.getMeasuredHeight();
+                        Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
+                    }
+
+                    ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
+
+                    if (itemListAdapter.getCount() < 2) {
+                        totalHeight += (100 + itemListAdapter.getCount() * 30);
+                    }
+                    else {
+                        totalHeight += (200 + itemListAdapter.getCount() * 50);
+                    }
+                    Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
+                    params.height = totalHeight;
+
+                    recycleViewItems.setLayoutParams(params);
+                    recycleViewItems.requestLayout();
+
                 }
-                else if (responseResult.status_code == 401) {
-                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
+                else if (new String(response).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                 }
-                else if (responseResult.status_code == 501) {
-                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
-                }
-                else
-                {
-                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-                }
-
-                itemListAdapter.notifyDataSetChanged();
-
-                int totalHeight = 0;
-
-                for (int i = 0; i < itemListAdapter.getCount(); i++) {
-                    View mView = itemListAdapter.getView(i, null, recycleViewItems);
-
-                    mView.measure(
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-
-                    totalHeight += mView.getMeasuredHeight();
-                    Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
-                }
-
-                ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
-
-                if (itemListAdapter.getCount() < 2) {
-                    totalHeight += (100 + itemListAdapter.getCount() * 30);
-                }
-                else {
-                    totalHeight += (200 + itemListAdapter.getCount() * 30);
-                }
-                Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
-                params.height = totalHeight;
-
-                recycleViewItems.setLayoutParams(params);
-                recycleViewItems.requestLayout();
 
             }
 

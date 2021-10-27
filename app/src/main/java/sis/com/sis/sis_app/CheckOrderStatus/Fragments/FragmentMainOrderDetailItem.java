@@ -125,36 +125,40 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
 
                 if (isJSONValid(new String(responseBody))) {
                     responseResult = gson.fromJson(new String(responseBody), ResponseResult.class);
-                }
 
-                sis.com.sis.sis_app.ShipToApproval.Constants.doLog("LOG HISTORY : " + new String(responseBody));
+                    sis.com.sis.sis_app.ShipToApproval.Constants.doLog("LOG HISTORY : " + new String(responseBody));
 
-                if (responseResult.status_code == 200)
-                {
-                    for (CheckStatusObject item : responseResult.datas)
+                    if (responseResult.status_code == 200)
                     {
-                        for (ItemObject itemObject : item.items)
+                        for (CheckStatusObject item : responseResult.datas)
                         {
-                            arrayListItem.add(itemObject);
-                            Constants.doLog("LOG TEST : " + itemObject.article);
+                            for (ItemObject itemObject : item.items)
+                            {
+                                arrayListItem.add(itemObject);
+                                Constants.doLog("LOG TEST : " + itemObject.article);
+                            }
                         }
                     }
+                    else if (responseResult.status_code == 503)
+                    {
+                        if (isAdded() && rl_no_information != null) rl_no_information.show("No Item","No item in this Order",getResources().getDrawable(R.drawable.ic_cross));
+                    }
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                    }
+
+                    itemListAdapter.notifyDataSetChanged();
+
+                    if (arrayListItem.size() == 0) {
+                        if (isAdded() && rl_no_information != null)
+                          rl_no_information.show("No Item","No item in this Order",getResources().getDrawable(R.drawable.ic_cross));
+                    }
                 }
-                else if (responseResult.status_code == 503)
-                {
-                    //if (isAdded() && rl_no_information != null) rl_no_information.show("No Item","No item in this Order",getResources().getDrawable(R.drawable.ic_cross));
-                }
-                else
-                {
-//                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
+                else if (new String(responseBody).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                 }
 
-                itemListAdapter.notifyDataSetChanged();
-
-                if (arrayListItem.size() == 0) {
-                    //if (isAdded() && rl_no_information != null)
-                      //  rl_no_information.show("No Item","No item in this Order",getResources().getDrawable(R.drawable.ic_cross));
-                }
             }
 
             @Override

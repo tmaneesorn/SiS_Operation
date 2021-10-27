@@ -164,93 +164,105 @@ public class FragmentMainSaleOrder extends Fragment implements SaleOrderListAdap
 
                 if (isJSONValid(new String(response))){
                     responseResultCheckStatus = gson.fromJson(new String(response),ResponseResult.class);
-                }
 
-                Constants.doLog("LOG SHIPTO : " + responseResultCheckStatus.status_code);
-                Constants.doLog("LOG SHIPTO : " + responseResultCheckStatus.data);
+                    Constants.doLog("LOG SHIPTO : " + responseResultCheckStatus.status_code);
+                    Constants.doLog("LOG SHIPTO : " + responseResultCheckStatus.data);
 
-                ResponseResult saleOrderResult = new ResponseResult();
-                saleOrderResult = gson.fromJson(new String(json_list), ResponseResult.class);
+                    ResponseResult saleOrderResult = new ResponseResult();
+                    saleOrderResult = gson.fromJson(new String(json_list), ResponseResult.class);
 
-                if (responseResultCheckStatus.status_code == 200)
-                {
-                    for (SaleOrderObject item: saleOrderResult.sale_orders)
+                    if (responseResultCheckStatus.status_code == 200)
                     {
-
-                        Constants.doLog("LOG SHIPTO : " + item.items);
-                        for (CheckStatusObject listItem: responseResultCheckStatus.data)
+                        for (SaleOrderObject item: saleOrderResult.sale_orders)
                         {
-                            if (listItem.order.equals(item.mobile_so)) {
-                                String fullItemJson = "";
-                                for (ArticleObject article: item.items) {
-                                    if (fullItemJson.equals("")){
-                                        fullItemJson = fullItemJson + "{\"sku\": \"" + article.sku +"\", \"name\": \"" + article.name.replace("\"","inch") + "\", \"qty\": \"" + article.qty + "\", \"price\": \"" + article.price + "\", \"discount\": \"" + article.discount + "\"}";
+
+                            Constants.doLog("LOG SHIPTO : " + item.items);
+                            for (CheckStatusObject listItem: responseResultCheckStatus.data)
+                            {
+                                if (listItem.order.equals(item.mobile_so)) {
+                                    String fullItemJson = "";
+                                    for (ArticleObject article: item.items) {
+                                        if (fullItemJson.equals("")){
+                                            fullItemJson = fullItemJson + "{\"sku\": \"" + article.sku +"\", \"name\": \"" + article.name.replace("\"","inch") + "\", \"qty\": \"" + article.qty + "\", \"price\": \"" + article.price + "\", \"discount\": \"" + article.discount + "\"}";
+                                        }
+                                        else {
+                                            fullItemJson = fullItemJson + ", {\"sku\": \"" + article.sku +"\", \"name\": \"" + article.name.replace("\"","inch") + "\", \"qty\": \"" + article.qty + "\", \"price\": \"" + article.price + "\", \"discount\": \"" + article.discount + "\"}";
+                                        }
+                                    }
+                                    fullItemJson = frontItemJson + fullItemJson + "]";
+
+                                    if (listItem.SAP_Order == null) {
+                                        item.sap_so = "-";
+                                        item.status = listItem.code;
+                                    }
+                                    else if (listItem.SAP_Order.equals("") || listItem.SAP_Order.equals(" ")){
+                                        item.sap_so = "-";
+                                        item.status = listItem.code;
                                     }
                                     else {
-                                        fullItemJson = fullItemJson + ", {\"sku\": \"" + article.sku +"\", \"name\": \"" + article.name.replace("\"","inch") + "\", \"qty\": \"" + article.qty + "\", \"price\": \"" + article.price + "\", \"discount\": \"" + article.discount + "\"}";
+                                        item.sap_so = listItem.SAP_Order;
+                                        item.status = listItem.code;
                                     }
-                                }
-                                fullItemJson = frontItemJson + fullItemJson + "]";
+                                    if (listItem.SAP_Delivery == null) {
+                                        item.sap_do = "-";
+                                    }
+                                    else if (listItem.SAP_Delivery.equals("") || listItem.SAP_Delivery.equals(" ")){
+                                        item.sap_do = "-";
+                                    }
+                                    else {
+                                        item.sap_do = listItem.SAP_Delivery;
+                                        item.status = listItem.code;
+                                    }
+                                    if (listItem.SAP_Invoice == null) {
+                                        item.sap_inv = "-";
+                                    }
+                                    else if (listItem.SAP_Invoice.equals("") || listItem.SAP_Invoice.equals(" ")){
+                                        item.sap_inv = "-";
+                                    }
+                                    else {
+                                        item.sap_inv = listItem.SAP_Invoice;
+                                        item.status = listItem.code;
+                                    }
 
-                                if (listItem.SAP_Order == null) {
-                                    item.sap_so = "-";
-                                    item.status = listItem.code;
-                                }
-                                else if (listItem.SAP_Order.equals("") || listItem.SAP_Order.equals(" ")){
-                                    item.sap_so = "-";
-                                    item.status = listItem.code;
-                                }
-                                else {
-                                    item.sap_so = listItem.SAP_Order;
-                                    item.status = listItem.code;
-                                }
-                                if (listItem.SAP_Delivery == null) {
-                                    item.sap_do = "-";
-                                }
-                                else if (listItem.SAP_Delivery.equals("") || listItem.SAP_Delivery.equals(" ")){
-                                    item.sap_do = "-";
-                                }
-                                else {
-                                    item.sap_do = listItem.SAP_Delivery;
-                                    item.status = listItem.code;
-                                }
-                                if (listItem.SAP_Invoice == null) {
-                                    item.sap_inv = "-";
-                                }
-                                else if (listItem.SAP_Invoice.equals("") || listItem.SAP_Invoice.equals(" ")){
-                                    item.sap_inv = "-";
-                                }
-                                else {
-                                    item.sap_inv = listItem.SAP_Invoice;
-                                    item.status = listItem.code;
-                                }
+                                    if (fullJson.equals("")) {
+                                        fullJson = frontJson + "{\"customer_name\": \"" + item.customer_name +"\", \"customer_code\": \"" + item.customer_code + "\", \"shipto_name\": \"" + item.shipto_name + "\", \"shipto_code\": \"" + item.shipto_code + "\", \"mobile_so\": \"" + item.mobile_so + "\", \"sap_so\": \"" + item.sap_so + "\", \"sap_do\": \"" + item.sap_do + "\",\"sap_inv\": \"" + item.sap_inv + "\", \"total_price\": \"" + item.total_price + "\", \"net_total_price\": \"" + item.net_total_price + "\", \"date\": \"" + item.date + "\", \"status\": \"" + item.status + "\", \"payment\": \"" + item.payment + "\", " + fullItemJson + backJson + "}";
+                                    }
+                                    else {
+                                        StringBuilder builder = new StringBuilder(fullJson);
+                                        builder.replace(builder.length()-2, builder.length(), "");
+                                        fullJson = builder.toString();
+                                        fullJson = fullJson + ", {\"customer_name\": \"" + item.customer_name +"\", \"customer_code\": \"" + item.customer_code + "\", \"shipto_name\": \"" + item.shipto_name + "\", \"shipto_code\": \"" + item.shipto_code + "\", \"mobile_so\": \"" + item.mobile_so + "\", \"sap_so\": \"" + item.sap_so + "\", \"sap_do\": \"" + item.sap_do + "\",\"sap_inv\": \"" + item.sap_inv + "\", \"total_price\": \"" + item.total_price + "\", \"net_total_price\": \"" + item.net_total_price + "\", \"date\": \"" + item.date + "\", \"status\": \"" + item.status + "\", \"payment\": \"" + item.payment + "\", " + fullItemJson + backJson + "}";
+                                    }
 
-                                if (fullJson.equals("")) {
-                                    fullJson = frontJson + "{\"customer_name\": \"" + item.customer_name +"\", \"customer_code\": \"" + item.customer_code + "\", \"shipto_name\": \"" + item.shipto_name + "\", \"shipto_code\": \"" + item.shipto_code + "\", \"mobile_so\": \"" + item.mobile_so + "\", \"sap_so\": \"" + item.sap_so + "\", \"sap_do\": \"" + item.sap_do + "\",\"sap_inv\": \"" + item.sap_inv + "\", \"total_price\": \"" + item.total_price + "\", \"net_total_price\": \"" + item.net_total_price + "\", \"date\": \"" + item.date + "\", \"status\": \"" + item.status + "\", \"payment\": \"" + item.payment + "\", " + fullItemJson + backJson + "}";
+                                    arrayList.add(item);
                                 }
-                                else {
-                                    StringBuilder builder = new StringBuilder(fullJson);
-                                    builder.replace(builder.length()-2, builder.length(), "");
-                                    fullJson = builder.toString();
-                                    fullJson = fullJson + ", {\"customer_name\": \"" + item.customer_name +"\", \"customer_code\": \"" + item.customer_code + "\", \"shipto_name\": \"" + item.shipto_name + "\", \"shipto_code\": \"" + item.shipto_code + "\", \"mobile_so\": \"" + item.mobile_so + "\", \"sap_so\": \"" + item.sap_so + "\", \"sap_do\": \"" + item.sap_do + "\",\"sap_inv\": \"" + item.sap_inv + "\", \"total_price\": \"" + item.total_price + "\", \"net_total_price\": \"" + item.net_total_price + "\", \"date\": \"" + item.date + "\", \"status\": \"" + item.status + "\", \"payment\": \"" + item.payment + "\", " + fullItemJson + backJson + "}";
-                                }
-
-                                arrayList.add(item);
                             }
                         }
+                        if (getContext() != null){
+                            SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.SALE_ORDER_LISTS, fullJson);
+                        }
+                        Constants.doLog("LOG NEW LOCAL JSON : " + fullJson);
+                        fullJson = "";
+                        saleOrderListAdapter.notifyDataSetChanged();
+                        Constants.doLog("Item was clicked3 " + arrayList.size());
                     }
-                    if (getContext() != null){
-                        SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.SALE_ORDER_LISTS, fullJson);
+                    else if (responseResultCheckStatus.status_code == 201) {
+                        if (isAdded() && rl_no_info_view != null) rl_no_info_view.show(getResources().getString(R.string.ship_to_no_order),"No Sale Order created since yesterday.",getResources().getDrawable(R.drawable.ic_cross));
                     }
-                    Constants.doLog("LOG NEW LOCAL JSON : " + fullJson);
-                    fullJson = "";
-                    saleOrderListAdapter.notifyDataSetChanged();
-                    Constants.doLog("Item was clicked3 " + arrayList.size());
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                    }
+
+                    if (arrayList.size() == 0)
+                    {
+                        if (isAdded() && rl_no_info_view != null) rl_no_info_view.show(getResources().getString(R.string.ship_to_no_order),"No Sale Order created since yesterday.",getResources().getDrawable(R.drawable.ic_cross));
+                    }
                 }
-                if (arrayList.size() == 0)
-                {
-                    if (isAdded() && rl_no_info_view != null) rl_no_info_view.show(getResources().getString(R.string.ship_to_no_order),"No Sale Order created since yesterday.",getResources().getDrawable(R.drawable.ic_cross));
+                else if (new String(response).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                 }
+
             }
 
             @Override

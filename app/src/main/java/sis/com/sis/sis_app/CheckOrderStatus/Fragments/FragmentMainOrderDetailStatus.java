@@ -159,91 +159,93 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
 
                 if (isJSONValid(new String(responseBody))) {
                     responseResult = gson.fromJson(new String(responseBody), ResponseResult.class);
+                    sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + new String(responseBody));
+
+                    if (responseResult.status_code == 200)
+                    {
+                        //sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY1 : " + responseResult.datas.get(0).docflow.get("dodate"));
+                        String Custcodename = responseResult.datas.get(0).soldto + " / " + responseResult.datas.get(0).soldtoname;
+                        String Shiptoname = responseResult.datas.get(0).shipto +" / " + responseResult.datas.get(0).shiptoname + " / " + responseResult.datas.get(0).shiptoaddr;
+                        String SoDateTime = responseResult.datas.get(0).sodate + " " + responseResult.datas.get(0).sotime;
+                        String DoDateTime = responseResult.datas.get(0).docflow.get("dodate") + " " + responseResult.datas.get(0).docflow.get("dotime");
+                        String PickDateTime = responseResult.datas.get(0).docflow.get("pickdate") + " " + responseResult.datas.get(0).docflow.get("pictime");
+                        String PGIDateTime = responseResult.datas.get(0).docflow.get("pgidate") + " " + responseResult.datas.get(0).docflow.get("pgitime");
+                        String InvDateTime = responseResult.datas.get(0).docflow.get("invdate") + " " + responseResult.datas.get(0).docflow.get("invtime");
+
+                        if (responseResult.datas.get(0).soldto.equals("")){
+                            textViewCustomerCodeName.setText("-");
+                        }else {
+                            textViewCustomerCodeName.setText(Custcodename);
+                        }
+
+                        if (responseResult.datas.get(0).shipto.equals("")){
+                            textViewShipToCodeName.setText("-");
+                        }else {
+                            textViewShipToCodeName.setText(Shiptoname);
+                        }
+
+                        if (responseResult.datas.get(0).custpono.equals("")){
+                            textViewPONo.setText("-");
+                            //textViewPODateTime.setText("-");
+                        }else {
+                            textViewPONo.setText(responseResult.datas.get(0).custpono);
+                            //textViewPODateTime.setText(responseResult.datas.get(0).custpodate);
+                        }
+
+                        if (responseResult.datas.get(0).sono.equals("")){
+                            textViewSoNo.setText("-");
+                            textViewSoDateTime.setText("-");
+                        }else {
+                            textViewSoNo.setText(responseResult.datas.get(0).sono);
+                            textViewSoDateTime.setText(SoDateTime);
+                        }
+
+                        if (responseResult.datas.get(0).docflow.get("dono").equals("")){
+                            textViewDoNo.setText("-");
+                            textViewDoDateTime.setText("-");
+                        }else {
+                            textViewDoNo.setText(responseResult.datas.get(0).docflow.get("dono"));
+                            textViewDoDateTime.setText(DoDateTime);
+                        }
+
+                        if (responseResult.datas.get(0).docflow.get("pickno").equals("")){
+                            textViewPkNo.setText("-");
+                            textViewPkDateTime.setText("-");
+                        }else {
+                            textViewPkNo.setText(responseResult.datas.get(0).docflow.get("pickno"));
+                            textViewPkDateTime.setText(PickDateTime);
+                        }
+
+                        if (responseResult.datas.get(0).docflow.get("pgino").equals("")){
+                            textViewPGINo.setText("-");
+                            textViewPGIDateTime.setText("-");
+                        }else {
+                            textViewPGINo.setText(responseResult.datas.get(0).docflow.get("pgino"));
+                            textViewPGIDateTime.setText(PGIDateTime);
+                        }
+
+                        if (responseResult.datas.get(0).docflow.get("invno").equals("")){
+                            textViewPGINo.setText("-");
+                            textViewPGIDateTime.setText("-");
+                        }else {
+                            textViewInvNo.setText(responseResult.datas.get(0).docflow.get("invno"));
+                            textViewInvDateTime.setText(InvDateTime);
+                        }
+
+                    }
+                    else if (responseResult.status_code == 503)
+                    {
+                        if (isAdded() && rl_no_information != null) rl_no_information.show("No Item","No item in this Order",getResources().getDrawable(R.drawable.ic_cross));
+                    }
+                    else
+                    {
+                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_contact_is));
+                    }
+
                 }
-
-                sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + new String(responseBody));
-
-                if (responseResult.status_code == 200)
-                {
-                    //sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY1 : " + responseResult.datas.get(0).docflow.get("dodate"));
-                    String Custcodename = responseResult.datas.get(0).soldto + " / " + responseResult.datas.get(0).soldtoname;
-                    String Shiptoname = responseResult.datas.get(0).shipto +" / " + responseResult.datas.get(0).shiptoname + " / " + responseResult.datas.get(0).shiptoaddr;
-                    String SoDateTime = responseResult.datas.get(0).sodate + " " + responseResult.datas.get(0).sotime;
-                    String DoDateTime = responseResult.datas.get(0).docflow.get("dodate") + " " + responseResult.datas.get(0).docflow.get("dotime");
-                    String PickDateTime = responseResult.datas.get(0).docflow.get("pickdate") + " " + responseResult.datas.get(0).docflow.get("pictime");
-                    String PGIDateTime = responseResult.datas.get(0).docflow.get("pgidate") + " " + responseResult.datas.get(0).docflow.get("pgitime");
-                    String InvDateTime = responseResult.datas.get(0).docflow.get("invdate") + " " + responseResult.datas.get(0).docflow.get("invtime");
-
-                    if (responseResult.datas.get(0).soldto.equals("")){
-                        textViewCustomerCodeName.setText("-");
-                    }else {
-                        textViewCustomerCodeName.setText(Custcodename);
-                    }
-
-                    if (responseResult.datas.get(0).shipto.equals("")){
-                        textViewShipToCodeName.setText("-");
-                    }else {
-                        textViewShipToCodeName.setText(Shiptoname);
-                    }
-
-                    if (responseResult.datas.get(0).custpono.equals("")){
-                        textViewPONo.setText("-");
-                        //textViewPODateTime.setText("-");
-                    }else {
-                        textViewPONo.setText(responseResult.datas.get(0).custpono);
-                        //textViewPODateTime.setText(responseResult.datas.get(0).custpodate);
-                    }
-
-                    if (responseResult.datas.get(0).sono.equals("")){
-                        textViewSoNo.setText("-");
-                        textViewSoDateTime.setText("-");
-                    }else {
-                        textViewSoNo.setText(responseResult.datas.get(0).sono);
-                        textViewSoDateTime.setText(SoDateTime);
-                    }
-
-                    if (responseResult.datas.get(0).docflow.get("dono").equals("")){
-                        textViewDoNo.setText("-");
-                        textViewDoDateTime.setText("-");
-                    }else {
-                        textViewDoNo.setText(responseResult.datas.get(0).docflow.get("dono"));
-                        textViewDoDateTime.setText(DoDateTime);
-                    }
-
-                    if (responseResult.datas.get(0).docflow.get("pickno").equals("")){
-                        textViewPkNo.setText("-");
-                        textViewPkDateTime.setText("-");
-                    }else {
-                        textViewPkNo.setText(responseResult.datas.get(0).docflow.get("pickno"));
-                        textViewPkDateTime.setText(PickDateTime);
-                    }
-
-                    if (responseResult.datas.get(0).docflow.get("pgino").equals("")){
-                        textViewPGINo.setText("-");
-                        textViewPGIDateTime.setText("-");
-                    }else {
-                        textViewPGINo.setText(responseResult.datas.get(0).docflow.get("pgino"));
-                        textViewPGIDateTime.setText(PGIDateTime);
-                    }
-
-                    if (responseResult.datas.get(0).docflow.get("invno").equals("")){
-                        textViewPGINo.setText("-");
-                        textViewPGIDateTime.setText("-");
-                    }else {
-                        textViewInvNo.setText(responseResult.datas.get(0).docflow.get("invno"));
-                        textViewInvDateTime.setText(InvDateTime);
-                    }
-
+                else if (new String(responseBody).equals("Not Authorized or Invalid version!")){
+                    GeneralHelper.getInstance().showUpdateAlert(getContext(),getResources().getString(R.string.message_update_version));
                 }
-                else if (responseResult.status_code == 503)
-                {
-                    //if (isAdded() && rl_no_information != null) rl_no_information.show("No Item","No item in this Order",getResources().getDrawable(R.drawable.ic_cross));
-                }
-                else
-                {
-//                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-                }
-
 
             }
 
