@@ -98,7 +98,7 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
         sono = (String) bundle.getSerializable("sono");
 
         RequestParams rParams = new RequestParams();
-        rParams.put("SiS", "denis"); //Constants.SIS_SECRET
+        rParams.put("SiS", Constants.SIS_SECRET); //Constants.SIS_SECRET
         rParams.put("se", "100" + user_code);
         rParams.put("kw", sono);
         rParams.put("st", "d");
