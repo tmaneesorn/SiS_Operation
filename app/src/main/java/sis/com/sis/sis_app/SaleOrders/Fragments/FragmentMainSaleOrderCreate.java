@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -105,7 +106,6 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
     List<ArticleObject> arrayListItemsLocal = new ArrayList<ArticleObject>();
 
     List<String> allItemSelected = new CopyOnWriteArrayList<String>();
-
     AsyncHttpClient client;
 
     String frontJson = "{ \"sale_orders\": [";
@@ -125,6 +125,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
     String bank = "";
     int totalQty = 0;
     double AllTotalPrice = 0;
+    Date date = new Date();
 //    double VAT = 0;
 //    double Discount = 0;
 //    double NetTotalPrice = 0;
@@ -205,6 +206,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
         String[] allItems = saleOrderItem.split("\\|");
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         //Bundle bundle = getArguments();
         //String so_no = String.valueOf(bundle.getSerializable("so_no"));
@@ -226,7 +228,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
         Constants.doLog("LOG RESPONSE RESULT : " + rParams);
 
-        client.get(Constants.API_HOST + "MSOSkuSearch.php?", rParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.API_HOST + "article/search?", rParams, new AsyncHttpResponseHandler() {
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -255,7 +257,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                     if (responseResult.status_code == 200)
                     {
                         ResponseResult finalResponseResult = responseResult;
-                        client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+                        client.get(Constants.API_HOST + "user/login?", rParams, new AsyncHttpResponseHandler() {
 
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override
@@ -306,9 +308,11 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                                         Constants.doLog("LOG soldToCode RESULT1 : " + s);
                                         if (s.equals(item.sku)){
                                             Integer qty = SharedPreferenceHelper.getSharedPreferenceInt(getContext(), item.sku, 1);
+                                            String loc = SharedPreferenceHelper.getSharedPreferenceString(getContext(), item.sku + "_loc", "");
 
                                             Constants.doLog("LOG soldToCode RESULT1 : " + qty);
                                             item.qty = String.valueOf(qty);
+                                            item.loc = loc;
                                             arrayListItems.add(item);
                                             break;
                                         }
@@ -352,8 +356,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                                 }
-                                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-
+                                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Article (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                             }
 
                             @Override
@@ -445,7 +448,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
-                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Article (On SAP) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
 //                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
 //                    getActivity().startActivity(myIntent);
 //                    getActivity().finish();
@@ -563,11 +566,13 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                 for (String item: allItemSelected) {
                     for (int i = 0; i < arrayListItems.size(); i++) {
                         if (item.equals(arrayListItems.get(i).sku)) {
-                            if (arrayListItems.get(i).qty == null){
+                            if (arrayListItems.get(i).qty == null && arrayListItems.get(i).loc == null){
                                 SharedPreferenceHelper.setSharedPreferenceInt(getContext(), arrayListItems.get(i).sku, 1);
+                                SharedPreferenceHelper.setSharedPreferenceString(getContext(), arrayListItems.get(i).sku + "_loc", "0001");
                             }
                             else {
                                 SharedPreferenceHelper.setSharedPreferenceInt(getContext(), arrayListItems.get(i).sku, Integer.parseInt(arrayListItems.get(i).qty));
+                                SharedPreferenceHelper.setSharedPreferenceString(getContext(), arrayListItems.get(i).sku + "_loc", arrayListItems.get(i).loc.toString());
                             }
                         }
                     }
@@ -636,19 +641,26 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                     }
                 }
                 if (checkDelete) {
-                    if (count != allItems.length-1){
+//                    if (count != allItems.length-1){
                         itemList = itemList + item + "|";
-                    }
-                    else {
-                        itemList = itemList + item;
-                    }
+//                    }
+//                    else {
+//                        itemList = itemList + item;
+//                    }
                 }
                 count++;
+            }
+
+            if (itemList != null && itemList.length() > 0 && itemList.charAt(itemList.length() - 1) == '|') {
+                itemList = itemList.substring(0, itemList.length() - 1);
             }
 
             Constants.doLog("LOG ALL ITEMS (LAST1) : '" + itemList + "'" );
             arrayListItems.clear();
             allItemSelected.clear();
+
+            textViewTotalPrice.setText(new DecimalFormat("#,###.00").format(0));
+            textViewTotalQty.setText(String.valueOf(0));
 
             SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.SALE_ORDER_ITEMS, itemList);
             loadItems();
@@ -683,6 +695,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
     {
         Date date = new Date();
         String payment;
+        int count = 0;
         rParamsCreateOrder.setForceMultipartEntityContentType(true);
         rParamsCreateOrder.put("SiS", Constants.SIS_SECRET);
         rParamsCreateOrder.put("u", username);
@@ -699,8 +712,8 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
         else {
             rParamsCreateOrder.put("tmsg", editTextMsg.getText().toString());
         }
-        rParamsCreateOrder.put("apiodr", username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date));
-        rParamsCreateOrder.put("icount", allItemSelected.size());
+        rParamsCreateOrder.put("apiodr", username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + DateFormat.format("ss",   date));
+
         rParamsCreateOrder.put("chksum", totalQty);
 
         if (checkboxPI.isChecked()){
@@ -763,23 +776,30 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
             return;
         }
 
+        Constants.doLog("LOG RESPONSE ALL ITEM SELECT : " + allItemSelected.size());
+
         if (allItemSelected.size() != 0) {
+            fullItemJson = "";
             for (String item: allItemSelected) {
                 for (int i = 0; i < arrayListItems.size(); i++) {
                     if (item.equals(arrayListItems.get(i).sku)) {
-                        if (fullItemJson.equals("")){
-                            fullItemJson = fullItemJson + "{\"sku\": \"" + arrayListItems.get(i).sku +"\", \"name\": \"" + arrayListItems.get(i).name.replace("\"","inch") + "\", \"qty\": \"" + arrayListItems.get(i).qty + "\", \"price\": \"" + arrayListItems.get(i).price + "\", \"discount\": \"" + arrayListItems.get(i).discount + "\"}";
-                        }
-                        else {
-                            fullItemJson = fullItemJson + ", {\"sku\": \"" + arrayListItems.get(i).sku +"\", \"name\": \"" + arrayListItems.get(i).name.replace("\"","inch") + "\", \"qty\": \"" + arrayListItems.get(i).qty + "\", \"price\": \"" + arrayListItems.get(i).price + "\", \"discount\": \"" + arrayListItems.get(i).discount + "\"}";
-                        }
+                        if (new Integer(arrayListItems.get(i).qty) != 0){
+                            if (fullItemJson.equals("")){
+                                fullItemJson = fullItemJson + "{\"sku\": \"" + arrayListItems.get(i).sku +"\", \"name\": \"" + arrayListItems.get(i).name.replace("\"","inch") + "\", \"qty\": \"" + arrayListItems.get(i).qty + "\", \"price\": \"" + arrayListItems.get(i).price + "\", \"discount\": \"" + arrayListItems.get(i).discount + "\", \"loc\": \"" + arrayListItems.get(i).loc + "\"}";
+                            }
+                            else {
+                                fullItemJson = fullItemJson + ", {\"sku\": \"" + arrayListItems.get(i).sku +"\", \"name\": \"" + arrayListItems.get(i).name.replace("\"","inch") + "\", \"qty\": \"" + arrayListItems.get(i).qty + "\", \"price\": \"" + arrayListItems.get(i).price + "\", \"discount\": \"" + arrayListItems.get(i).discount + "\", \"loc\": \"" + arrayListItems.get(i).loc + "\"}";
+                            }
 
-                        Constants.doLog("LOG RESPONSE DISCOUNT : " + arrayListItems.get(i).discount);
-                        Constants.doLog("LOG RESPONSE fullItemJson : " + fullItemJson);
+                            Constants.doLog("LOG RESPONSE DISCOUNT : " + arrayListItems.get(i).loc);
+                            Constants.doLog("LOG RESPONSE fullItemJson : " + fullItemJson);
 
-                        rParamsCreateOrder.put("isku_"+ (i+1), arrayListItems.get(i).sku);
-                        rParamsCreateOrder.put("iqty_"+ (i+1), arrayListItems.get(i).qty);
-                        rParamsCreateOrder.put("ipri_"+ (i+1), arrayListItems.get(i).price);
+                            rParamsCreateOrder.put("isku_"+ (count+1), arrayListItems.get(i).sku);
+                            rParamsCreateOrder.put("iqty_"+ (count+1), arrayListItems.get(i).qty);
+                            rParamsCreateOrder.put("ipri_"+ (count+1), arrayListItems.get(i).price);
+                            rParamsCreateOrder.put("iloc_"+ (count+1), arrayListItems.get(i).loc);
+                            count++;
+                        }
                     }
                 }
             }
@@ -789,8 +809,11 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
             GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
         }
 
+        rParamsCreateOrder.put("icount", count);
 
-        client.post(Constants.API_HOST + "MSOOrderCreate.php", rParamsCreateOrder, new AsyncHttpResponseHandler() {
+        Constants.doLog("LOG RESPONSE PARAMETER ORDER CREATE : " + rParamsCreateOrder);
+
+        client.post(Constants.API_HOST + "order/create", rParamsCreateOrder, new AsyncHttpResponseHandler() {
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -818,138 +841,6 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
                     if (responseResult.status_code == 200)
                     {
-//                    if (radioButtonOther.isChecked()){
-//                        client.post(Constants.API_HOST + "MSOUpload.php?", rParamsCreateOrder, new AsyncHttpResponseHandler() {
-//
-//                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//                            @Override
-//                            public void onStart() {
-//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                    if (customProgress == null) customProgress = CustomDialogLoading.getInstance();
-//                                    customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(int statusCode, Header[] headers, byte[] response)
-//                            {
-//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                    customProgress.hideProgress();
-//                                }
-//
-//                                Constants.doLog("LOG RESPONSE RESULT4 : " + statusCode);
-//                                Constants.doLog("LOG RESPONSE RESULT4 : " + new String(response));
-//                                Gson gson = new Gson();
-//                                ResponseResult responseResult = new ResponseResult();
-//
-//                                if (isJSONValid(new String(response))){
-//                                    responseResult = gson.fromJson(new String(response),ResponseResult.class);
-//                                }
-//
-//                                if (responseResult.status_code == 200)
-//                                {
-//                                    fullJson = SharedPreferenceHelper.getSharedPreferenceString(getContext(),Constants.SALE_ORDER_LISTS,"");
-//                                    fullJson = fullJson.replace(frontJson,"");
-//                                    fullJson = fullJson.replace(backJson,"");
-//
-//                                    if (fullJson.equals("")) {
-//                                        fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
-////                                        fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + "}" + backJson;
-//                                    }
-//                                    else {
-//                                        fullJson = frontJson + fullJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
-//
-////                                        fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + "}" + backJson;
-//                                    }
-//                                    Constants.doLog("LOG JSON KEEP LOCAL : " + fullJson);
-//                                    SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.SALE_ORDER_LISTS, fullJson);
-//                                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Create Sale Order successfully.");
-////                                GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
-//                                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
-//                                    getActivity().startActivity(myIntent);
-//                                    getActivity().finish();
-//                                }
-//                                else if (responseResult.status_code == 508) {
-//                                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), responseResult.status_msg);
-//                                }
-//                                else
-//                                {
-//                                    if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(), "Cannot do this action, Please contact IS.");
-//                                }
-//
-//                                itemListAdapter.notifyDataSetChanged();
-//
-//                                int totalHeight = 0;
-//
-//                                for (int i = 0; i < itemListAdapter.getCount(); i++) {
-//                                    View mView = itemListAdapter.getView(i, null, recycleViewItems);
-//
-//                                    mView.measure(
-//                                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-//
-//                                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-//
-//                                    totalHeight += mView.getMeasuredHeight();
-//                                    Constants.doLog("LOG RESPONSE RESULT HEIGHT ("+ i + ") : " + String.valueOf(totalHeight));
-//                                }
-//
-//                                ViewGroup.LayoutParams params = recycleViewItems.getLayoutParams();
-//
-//                                if (itemListAdapter.getCount() < 4) {
-//                                    totalHeight += (100 + itemListAdapter.getCount() * 10);
-//                                }
-//                                else {
-//                                    totalHeight += (100 + itemListAdapter.getCount() * 15);
-//                                }
-//                                Constants.doLog("LOG RESPONSE RESULT HEIGHT (LAST) : " + String.valueOf(totalHeight));
-//                                params.height = totalHeight;
-//
-//                                recycleViewItems.setLayoutParams(params);
-//                                recycleViewItems.requestLayout();
-//
-//                            }
-//
-//                            @Override
-//                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e)
-//                            {
-////                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
-////                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
-////                    getActivity().startActivity(myIntent);
-////                    getActivity().finish();
-//                            }
-//
-//
-//                            @Override
-//                            public void onRetry(int retryNo) {
-//                                // called when request is retried
-//                            }
-//                        });
-//                    }
-//                    else {
-//                        fullJson = SharedPreferenceHelper.getSharedPreferenceString(getContext(),Constants.SALE_ORDER_LISTS,"");
-//                        fullJson = fullJson.replace(frontJson,"");
-//                        fullJson = fullJson.replace(backJson,"");
-//
-//                        Discount = AllTotalPrice * 0.005;
-//                        VAT = (AllTotalPrice - Discount) * 0.07;
-//                        NetTotalPrice = AllTotalPrice - Discount + VAT;
-//
-//                        if (fullJson.equals("")) {
-//                            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
-////                            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + "}" + backJson;
-//                        }
-//                        else {
-//                            fullJson = frontJson + fullJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
-////                            fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + "}" + backJson;
-//                        }
-//                        Constants.doLog("LOG JSON KEEP LOCAL : " + fullJson);
-//                        SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.SALE_ORDER_LISTS, fullJson);
-
-//                        FragmentMainSaleOrderDetail fragment = new FragmentMainSaleOrderDetail();
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("saleOrder",rParamsCreateOrder);
-//                        fragment.setArguments(bundle);
-//                        ((MainActivity)getActivity()).replaceFragment(fragment, true);
 
                         fullJson = SharedPreferenceHelper.getSharedPreferenceString(getContext(),Constants.SALE_ORDER_LISTS,"");
 
@@ -963,7 +854,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
                         if (fullJson.equals("")) {
                             //            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
-                            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice / Constants.INCLUDE_VAT) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + backJson + "}";
+                            fullJson = frontJson + "{\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + DateFormat.format("ss",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice / Constants.INCLUDE_VAT) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + backJson + "}";
 
                             Constants.doLog("LOG JSON KEEP LOCAL EMPTY : " + fullJson);
                         }
@@ -973,7 +864,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                             fullJson = builder.toString();
                             Constants.doLog("LOG JSON KEEP LOCAL NOT EMPTY: " + fullJson);
                             //            fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("dd",   date) + DateFormat.format("MM",   date) + DateFormat.format("yyyy",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(NetTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\"}" + backJson;
-                            fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice / Constants.INCLUDE_VAT) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + backJson + "}";
+                            fullJson = frontJson + fullJson + ", {\"customer_name\": \"" + soldToName +"\", \"customer_code\": \"" + soldToCode + "\", \"shipto_name\": \"" + shipToName + "\", \"shipto_code\": \"" + shipToCode + "\", \"mobile_so\": \"" + username + "_" + DateFormat.format("yyyy",   date) + DateFormat.format("MM",   date) + DateFormat.format("dd",   date) + DateFormat.format("HH",   date) + DateFormat.format("mm",   date) + DateFormat.format("ss",   date) + "\", \"sap_so\": \"-\", \"sap_do\": \"-\",\"sap_inv\": \"-\", \"total_price\": \"" + new DecimalFormat("#,###.00").format(AllTotalPrice / Constants.INCLUDE_VAT) + "\", \"net_total_price\": \""+ new DecimalFormat("#,###.00").format(AllTotalPrice) + "\", \"date\": \"" + DateFormat.format("dd/MM/yyyy",   date) + "\", \"status\": \"-\", \"payment\": \"" + payment + "\", " + fullItemJson + backJson + "}";
                         }
                         Constants.doLog("LOG JSON KEEP LOCAL : " + fullJson);
                         SharedPreferenceHelper.setSharedPreferenceString(getContext(), Constants.SALE_ORDER_LISTS, fullJson);
@@ -1002,9 +893,6 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 //                        getActivity().startActivity(myIntent);
 //                        getActivity().finish();
 //                    }
-                    }
-                    else if (responseResult.status_code == 401) {
-                        if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
                     }
                     else if (responseResult.status_code == 501) {
                         if (isAdded()) GeneralHelper.getInstance().showBasicAlert(getContext(),responseResult.status_msg);
@@ -1058,7 +946,8 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
 
-                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nCreate Order : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
+
 //                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
 //                    getActivity().startActivity(myIntent);
 //                    getActivity().finish();
@@ -1153,6 +1042,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
 
         CustomEditText qty = (CustomEditText) view.findViewById(R.id.editTextQty);
         CustomTextView price = (CustomTextView) view.findViewById(R.id.editTextPrice);
+        CustomEditText loc = (CustomEditText) view.findViewById(R.id.editTextLoc);
         CustomTextView totalPrice = (CustomTextView) view.findViewById(R.id.textViewTotalPrice);
 
         boolean listSaleOrderChecked = true;
@@ -1178,7 +1068,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                     if (item.equals(articleObject.sku)){
                         cb.setChecked(!cb.isChecked());
                         listSaleOrderChecked = false;
-                        GeneralHelper.getInstance().showBasicAlert(getContext(),"This article already add into your list.");
+                        //GeneralHelper.getInstance().showBasicAlert(getContext(),"This article already add into your list.");
                     }
                 }
                 if (listSaleOrderChecked) {
@@ -1186,6 +1076,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                     allItemSelected.add(articleObject.sku);
                     arrayListItems.get(position).qty = qty.getText().toString();
                     arrayListItems.get(position).price = price.getText().toString();
+                    arrayListItems.get(position).loc = loc.getText().toString();
 
                     if (!qty.getText().toString().equals("") && !price.getText().toString().equals("")){
                         totalPrice.setText(new DecimalFormat("#,###.00").format((Integer.parseInt(qty.getText().toString()) * (Double.parseDouble(price.getText().toString().replace(",","")) - Double.parseDouble(arrayListItems.get(position).discount.replace(",",""))) * Constants.INCLUDE_VAT)));
@@ -1200,6 +1091,7 @@ public class FragmentMainSaleOrderCreate extends Fragment implements ActionSheet
                 allItemSelected.add(articleObject.sku);
                 arrayListItems.get(position).qty = qty.getText().toString();
                 arrayListItems.get(position).price = price.getText().toString();
+                arrayListItems.get(position).loc = loc.getText().toString();
 
                 if (!qty.getText().toString().equals("") && !price.getText().toString().equals("")){
                     totalPrice.setText(new DecimalFormat("#,###.00").format((Integer.parseInt(qty.getText().toString()) * (Double.parseDouble(price.getText().toString().replace(",","")) - Double.parseDouble(arrayListItems.get(position).discount.replace(",",""))) * Constants.INCLUDE_VAT)));

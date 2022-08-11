@@ -68,6 +68,7 @@ public class FragmentMainSaleOrder extends Fragment implements SaleOrderListAdap
     String fullJson = "";
 
     String frontItemJson = "\"items\": [";
+    Date date = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -93,6 +94,7 @@ public class FragmentMainSaleOrder extends Fragment implements SaleOrderListAdap
     private void loadListSaleOrder() {
 
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         String username = SharedPreferenceHelper.getSharedPreferenceString(getContext(), sis.com.sis.sis_app.Constants.username, "");
         String listCheckStatusOrder = "";
@@ -148,7 +150,7 @@ public class FragmentMainSaleOrder extends Fragment implements SaleOrderListAdap
         }
 
         rParams.put("mobodr", listCheckStatusOrder);
-        client.get(Constants.API_HOST + "MSOOrderCheck.php?", rParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.API_HOST + "order/check?", rParams, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
             }
@@ -272,7 +274,8 @@ public class FragmentMainSaleOrder extends Fragment implements SaleOrderListAdap
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
 
-                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nOrder List : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
+
             }
 
             @Override

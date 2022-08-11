@@ -442,20 +442,20 @@
                     android:id="@+id/recycleViewItems"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:dividerHeight="@dimen/padding_small"
-                    android:divider="@null"
                     android:layout_below="@+id/relativeLayoutItemListHeader"
+                    android:divider="@null"
+                    android:dividerHeight="@dimen/padding_small"
                     android:padding="@dimen/padding_normal" />
 
                 <sis.com.sis.sis_app.Views.CustomTextView
                     android:id="@+id/textViewNoItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="กรุณาเพิ่มรายการสินค้า"
-                    android:textAlignment="center"
-                    android:layout_centerInParent="true"
                     android:layout_below="@+id/relativeLayoutItemListHeader"
-                    android:padding="@dimen/padding_normal" />
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/padding_normal"
+                    android:text="กรุณาเพิ่มรายการสินค้า"
+                    android:textAlignment="center" />
 
                 <LinearLayout
                     android:id="@+id/linearLayoutRecycleView"

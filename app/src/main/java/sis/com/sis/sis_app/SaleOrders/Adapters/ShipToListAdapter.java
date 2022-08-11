@@ -58,6 +58,7 @@ public class ShipToListAdapter extends BaseAdapter {
         CustomTextView textViewCustomerName;
         CustomTextView textViewShipToAddress;
         RelativeLayout relativeLayoutCustomerNickname;
+        RelativeLayout relativeLayoutListKit;
         CheckBox checkboxSelected;
 
         RelativeLayout relativeLayoutAddress;
@@ -80,6 +81,7 @@ public class ShipToListAdapter extends BaseAdapter {
         holder.textViewCustomerName=(CustomTextView) rowView.findViewById(R.id.textViewCusName);
         holder.textViewShipToAddress=(CustomTextView) rowView.findViewById(R.id.textViewShipToAddress);
         holder.relativeLayoutCustomerNickname=(RelativeLayout) rowView.findViewById(R.id.relativeLayoutCustomerNickname);
+        holder.relativeLayoutListKit=(RelativeLayout) rowView.findViewById(R.id.relativeLayoutListKit);
         holder.relativeLayoutAddress=(RelativeLayout) rowView.findViewById(R.id.relativeLayoutAddress);
         holder.viewHeader=(View) rowView.findViewById(R.id.viewHeader);
         holder.checkboxSelected=(CheckBox) rowView.findViewById(R.id.checkboxSelected);
@@ -91,6 +93,7 @@ public class ShipToListAdapter extends BaseAdapter {
         holder.textViewShipToAddress.setText(object.address);
         holder.relativeLayoutCustomerNickname.setVisibility(View.GONE);
         holder.checkboxSelected.setVisibility(View.GONE);
+        holder.relativeLayoutListKit.setVisibility(View.GONE);
         holder.relativeLayoutAddress.setVisibility(View.VISIBLE);
         holder.viewHeader.setVisibility(View.VISIBLE);
 

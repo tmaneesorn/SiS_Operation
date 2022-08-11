@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_normal"
     android:background="@drawable/background_edittext_white" >
 
 
@@ -12,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/padding_small" >
+        android:padding="@dimen/padding_normal" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_small">
+            android:layout_height="wrap_content">
 
             <CheckBox
                 android:id="@+id/checkboxSelected"
@@ -32,14 +30,14 @@
                 android:id="@+id/textViewPartDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Part Description"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/checkboxSelected"
                 android:paddingLeft="@dimen/padding_small"
                 android:paddingRight="@dimen/padding_small"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/font_normal"
+                android:text="Part Description"
                 android:textColor="@color/colorBlueMedium"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold" />
 
 <!--            <RelativeLayout-->
 <!--                android:id="@+id/relativeLayoutPrice"-->
@@ -136,7 +134,6 @@
 
             </RelativeLayout>
 
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -191,11 +188,11 @@
                     android:id="@+id/textViewPriceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price :"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/padding_small"
-                    android:textSize="@dimen/font_normal"
+                    android:text="Price :"
                     android:textColor="@color/colorBlueMedium"
-                    android:layout_centerVertical="true" />
+                    android:textSize="@dimen/font_normal" />
 
                 <sis.com.sis.sis_app.Views.CustomTextView
                     android:id="@+id/editTextPrice"
@@ -233,11 +230,11 @@
                     android:id="@+id/textViewTotalPriceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Price :"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/padding_small"
-                    android:textSize="@dimen/font_normal"
+                    android:text="Total Price :"
                     android:textColor="@color/colorBlueMedium"
-                    android:layout_centerVertical="true" />
+                    android:textSize="@dimen/font_normal" />
 
                 <sis.com.sis.sis_app.Views.CustomTextView
                     android:id="@+id/textViewTotalPrice"
@@ -262,6 +259,95 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewLocTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:text="Location :"
+                    android:textColor="@color/colorBlueMedium"
+                    android:textSize="@dimen/font_normal" />
+
+                <sis.com.sis.sis_app.Views.CustomEditText
+                    android:id="@+id/editTextLoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textViewLocTitle"
+                    android:background="@drawable/background_edittext_white"
+                    android:ems="3"
+                    android:hint="0"
+                    android:inputType="text"
+                    android:maxEms="4"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_edittext"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingBottom="@dimen/padding_edittext"
+                    android:text="0001"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_normal" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <sis.com.sis.sis_app.Views.CustomTextViewBold
+                    android:id="@+id/textViewKITTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:text="KIT Item Detail :"
+                    android:textColor="@color/colorBlueMedium"
+                    android:textSize="@dimen/font_normal" />
+
+                <sis.com.sis.sis_app.Views.CustomTextView
+                    android:id="@+id/textViewKIT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewKITTitle"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:text="-"
+                    android:textSize="@dimen/font_normal" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutItemList"
+        android:background="@drawable/background_red_border_bottom"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/imageButtonMoreDetail"
+            android:layout_width="@dimen/button_down"
+            android:layout_height="@dimen/button_down"
+            android:layout_centerInParent="true"
+            android:background="@color/colorRed"
+            android:rotation="270"
+            android:src="@drawable/ic_back_white" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

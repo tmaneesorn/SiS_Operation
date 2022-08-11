@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,6 +66,7 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
     String shipToName;
 
     boolean checkedQuery = false;
+    Date date = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -97,6 +100,7 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
         String soldTo_code = SharedPreferenceHelper.getSharedPreferenceString(getContext(), Constants.SOLD_TO_CODE, "");
 
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         //Bundle bundle = getArguments();
         //String so_no = String.valueOf(bundle.getSerializable("so_no"));
@@ -107,7 +111,7 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
         rParams.put("SiS", Constants.SIS_SECRET);
         rParams.put("u", username);
 
-        client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.API_HOST + "user/login?", rParams, new AsyncHttpResponseHandler() {
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -155,7 +159,7 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
                         if (arrayListShipTo.size() == 0) {
 
                             rParams.put("kw", soldTo_code);
-                            client.get(Constants.API_HOST + "MSOCustSearch.php?", rParams, new AsyncHttpResponseHandler() {
+                            client.get(Constants.API_HOST + "customer/search?", rParams, new AsyncHttpResponseHandler() {
 
                                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                 @Override
@@ -217,7 +221,7 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
                                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                                     }
 
-                                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Ship to (On SAP) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                                 }
 
 
@@ -252,9 +256,8 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
 
-                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Ship to (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
             }
-
 
             @Override
             public void onRetry(int retryNo) {
@@ -310,7 +313,8 @@ public class FragmentMainSearchShipTo extends Fragment implements ShipToListAdap
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                getActivity().onBackPressed();
+                FragmentMainSaleOrderCreate fragment = new FragmentMainSaleOrderCreate();
+                ((MainActivity)getActivity()).replaceFragment(fragment, true);
                 return true;
 //            case R.id.menu_add:
 //                return false;

@@ -40,8 +40,29 @@
         <entry key="..\:/Users/Chonticha/Documents/SiS_App/app/src/main/res/layout/tabview_2.xml" value="0.176" />
         <entry key="..\:/Users/Chonticha/Documents/SiS_App/app/src/main/res/menu/toolbar_items.xml" value="0.14427083333333332" />
         <entry key="..\:/Users/Chonticha/Documents/SiS_App/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/background_reason.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/background_reason_urgent.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/background_red_border_bottom.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/background_status_sale_order_cancel.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/button_red_round.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/circlebutton_red.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_add.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_back.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_back_white.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_down.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_next.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_up.xml" value="0.2578125" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/drawable/ic_web_back.xml" value="0.2578125" />
         <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/main_fragment_main_setting.xml" value="0.1546875" />
         <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_fragment_saleorder_create.xml" value="0.15052083333333333" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_fragment_search.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_listview_article_item.xml" value="0.5" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_listview_category.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_listview_customer_item.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_listview_item.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_listview_sale_order_item.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/layout/saleorder_listview_status_order_item.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/techin/Documents/GitHub/SiS_App/app/src/main/res/menu/toolbar_items.xml" value="0.1546875" />
       </map>
     </option>

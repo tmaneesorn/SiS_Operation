@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">mobileapp.sisthai.com</domain>
         <domain includeSubdomains="true">sis-app1.sisthai.com</domain>
+        <domain includeSubdomains="true">mobileapi.sisthai.com:9000</domain>
     </domain-config>
 </network-security-config>

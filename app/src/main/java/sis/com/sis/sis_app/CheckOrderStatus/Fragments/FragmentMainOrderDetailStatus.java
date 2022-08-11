@@ -5,6 +5,7 @@ import static sis.com.sis.sis_app.Views.CustomDialogLoading.customProgress;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,7 +70,6 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
     @BindView(R.id.textTopicStatus) CustomTextView textTopicStatus;
     @BindView(R.id.scrollview)
     ScrollView scrollview;
-
    // SaleOrderListAdapter saleOrderListAdapter;
    // List<SaleOrderObject> arrayList;
    // List<SaleOrderObject> arrayListSaleOrder = new ArrayList<SaleOrderObject>();
@@ -83,6 +83,8 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
     String fullJson = "";
 
     String frontItemJson = "\"items\": [";
+
+    Date date = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -113,6 +115,7 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
     private void loadListSaleOrder() {
 
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         String user_code = SharedPreferenceHelper.getSharedPreferenceString(getContext(), sis.com.sis.sis_app.Constants.user_code, "");
         String listCheckStatusOrder = "";
@@ -136,7 +139,7 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
         ResponseResult saleOrderResult = new ResponseResult();
 
         saleOrderResult = gson.fromJson(new String(json_list), ResponseResult.class);
-        client.get(Constants.API_HOST + "MSOOrderListBySales.php?", rParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.API_HOST + "order/list?", rParams, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart()
@@ -250,7 +253,7 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable e) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
@@ -259,7 +262,7 @@ public class FragmentMainOrderDetailStatus extends Fragment  {
                 TopicDetail.setVisibility(View.GONE);
                 textTopicStatus.setVisibility(View.GONE);
                 scrollview.setVisibility(View.GONE);
-                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nOrder Detail : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "Error : " + e.toString());
                 rl_no_information.show("เกิดข้อผิดพลาด", "ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
 
                 //Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);

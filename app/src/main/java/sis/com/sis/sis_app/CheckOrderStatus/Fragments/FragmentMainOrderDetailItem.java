@@ -5,6 +5,7 @@ import static sis.com.sis.sis_app.Views.CustomDialogLoading.customProgress;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,8 +59,7 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
     List<ItemObject> arrayListItem;
 
     AsyncHttpClient client;
-
-
+    Date date = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -91,6 +92,7 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
     }
     private void loadListItem() {
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         String user_code = SharedPreferenceHelper.getSharedPreferenceString(getContext(), sis.com.sis.sis_app.Constants.user_code, "");
 
@@ -101,8 +103,10 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
         rParams.put("SiS", Constants.SIS_SECRET); //Constants.SIS_SECRET
         rParams.put("se", "100" + user_code);
         rParams.put("kw", sono);
-        rParams.put("st", "d");
-        client.get(Constants.API_HOST + "MSOOrderListBySales.php?", rParams, new AsyncHttpResponseHandler() {
+        rParams.put("st", "D");
+        sis.com.sis.sis_app.ShipToApproval.Constants.doLog("URL : " + Constants.API_HOST + "order/list?");
+        sis.com.sis.sis_app.ShipToApproval.Constants.doLog("PARAMETER : " + rParams);
+        client.get(Constants.API_HOST + "order/list?", rParams, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart()
@@ -162,12 +166,12 @@ public class FragmentMainOrderDetailItem extends Fragment implements ItemListAda
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable e) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
 
-                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nOrder Item List : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "Error : " + e.toString());
                 rl_no_information.show("เกิดข้อผิดพลาด", "ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
                 //Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
                 //getActivity().startActivity(myIntent);

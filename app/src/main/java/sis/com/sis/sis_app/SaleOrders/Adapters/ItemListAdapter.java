@@ -12,6 +12,7 @@ import java.util.List;
 
 import sis.com.sis.sis_app.R;
 import sis.com.sis.sis_app.SaleOrders.Constants;
+import sis.com.sis.sis_app.SaleOrders.Models.ArticleKITObject;
 import sis.com.sis.sis_app.SaleOrders.Models.ArticleObject;
 import sis.com.sis.sis_app.Views.CustomEditText;
 import sis.com.sis.sis_app.Views.CustomTextView;
@@ -63,6 +64,9 @@ public class ItemListAdapter extends BaseAdapter {
         CustomTextView editTextPrice;
         CustomTextView textViewAvStock;
         CustomTextView textViewTotalPrice;
+        CustomEditText editTextLoc;
+        CustomTextView textViewKIT;
+        CustomTextViewBold textViewKITTitle;
 
         @Override
         public void onClick(View view)
@@ -83,13 +87,36 @@ public class ItemListAdapter extends BaseAdapter {
         holder.editTextPrice=(CustomTextView) rowView.findViewById(R.id.editTextPrice);
         holder.textViewAvStock=(CustomTextView) rowView.findViewById(R.id.textViewAvStock);
         holder.textViewTotalPrice=(CustomTextView) rowView.findViewById(R.id.textViewTotalPrice);
+        holder.textViewKIT=(CustomTextView) rowView.findViewById(R.id.textViewKIT);
+        holder.textViewKITTitle=(CustomTextViewBold) rowView.findViewById(R.id.textViewKITTitle);
+        holder.editTextLoc=(CustomEditText) rowView.findViewById(R.id.editTextLoc);
         rowView.setTag(holder);
 
         ArticleObject object = mList.get(position);
+        String str = "";
 
+        if (object.kititem != null){
+            for (ArticleKITObject item: object.kititem) {
+                str = str + "- " + item.sku + "\t\t\t\t\t\tQty " + item.qty + "\n  " + item.name + "\n";
+                Constants.doLog("ItemListAdapter OBJECT : " + str);
+            }
+        }
+        else {
+            holder.textViewKIT.setVisibility(View.GONE);
+            holder.textViewKITTitle.setVisibility(View.GONE);
+        }
+
+        Constants.doLog("ItemListAdapter OBJECT : " + object.sku.substring(0,3));
         holder.textViewPartNo.setText(object.sku);
-        holder.textViewPartDesc.setText(object.name);
+        if (object.sku.substring(0,3).equals("KIT")) {
+            Constants.doLog("ItemListAdapter OBJECT : " + object.sku.substring(0,3));
+            holder.textViewPartDesc.setText("สินค้าชุดนี้ประกอบด้วย");
+        }
+        else {
+            holder.textViewPartDesc.setText(object.name);
+        }
         holder.textViewAvStock.setText(object.stock);
+        holder.textViewKIT.setText(str.trim());
         if (object.price == null){
             holder.editTextPrice.setText(object.unitprice);
             holder.textViewTotalPrice.setText(new DecimalFormat("#,###.00").format(Double.parseDouble(object.unitprice) - Double.parseDouble(object.discount)));

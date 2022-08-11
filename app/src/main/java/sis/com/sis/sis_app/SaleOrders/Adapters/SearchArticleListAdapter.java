@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import sis.com.sis.sis_app.R;
+import sis.com.sis.sis_app.SaleOrders.Constants;
+import sis.com.sis.sis_app.SaleOrders.Models.ArticleKITObject;
 import sis.com.sis.sis_app.SaleOrders.Models.ArticleObject;
 import sis.com.sis.sis_app.Views.CustomTextView;
 import sis.com.sis.sis_app.Views.CustomTextViewBold;
@@ -59,6 +61,8 @@ public class SearchArticleListAdapter extends BaseAdapter {
         CustomTextView textViewCustomerNickname;
         CustomTextViewBold textViewCusCodeTitle;
         CustomTextViewBold textViewCusNameTitle;
+        CustomTextView textViewKIT;
+        CustomTextViewBold textViewKITTitle;
         CheckBox checkboxSelected;
 
         @Override
@@ -83,6 +87,8 @@ public class SearchArticleListAdapter extends BaseAdapter {
             holder.textViewCusCodeTitle=(CustomTextViewBold) convertView.findViewById(R.id.textViewCusCodeTitle);
             holder.textViewCusNameTitle=(CustomTextViewBold) convertView.findViewById(R.id.textViewCusNameTitle);
             holder.checkboxSelected=(CheckBox) convertView.findViewById(R.id.checkboxSelected);
+            holder.textViewKIT=(CustomTextView) convertView.findViewById(R.id.textViewKIT);
+            holder.textViewKITTitle=(CustomTextViewBold) convertView.findViewById(R.id.textViewKITTitle);
 
             rowView = convertView;
             convertView.setTag(holder);
@@ -102,6 +108,28 @@ public class SearchArticleListAdapter extends BaseAdapter {
         holder.textViewCusNameTitle.setText("Description : ");
         holder.checkboxSelected.setChecked(object.checked);
 
+        String str = "";
+        if (object.sku.substring(0,3).equals("KIT")){
+            for (ArticleKITObject item: object.kititem) {
+                str = str + "- " + item.sku + "\t\t\t\t\t\tQty " + item.qty + "\n  " + item.name + "\n";
+                Constants.doLog("ArticleListAdapter OBJECT : " + str);
+            }
+
+            if (object.name.isEmpty()) {
+                holder.textViewCustomerName.setText("สินค้าชุดนี้ประกอบด้วย");
+            }
+            if (object.nickname == null) {
+                holder.textViewCustomerNickname.setText("-");
+            }
+            holder.textViewKITTitle.setVisibility(View.VISIBLE);
+            holder.textViewKIT.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.textViewKITTitle.setVisibility(View.GONE);
+            holder.textViewKIT.setVisibility(View.GONE);
+        }
+
+        holder.textViewKIT.setText(str.trim());
 //        holder.checkboxSelected.setTag(Integer.valueOf(position));
 //        holder.checkboxSelected.setChecked(mChecked[position]);
 //        holder.checkboxSelected.setOnCheckedChangeListener(mListener);

@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="1.2.2"
+            android:text="2.0.3"
             android:textSize="@dimen/font_normal" />
 
 

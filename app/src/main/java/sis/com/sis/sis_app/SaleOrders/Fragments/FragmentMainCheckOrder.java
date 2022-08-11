@@ -3,6 +3,7 @@ package sis.com.sis.sis_app.SaleOrders.Fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,6 +59,7 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
     CheckSaleOrderListAdapter checkSaleOrderListAdapter;
     List<CheckStatusObject> arrayList;
     AsyncHttpClient client;
+    Date date = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -88,6 +91,8 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
     private void loadListSaleOrder(String searchValue) {
 
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
+
         String username = SharedPreferenceHelper.getSharedPreferenceString(getContext(), sis.com.sis.sis_app.Constants.username, "");
 
         RequestParams rParams = new RequestParams();
@@ -97,7 +102,7 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
         rParams.put("mobodr", searchValue);
 //        rParams.put("sapodr", "pornchai");
 
-        client.get(Constants.API_HOST + "MSOOrderCheck.php?", rParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.API_HOST + "order/check?", rParams, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -134,7 +139,7 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
                                 if (item.order.length() >= 8) {
                                     rParams.remove("mobodr");
                                     rParams.put("sapodr", item.order);
-                                    client.get(Constants.API_HOST + "MSOOrderCheck.php?", rParams, new AsyncHttpResponseHandler() {
+                                    client.get(Constants.API_HOST + "order/check?", rParams, new AsyncHttpResponseHandler() {
 
                                         @Override
                                         public void onStart() {
@@ -188,7 +193,7 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
                                                 if (isAdded() && customProgress != null) customProgress.hideProgress();
                                             }
 
-                                            GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                                            GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nCheck Order Status (On SAP) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                                         }
 
 
@@ -255,7 +260,7 @@ public class FragmentMainCheckOrder extends Fragment implements CheckSaleOrderLi
                     if (isAdded() && customProgress != null) customProgress.hideProgress();
                 }
 
-                GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nCheck Order Status (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
             }
 
 

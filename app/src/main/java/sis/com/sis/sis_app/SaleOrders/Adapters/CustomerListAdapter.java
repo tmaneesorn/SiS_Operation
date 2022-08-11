@@ -55,6 +55,7 @@ public class CustomerListAdapter extends BaseAdapter {
         private CustomerListAdapter.ListViewItemClickListener mListener;
 
         RelativeLayout relativeLayoutCustomerList;
+        RelativeLayout relativeLayoutListKit;
         CustomTextView textViewCustomerCode;
         CustomTextView textViewCustomerName;
         CustomTextView textViewCustomerNickname;
@@ -74,6 +75,7 @@ public class CustomerListAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.saleorder_listview_customer_item, null);
 
         holder.relativeLayoutCustomerList=(RelativeLayout) rowView.findViewById(R.id.relativeLayoutCustomerList);
+        holder.relativeLayoutListKit=(RelativeLayout) rowView.findViewById(R.id.relativeLayoutListKit);
         holder.textViewCustomerCode=(CustomTextView) rowView.findViewById(R.id.textViewCusCode);
         holder.textViewCustomerName=(CustomTextView) rowView.findViewById(R.id.textViewCusName);
         holder.textViewCustomerNickname=(CustomTextView) rowView.findViewById(R.id.textViewCusNickName);
@@ -85,6 +87,7 @@ public class CustomerListAdapter extends BaseAdapter {
         holder.textViewCustomerName.setText(object.name);
         holder.textViewCustomerNickname.setText(object.nickname);
         holder.checkboxSelected.setVisibility(View.GONE);
+        holder.relativeLayoutListKit.setVisibility(View.GONE);
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package sis.com.sis.sis_app.SaleOrders.Fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -66,14 +68,13 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
     List<ArticleObject> arrayListArticle;
     List<String> allItemSelected = new CopyOnWriteArrayList<String>();
 
-
-
     List<String> categoryListTitle = new ArrayList<String>();
     HashMap<String, List<ArticleObject>> categoryListDetail = new HashMap<String, List<ArticleObject>>();
     AsyncHttpClient client;
 
     String category = "";
     int position = -1;
+    Date date = new Date();
 
     boolean checkedQuery = false;
 
@@ -108,6 +109,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
             if (rl_no_information != null) rl_no_information.hide();
         }
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         //Bundle bundle = getArguments();
         //String so_no = String.valueOf(bundle.getSerializable("so_no"));
@@ -124,7 +126,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
         if (searchValue.equals("")){
             arrayListArticle.clear();
             Constants.doLog("LOG 1 : " + "'" + searchValue + "'");
-            client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.API_HOST + "user/login?", rParams, new AsyncHttpResponseHandler() {
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
@@ -149,7 +151,6 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                     Constants.doLog("LOG RESPONSE RESULT1 : " + new String(response));
                     Gson gson = new Gson();
                     ResponseResult responseResult = new ResponseResult();
-
                     if (isJSONValid(new String(response))){
                         responseResult = gson.fromJson(new String(response),ResponseResult.class);
 
@@ -161,6 +162,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                             else if (responseResult.articles.size() != 0) {
                                 for (ArticleObject item: responseResult.articles)
                                 {
+
                                     if (category.equalsIgnoreCase("")){
                                         categoryListTitle.add(item.category);
                                         category = item.category;
@@ -191,7 +193,6 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                                             if (categoryListTitle.get(i).equals(item.category)) {
                                                 arrayListArticleCate.add(item);
                                             }
-
                                         }
 
                                         categoryListDetail.put(categoryListTitle.get(i), arrayListArticleCate);
@@ -240,7 +241,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                                                 }
                                             }
                                             else {
-                                                GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
+//                                                GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
                                             }
                                         }
                                         else { //false add
@@ -331,7 +332,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                     }
 
-                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Article (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                 }
 
 
@@ -347,15 +348,15 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
             customProgress.hideProgress();
             arrayListArticle.clear();
             Constants.doLog("LOG 2 : " + "'" + searchValue + "'");
-            client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.API_HOST + "user/login?", rParams, new AsyncHttpResponseHandler() {
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onStart() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                            if (customProgress == null)
-//                                customProgress = CustomDialogLoading.getInstance();
-//                            customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
+                            if (customProgress == null)
+                                customProgress = CustomDialogLoading.getInstance();
+                            customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
                     }
                 }
 
@@ -409,15 +410,15 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                                 rParams.put("bps", 1);
                                 customProgress.hideProgress();
                                 arrayListArticle.clear();
-                                client.get(Constants.API_HOST + "MSOSkuSearch.php?", rParams, new AsyncHttpResponseHandler() {
+                                client.get(Constants.API_HOST + "article/search?", rParams, new AsyncHttpResponseHandler() {
 
                                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                     @Override
                                     public void onStart() {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                            if (customProgress == null)
-//                                customProgress = CustomDialogLoading.getInstance();
-//                            customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
+                            if (customProgress == null)
+                                customProgress = CustomDialogLoading.getInstance();
+                            customProgress.showProgress(getContext(), "Loading", null, getContext().getDrawable(R.drawable.ic_loading), false, false, true);
                                         }
                                     }
 
@@ -469,7 +470,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                                             if (isAdded() && customProgress != null) customProgress.hideProgress();
                                         }
 
-                                        GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                                        GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Article (On SAP) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                                     }
 
 
@@ -502,7 +503,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                     }
 
-                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Article (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                 }
 
 
@@ -547,7 +548,7 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                 }
             }
             else {
-                GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
+//                GeneralHelper.getInstance().showBasicAlert(getContext(),"No article selected in your list.");
             }
         }
         else { //false add
@@ -621,7 +622,8 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                getActivity().onBackPressed();
+                FragmentMainSaleOrderCreate fragment1 = new FragmentMainSaleOrderCreate();
+                ((MainActivity)getActivity()).replaceFragment(fragment1, true);
                 return true;
             case R.id.menu_add:
                 String itemList = new String();
@@ -648,7 +650,10 @@ public class FragmentMainSearchArticle extends Fragment implements ArticleListAd
                     ((MainActivity)getActivity()).replaceFragment(fragment, true);
                 }
                 else {
-                    GeneralHelper.getInstance().showBasicAlert(getContext(), "Don't have any article are selected. Please selected before confirm.");
+//                    GeneralHelper.getInstance().showBasicAlert(getContext(), "Don't have any article are selected. Please selected before confirm.");
+
+                    FragmentMainSaleOrderCreate fragment = new FragmentMainSaleOrderCreate();
+                    ((MainActivity)getActivity()).replaceFragment(fragment, true);
                 }
 
 

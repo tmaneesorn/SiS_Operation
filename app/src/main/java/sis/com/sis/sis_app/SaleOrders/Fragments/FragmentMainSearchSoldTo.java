@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +65,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
 
     String soldToCode;
     String soldToName;
+    Date date = new Date();
 
     boolean checkedSelected = false;
     boolean checkedQuery = false;
@@ -95,6 +99,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
     private void loadListCustomer(String searchValue) {
 
         if (client == null) client = new AsyncHttpClient(80,443);
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         //Bundle bundle = getArguments();
         //String so_no = String.valueOf(bundle.getSerializable("so_no"));
@@ -109,7 +114,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
 
             Constants.doLog("LOG SEARCH DEFAULT : " + arrayListSoldTo.size());
 
-            client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.API_HOST + "user/login?", rParams, new AsyncHttpResponseHandler() {
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
@@ -129,25 +134,26 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                         customProgress.hideProgress();
                     }
 
-                    Constants.doLog("LOG RESPONSE RESULT : " + statusCode);
-                    Constants.doLog("LOG RESPONSE RESULT : " + new String(response));
+                    Constants.doLog("LOG RESPONSE NO SEARCH RESULT : " + statusCode);
+                    Constants.doLog("LOG RESPONSE NO SEARCH RESULT : " + new String(response));
                     Gson gson = new Gson();
-                    ResponseResult responseResult = new ResponseResult();
+                    ResponseResult responseNoSearchResult = new ResponseResult();
 
                     if (isJSONValid(new String(response))){
-                        responseResult = gson.fromJson(new String(response),ResponseResult.class);
+                        responseNoSearchResult = gson.fromJson(new String(response),ResponseResult.class);
 
-                        if (responseResult.status_code == 200)
+                        Constants.doLog("LOG RESPONSE NO SEARCH RESULT : " + responseNoSearchResult.soldto.size());
+                        if (responseNoSearchResult.status_code == 200)
                         {
-                            if (!responseResult.soldto.isEmpty())
+                            if (!responseNoSearchResult.soldto.isEmpty())
                             {
-                                for (CustomerObject item: responseResult.soldto)
+                                for (CustomerObject item: responseNoSearchResult.soldto)
                                 {
                                     arrayListSoldTo.add(item);
                                 }
                             }
                         }
-                        else if (responseResult.status_code == 401)
+                        else if (responseNoSearchResult.status_code == 401)
                         {
                             if (isAdded() && rl_no_information != null) rl_no_information.show("ไม่พบรายชื่อลูกค้า","กรุณาเตรียมข้อมูลใน Lotus Notes เพื่อแสดงข้อมูลลูกค้า",getResources().getDrawable(R.drawable.ic_cross));
                         }
@@ -171,7 +177,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                     }
 
-                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Sold to (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                 }
 
 
@@ -182,7 +188,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
             });
         }
         else {
-            client.get(Constants.API_HOST + "MSOLogin.php?", rParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.API_HOST + "user/login?", rParams, new AsyncHttpResponseHandler() {
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
@@ -210,17 +216,21 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                     Constants.doLog("LOG RESPONSE RESULT : " + statusCode);
                     Constants.doLog("LOG RESPONSE RESULT : " + new String(response));
                     Gson gson = new Gson();
-                    ResponseResult responseResult = new ResponseResult();
+                    ResponseResult responseSearchNotesResult = new ResponseResult();
 
                     if (isJSONValid(new String(response))){
-                        responseResult = gson.fromJson(new String(response),ResponseResult.class);
+                        responseSearchNotesResult = gson.fromJson(new String(response),ResponseResult.class);
 
-                        if (responseResult.status_code == 200)
+                        if (responseSearchNotesResult.status_code == 200)
                         {
-                            if (responseResult.soldto.size() != 0) {
-                                for (CustomerObject item: responseResult.soldto)
+                            Constants.doLog("LOG RESPONSE RESULT : " + responseSearchNotesResult.soldto.size());
+                            if (responseSearchNotesResult.soldto.size() != 0) {
+                                for (CustomerObject item: responseSearchNotesResult.soldto)
                                 {
-                                    if (item.nickname.contains(searchValue) || item.name.contains(searchValue) || item.custcode.contains(searchValue) || item.soldto.contains(searchValue)){
+                                    Constants.doLog("LOG TOLOWERCASE 1 : " + item.nickname.toLowerCase());
+                                    Constants.doLog("LOG TOLOWERCASE 2 : " + searchValue.toLowerCase());
+                                    Constants.doLog("LOG COMPARESEARCH : " + item.nickname.toLowerCase().contains(searchValue));
+                                    if (item.nickname.toLowerCase().contains(searchValue.toLowerCase()) || item.name.toLowerCase().contains(searchValue.toLowerCase()) || item.custcode.toLowerCase().contains(searchValue.toLowerCase()) || item.soldto.toLowerCase().contains(searchValue.toLowerCase())){
                                         arrayListSoldTo.add(item);
                                     }
                                 }
@@ -230,7 +240,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                                 if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Customer ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
                             }
                         }
-                        else if (responseResult.status_code == 201)
+                        else if (responseSearchNotesResult.status_code == 201)
                         {
                             if (isAdded() && rl_no_information != null) rl_no_information.show("No Result.","ผลการค้นหา '" + searchValue +"' ไม่พบรายการในระบบ, ลองอีกครั้ง",getResources().getDrawable(R.drawable.ic_cross));
                         }
@@ -243,7 +253,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
 
                             if (searchValue.length() >= 8) {
                                 rParams.put("kw", searchValue);
-                                client.get(Constants.API_HOST + "MSOCustSearch.php?", rParams, new AsyncHttpResponseHandler() {
+                                client.get(Constants.API_HOST + "customer/search?", rParams, new AsyncHttpResponseHandler() {
 
                                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                     @Override
@@ -271,15 +281,15 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                                         Constants.doLog("LOG RESPONSE RESULT : " + statusCode);
                                         Constants.doLog("LOG RESPONSE RESULT : " + new String(response));
                                         Gson gson = new Gson();
-                                        ResponseResult responseResult = new ResponseResult();
+                                        ResponseResult responseSearchSAPResult = new ResponseResult();
 
                                         if (isJSONValid(new String(response))){
-                                            responseResult = gson.fromJson(new String(response),ResponseResult.class);
+                                            responseSearchSAPResult = gson.fromJson(new String(response),ResponseResult.class);
 
-                                            if (responseResult.status_code == 200)
+                                            if (responseSearchSAPResult.status_code == 200)
                                             {
-                                                if (responseResult.soldto.size() != 0) {
-                                                    for (CustomerObject item: responseResult.soldto)
+                                                if (responseSearchSAPResult.soldto.size() != 0) {
+                                                    for (CustomerObject item: responseSearchSAPResult.soldto)
                                                     {
                                                         arrayListSoldTo.add(item);
                                                     }
@@ -289,7 +299,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                                                     if (isAdded() && rl_no_information != null) rl_no_information.show("No List.","ไม่พบ List Customer ที่กำหนดไว้บน Lotus Notes",getResources().getDrawable(R.drawable.ic_cross));
                                                 }
                                             }
-                                            else if (responseResult.status_code == 201)
+                                            else if (responseSearchSAPResult.status_code == 201)
                                             {
                                                 if (isAdded() && rl_no_information != null) rl_no_information.show("No Result.","ผลการค้นหา '" + searchValue +"' ไม่พบรายการในระบบ, ลองอีกครั้ง",getResources().getDrawable(R.drawable.ic_cross));
                                             }
@@ -318,7 +328,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                                             if (isAdded() && customProgress != null) customProgress.hideProgress();
                                         }
 
-                                        GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                                        GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Sold to (On SAP) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                                     }
 
 
@@ -353,7 +363,7 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                     }
 
-                    GeneralHelper.getInstance().showBasicAlert(getContext(),getResources().getString(R.string.message_cannot_connect_server));
+                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nSearch Sold to (On Lotus Notes) : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                 }
 
 
@@ -412,7 +422,8 @@ public class FragmentMainSearchSoldTo extends Fragment implements CustomerListAd
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                getActivity().onBackPressed();
+                FragmentMainSaleOrderCreate fragment = new FragmentMainSaleOrderCreate();
+                ((MainActivity)getActivity()).replaceFragment(fragment, true);
                 return true;
 //            case R.id.menu_add:
 //                return false;

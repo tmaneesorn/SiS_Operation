@@ -15,6 +15,7 @@ import java.util.List;
 
 import sis.com.sis.sis_app.R;
 import sis.com.sis.sis_app.SaleOrders.Constants;
+import sis.com.sis.sis_app.SaleOrders.Models.ArticleKITObject;
 import sis.com.sis.sis_app.SaleOrders.Models.ArticleObject;
 import sis.com.sis.sis_app.Views.CustomTextView;
 import sis.com.sis.sis_app.Views.CustomTextViewBold;
@@ -177,6 +178,8 @@ public class ArticleListAdapter extends BaseExpandableListAdapter {
         CustomTextViewBold textViewCusCodeTitle=(CustomTextViewBold) convertView.findViewById(R.id.textViewCusCodeTitle);
         CustomTextViewBold textViewCusNameTitle=(CustomTextViewBold) convertView.findViewById(R.id.textViewCusNameTitle);
         CheckBox checkboxSelected=(CheckBox) convertView.findViewById(R.id.checkboxSelected);
+        CustomTextView textViewKIT=(CustomTextView) convertView.findViewById(R.id.textViewKIT);
+        CustomTextViewBold textViewKITTitle=(CustomTextViewBold) convertView.findViewById(R.id.textViewKITTitle);
 
         textViewCustomerCode.setText(object.sku);
         textViewCustomerName.setText(object.name);
@@ -186,6 +189,23 @@ public class ArticleListAdapter extends BaseExpandableListAdapter {
         textViewCusNameTitle.setText("Description : ");
         checkboxSelected.setChecked(object.checked);
 
+        String str = "";
+
+        if (object.sku.substring(0,3).equals("KIT")){
+            for (ArticleKITObject item: object.kititem) {
+                str = str + "- " + item.sku + "\t\t\t\t\t\tQty " + item.qty + "\n  " + item.name + "\n";
+                Constants.doLog("ArticleListAdapter OBJECT : " + str);
+            }
+
+            textViewKITTitle.setVisibility(View.VISIBLE);
+            textViewKIT.setVisibility(View.VISIBLE);
+        }
+        else {
+            textViewKITTitle.setVisibility(View.GONE);
+            textViewKIT.setVisibility(View.GONE);
+        }
+
+        textViewKIT.setText(str.trim());
 //        rowView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

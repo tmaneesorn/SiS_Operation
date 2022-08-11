@@ -5,6 +5,7 @@ import static sis.com.sis.sis_app.Views.CustomDialogLoading.customProgress;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +63,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
     List<CheckStatusObject> arrayList;
 
     AsyncHttpClient client;
+    Date date = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -87,7 +90,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
 
     private void loadListSaleOrder(String searchValue) {
         if (client == null) client = new AsyncHttpClient(80,443);
-
+        client.setTimeout(Constants.DEFAULT_TIMEOUT);
 
         String user_code = SharedPreferenceHelper.getSharedPreferenceString(getContext(), sis.com.sis.sis_app.Constants.user_code, "");
 
@@ -100,7 +103,9 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
             //        sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + Constants.API_HOST + "MSOOrderListBySales.php?");
             //        sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + rParams);
 
-            client.get(Constants.API_HOST + "MSOOrderListBySales.php?", rParams, new AsyncHttpResponseHandler() {
+            sis.com.sis.sis_app.ShipToApproval.Constants.doLog("URL : " + Constants.API_HOST + "order/list?");
+            sis.com.sis.sis_app.ShipToApproval.Constants.doLog("PARAMETER : " + rParams);
+            client.get(Constants.API_HOST + "order/list?", rParams, new AsyncHttpResponseHandler() {
 
 
                 @Override
@@ -115,7 +120,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                    sis.com.sis.sis_app.ShipToApproval.Constants.doLog("LOG HISTORY : " + new String(response));
+                    sis.com.sis.sis_app.ShipToApproval.Constants.doLog("LOG HISTORY1 : " + new String(response));
                     arrayList.clear();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         if (customProgress != null) customProgress.hideProgress();
@@ -165,7 +170,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                     }
 
-                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server));
+                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nCheck Order List : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "\nError : " + e.toString());
                     rl_no_information.show("เกิดข้อผิดพลาด", "ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ ณ ขณะนี้ กรุณาลองใหม่อีกครั้ง", getResources().getDrawable(R.drawable.ic_cross));
                     //Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
                     //getActivity().startActivity(myIntent);
@@ -176,6 +181,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
                 @Override
                 public void onRetry(int retryNo) {
                     // called when request is retried
+
                 }
 
                 public boolean isJSONValid(String test) {
@@ -200,7 +206,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
             //        sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + rParams);
             rParams.put("kw", searchValue);
             sis.com.sis.sis_app.CheckOrderStatus.Constants.doLog("LOG HISTORY : " + rParams);
-            client.get(Constants.API_HOST + "MSOOrderListBySales.php?", rParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.API_HOST + "order/list?", rParams, new AsyncHttpResponseHandler() {
 
 
                 @Override
@@ -269,7 +275,7 @@ public class FragmentMainCheckOrder extends Fragment implements SearchSaleOrderL
                         if (isAdded() && customProgress != null) customProgress.hideProgress();
                     }
 
-                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server));
+                    GeneralHelper.getInstance().showBasicAlert(getContext(), getResources().getString(R.string.message_cannot_connect_server) + "\n\nCheck Order List : " + DateFormat.format("dd/MM/yyyy HH:mm:ss",date)  + "Error : " + e.toString());
                     Intent myIntent = new Intent(getActivity(), sis.com.sis.sis_app.Main.Activities.MainActivity.class);
                     getActivity().startActivity(myIntent);
                     getActivity().finish();
